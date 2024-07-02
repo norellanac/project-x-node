@@ -1,6 +1,6 @@
 import express from "express";
 import sequelize from "./config/db/db-connection";
-import userRoutes from "./routes/v1/userRoutes";
+import userRoutes from "./api/v1/routes/userRoutes";
 require('dotenv').config();
 const app = express();
 app.use(express.json());
