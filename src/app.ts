@@ -1,6 +1,6 @@
 import express from "express";
 import sequelize from "./config/db/db-connection";
-import userRoutes from "./api/v1/routes/userRoutes";
+import { authRouter, userRouter,  } from "./api/v1/routes";
 require('dotenv').config();
 const app = express();
 app.use(express.json());
@@ -17,6 +17,7 @@ try {
 }
 initApp();
 
-app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/", authRouter);
 
 export default app;

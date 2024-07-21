@@ -1,64 +1,46 @@
-import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
+import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 
-// Define an interface for the User attributes
-interface UserAttributes {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: CreationOptional<number>;
+  declare name: string;
+  declare lastname: string;
+  declare email: string;
+  declare password: string;
+  declare role: CreationOptional<string>;
+  declare averageRating: CreationOptional<number>;
 
-// Optional attributes for creating instances
-interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
-
-// Extend the Sequelize Model class
-class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-  public id!: number;
-  public firstName!: string;
-  public lastName!: string;
-  public email!: string;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
-
-  // Define associations in this static method
   static associate(models: any) {
-    // Define associations here
+    // define association here
   }
 }
 
-// Initialize the User model
-const initializeUserModel = (sequelize: Sequelize) => {
-  User.init(
-    {
-      id: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        autoIncrement: true,
-        primaryKey: true,
-      },
-      firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      lastName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
+export function initializeUser(sequelize: Sequelize): typeof User {
+  User.init({
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: DataTypes.STRING,
+    lastname: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      validate: {
+        isEmail: true,
       },
     },
-    {
-      sequelize,
-      modelName: 'User',
-      tableName: 'users',
-      timestamps: true, // Enable timestamps if needed
-    }
-  );
+    password: DataTypes.STRING,
+    role: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    averageRating: DataTypes.DECIMAL
+  }, {
+    sequelize,
+    modelName: 'User',
+    paranoid: true,
+  });
 
   return User;
-};
-
-export { User, initializeUserModel, UserAttributes, UserCreationAttributes };
+}
