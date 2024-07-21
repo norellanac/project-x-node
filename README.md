@@ -18,6 +18,12 @@ This project is a backend application built with Node.js and Sequelize. It uses 
 - [Node.js](https://nodejs.org/)
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
+- 
+## Configuration
+
+   - Navigate to the root directory of the project.
+   - Copy the `.env.example` file to a new file named `.env`.
+   - Open the `.env` file and adjust the values to match your local environment setup or Docker container setup.
 
 ### Clone the Repository
 
