@@ -1,0 +1,21 @@
+import swaggerJsdoc from 'swagger-jsdoc';
+
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API Documentation',
+      version: '1.0.0',
+      description: 'This is the API documentation.',
+    },
+    // servers: [
+    //   {
+    //     url: 'http://localhost:8000',
+    //     description: 'Local server',
+    //   },
+    // ],
+  },
+  apis: ['/Users/neryalexisorellana/Documents/devProjects/js/node/projectx-be-node/src/api/v1/routes/**/*.ts'], // Make sure this path matches your project structure
+};
+
+export { swaggerOptions };
