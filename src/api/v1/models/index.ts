@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { initializeUserModel } from './user';
+import { initializeUser } from './user';
 
 // Initialize Sequelize
 const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, process.env.DB_PASS!, {
@@ -8,7 +8,7 @@ const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, proc
 });
 
 // Initialize models
-const User = initializeUserModel(sequelize);
+const User = initializeUser(sequelize);
 
 // Setup associations
 User.associate({ /* other models */ });
