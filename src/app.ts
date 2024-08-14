@@ -1,22 +1,21 @@
 import express from "express";
-import sequelize from "./config/db/db-connection";
+import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import { swaggerOptions } from './../swaggerConfig';
+import { connectAppToDatabase } from "./config/db/db-connection";
 import { authRouter, userRouter,  } from "./api/v1/routes";
-require('dotenv').config();
+import { httpLoggerMiddleware } from "./utils/requestLoggerMiddleware";
+
+dotenv.config();
 const app = express();
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use(express.json());
+app.use(httpLoggerMiddleware);
 
+connectAppToDatabase();
 
-
-const initApp = async () => {
-try {
-  await sequelize.authenticate();
-  console.log('Connection has been established successfully.');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}
-}
-initApp();
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/", authRouter);
 
