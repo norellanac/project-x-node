@@ -15,7 +15,7 @@ const swaggerOptions = {
     //   },
     // ],
   },
-  apis: ['/Users/neryalexisorellana/Documents/devProjects/js/node/projectx-be-node/src/api/v1/routes/**/*.ts'], // Make sure this path matches your project structure
+  apis: ['src/api/v1/routes/**/*.ts'], // Make sure this path matches your project structure
 };
 
 export { swaggerOptions };
