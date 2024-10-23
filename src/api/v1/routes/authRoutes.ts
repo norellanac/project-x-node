@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { login, register } from "../controllers/authController";
+import { login, register, requestPasswordReset, resetPassword } from "../controllers/authController";
 
 const router = Router();
-// Auth routes
+
 /**
  * @swagger
  * /register:
@@ -17,19 +17,23 @@ const router = Router();
  *           schema:
  *             type: object
  *             required:
- *               - username
- *               - password
+ *               - name
+ *               - lastname
  *               - email
+ *               - password
  *             properties:
- *               username:
+ *               name:
  *                 type: string
- *                 description: Unique username for the user.
- *               password:
+ *                 description: User's first name.
+ *               lastname:
  *                 type: string
- *                 description: User's password.
+ *                 description: User's last name.
  *               email:
  *                 type: string
  *                 description: User's email address.
+ *               password:
+ *                 type: string
+ *                 description: User's password.
  *     responses:
  *       201:
  *         description: User registered successfully.
@@ -38,12 +42,10 @@ const router = Router();
  *             schema:
  *               type: object
  *               properties:
- *                 message:
- *                   type: string
- *                   description: Success message.
- *                 userId:
- *                   type: string
- *                   description: The newly registered user's ID.
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
  *       400:
  *         description: Bad request.
  *         content:
@@ -51,9 +53,12 @@ const router = Router();
  *             schema:
  *               type: object
  *               properties:
- *                 message:
- *                   type: string
- *                   description: Error message explaining the reason for the bad request.
+ *                 success:
+ *                   type: boolean
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  * 
  * /login:
  *   post:
@@ -67,12 +72,12 @@ const router = Router();
  *           schema:
  *             type: object
  *             required:
- *               - username
+ *               - email
  *               - password
  *             properties:
- *               username:
+ *               email:
  *                 type: string
- *                 description: The user's username.
+ *                 description: The user's email.
  *               password:
  *                 type: string
  *                 description: The user's password.
@@ -84,18 +89,16 @@ const router = Router();
  *             schema:
  *               type: object
  *               properties:
- *                 token:
- *                   type: string
- *                   description: Authentication token.
- *                 user:
+ *                 success:
+ *                   type: boolean
+ *                 data:
  *                   type: object
  *                   properties:
- *                     id:
+ *                     user:
+ *                       $ref: '#/components/schemas/User'
+ *                     token:
  *                       type: string
- *                       description: The user's ID.
- *                     username:
- *                       type: string
- *                       description: The user's username.
+ *                       description: Authentication token.
  *       401:
  *         description: Unauthorized.
  *         content:
@@ -103,11 +106,152 @@ const router = Router();
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
  *                 message:
  *                   type: string
- *                   description: Error message explaining the reason for the unauthorized status.
+ * 
+ * /request-password-reset:
+ *   post:
+ *     summary: Request a password reset
+ *     tags: [Auth]
+ *     requestBody:
+ *       description: User's email to request password reset
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The user's email.
+ *     responses:
+ *       200:
+ *         description: Password reset email sent.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: User not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ * 
+ * /reset-password:
+ *   post:
+ *     summary: Reset password
+ *     tags: [Auth]
+ *     requestBody:
+ *       description: Token and new password to reset the password
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - token
+ *               - newPassword
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: The password reset token.
+ *               newPassword:
+ *                 type: string
+ *                 description: The new password.
+ *     responses:
+ *       200:
+ *         description: Password reset successful.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: Invalid or expired token.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: User not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ * 
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - name
+ *         - lastname
+ *         - email
+ *         - password
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The user ID.
+ *         name:
+ *           type: string
+ *           description: The user's first name.
+ *         lastname:
+ *           type: string
+ *           description: The user's last name.
+ *         email:
+ *           type: string
+ *           description: The user's email address.
+ *         password:
+ *           type: string
+ *           description: The user's password.
+ *         role:
+ *           type: string
+ *           description: The user's role.
+ *         averageRating:
+ *           type: number
+ *           description: The user's average rating.
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: The user creation date.
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The user update date.
  */
+
 router.post("/register", register);
 router.post("/login", login);
+router.post('/request-password-reset', requestPasswordReset);
+router.post('/reset-password', resetPassword);
 
 export default router;
