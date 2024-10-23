@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import Token from '../models/token';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 dotenv.config();
 
@@ -17,6 +18,10 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+
+const generateOTP = () => {
+  return crypto.randomBytes(3).toString('hex'); // Generates a 6-character OTP
+};
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -95,23 +100,23 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
       return;
     }
 
-    // Generate password reset token with 10 minutes expiration
-    const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '10m' });
+    // Generate OTP with 10 minutes expiration
+    const otp = generateOTP();
+    const expiryDate = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
 
-    // Store reset token in the database
+    // Store OTP in the database
     await Token.create({
       userId: user.id,
-      token: resetToken,
-      expiryDate: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes from now
+      token: otp,
+      expiryDate: expiryDate,
     });
 
     // Send password reset email
-    const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: user.email,
       subject: 'Password Reset',
-      text: `You requested a password reset. Click the link to reset your password: ${resetLink}`,
+      text: `You requested a password reset. Use the following OTP to reset your password: ${otp}`,
     };
     await transporter.sendMail(mailOptions);
 
@@ -125,21 +130,20 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
 
 export const resetPassword = async (req: Request, res: Response) => {
   try {
-    const { token, newPassword } = req.body;
-    const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
+    const { otp, newPassword } = req.body;
 
-    const storedToken = await Token.findOne({ where: { token: token } });
-    if (!storedToken) {
+    const storedToken = await Token.findOne({ where: { token: otp } });
+    if (!storedToken || storedToken.expiryDate < new Date()) {
       createResponse(res, {
         success: false,
-        message: 'Invalid or expired token',
+        message: 'Invalid or expired OTP',
         statusCode: 400,
       });
-      logger('error', 'Invalid or expired token', 'authController.resetPassword', req.headers['user-agent']);
+      logger('error', 'Invalid or expired OTP', 'authController.resetPassword', req.headers['user-agent']);
       return;
     }
 
-    const user = await User.findByPk(decoded.userId);
+    const user = await User.findByPk(storedToken.userId);
     if (!user) {
       createResponse(res, {
         success: false,
@@ -155,7 +159,7 @@ export const resetPassword = async (req: Request, res: Response) => {
     user.password = hashedPassword;
     await user.save();
 
-    // Invalidate the token
+    // Invalidate the OTP
     await storedToken.destroy();
 
     createResponse(res, { success: true, message: 'Password reset successful' });

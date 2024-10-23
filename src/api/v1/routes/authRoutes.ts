@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { login, register, requestPasswordReset, resetPassword } from "../controllers/authController";
+import { Router } from 'express';
+import { register, login, requestPasswordReset, resetPassword } from '../controllers/authController';
 
 const router = Router();
 
@@ -157,19 +157,19 @@ const router = Router();
  *     summary: Reset password
  *     tags: [Auth]
  *     requestBody:
- *       description: Token and new password to reset the password
+ *       description: OTP and new password to reset the password
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             required:
- *               - token
+ *               - otp
  *               - newPassword
  *             properties:
- *               token:
+ *               otp:
  *                 type: string
- *                 description: The password reset token.
+ *                 description: The OTP.
  *               newPassword:
  *                 type: string
  *                 description: The new password.
@@ -186,7 +186,7 @@ const router = Router();
  *                 message:
  *                   type: string
  *       400:
- *         description: Invalid or expired token.
+ *         description: Invalid or expired OTP.
  *         content:
  *           application/json:
  *             schema:
