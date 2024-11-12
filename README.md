@@ -10,6 +10,10 @@ This project is a backend application built with Node.js and Sequelize. It uses 
 - [Database Migrations](#database-migrations)
 - [Listing Routes](#listing-routes)
 - [Testing](#testing)
+- [Project Structure](#project-structure)
+- [Environment Variables](#environment-variables)
+- [Swagger API Documentation](#swagger-api-documentation)
+- [License](#license)
 
 ## Project Setup
 
@@ -18,12 +22,12 @@ This project is a backend application built with Node.js and Sequelize. It uses 
 - [Node.js](https://nodejs.org/)
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
-- 
+
 ## Configuration
 
-   - Navigate to the root directory of the project.
-   - Copy the `.env.example` file to a new file named `.env`.
-   - Open the `.env` file and adjust the values to match your local environment setup or Docker container setup.
+- Navigate to the root directory of the project.
+- Copy the `.env.example` file to a new file named `.env`.
+- Open the `.env` file and adjust the values to match your local environment setup or Docker container setup.
 
 ### Clone the Repository
 
@@ -35,7 +39,7 @@ cd projectx-be-node
 ### Install Dependencies
 
 ```bash
-npm install
+yarn install
 ```
 
 ### Set Up Docker
@@ -58,12 +62,24 @@ Access the running container:
 docker exec -it some-mariadb bash
 ```
 
+Connect to the MariaDB server:
+
+```bash
+mysql -u root -p
+```
+
+Create a new database:
+
+```sql
+CREATE DATABASE projectxdev;
+```
+
 ## Running the Application
 
 Start the application using Nodemon:
 
 ```bash
-npm start
+yarn start
 ```
 
 ## Database Migrations
@@ -73,7 +89,7 @@ npm start
 To run all pending migrations:
 
 ```bash
-npm run db-migrate
+yarn run db:migrate
 ```
 
 ### Undoing Migrations
@@ -81,7 +97,7 @@ npm run db-migrate
 To undo the last migration:
 
 ```bash
-npm run db-migrate-reset
+yarn run db:migrate:undo
 ```
 
 ### Refreshing Migrations
@@ -89,7 +105,7 @@ npm run db-migrate-reset
 To undo all migrations and then run them again:
 
 ```bash
-npm run db-migrate-refresh
+yarn run db:migrate:refresh
 ```
 
 ## Listing Routes
@@ -97,7 +113,7 @@ npm run db-migrate-refresh
 To list all routes defined in the application:
 
 ```bash
-npm run routes:list
+yarn run routes:list
 ```
 
 ## Testing
@@ -105,7 +121,7 @@ npm run routes:list
 To run tests (currently, no tests are specified):
 
 ```bash
-npm test
+yarn test
 ```
 
 ## Project Structure
@@ -146,14 +162,14 @@ Our project uses Swagger for API documentation. This allows us to provide intera
 
 To view the Swagger API documentation:
 
-1. Ensure the server is running by executing `npm start` in your terminal.
+1. Ensure the server is running by executing `yarn start` in your terminal.
 2. Open a web browser and navigate to `http://localhost:8000/api-docs`.
 
 This will open the Swagger UI, where you can see all available API endpoints, their request parameters, and responses. You can also try out the API directly from this interface by sending requests to the server.
 
 ### Generating Swagger Documentation
 
-The Swagger documentation is automatically generated from the source code. The configuration for Swagger is defined in [`swaggerConfig.ts`](command:_github.copilot.openRelativePath?%5B%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%5D "/Users/neryalexisorellana/Documents/devProjects/js/node/projectx-be-node/swaggerConfig.ts"). The key options include:
+The Swagger documentation is automatically generated from the source code. The configuration for Swagger is defined in `swaggerConfig.ts`. The key options include:
 
 - **OpenAPI Version**: Specifies the OpenAPI Specification (OAS) version used (currently `3.0.0`).
 - **Info**: Provides metadata about the API such as the title, version, and description.
@@ -163,10 +179,11 @@ To ensure your API changes are reflected in the Swagger documentation, simply up
 
 ### Customizing Swagger Documentation
 
-You can customize the Swagger documentation by modifying the [`swaggerOptions`](command:_github.copilot.openSymbolFromReferences?%5B%7B%22%24mid%22%3A1%2C%22fsPath%22%3A%22%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22external%22%3A%22file%3A%2F%2F%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22path%22%3A%22%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22scheme%22%3A%22file%22%7D%2C%7B%22line%22%3A2%2C%22character%22%3A0%7D%5D "swaggerConfig.ts") in [`swaggerConfig.ts`](command:_github.copilot.openRelativePath?%5B%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%5D "/Users/neryalexisorellana/Documents/devProjects/js/node/projectx-be-node/swaggerConfig.ts"). For example, to add a new server or change the API information, update the [`definition`](command:_github.copilot.openSymbolFromReferences?%5B%7B%22%24mid%22%3A1%2C%22fsPath%22%3A%22%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22external%22%3A%22file%3A%2F%2F%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22path%22%3A%22%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22scheme%22%3A%22file%22%7D%2C%7B%22line%22%3A3%2C%22character%22%3A2%7D%5D "swaggerConfig.ts") property within the [`swaggerOptions`](command:_github.copilot.openSymbolFromReferences?%5B%7B%22%24mid%22%3A1%2C%22fsPath%22%3A%22%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22external%22%3A%22file%3A%2F%2F%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22path%22%3A%22%2FUsers%2Fneryalexisorellana%2FDocuments%2FdevProjects%2Fjs%2Fnode%2Fprojectx-be-node%2FswaggerConfig.ts%22%2C%22scheme%22%3A%22file%22%7D%2C%7B%22line%22%3A2%2C%22character%22%3A0%7D%5D "swaggerConfig.ts").
+You can customize the Swagger documentation by modifying the `swaggerOptions` in `swaggerConfig.ts`. For example, to add a new server or change the API information, update the `definition` property within the `swaggerOptions`.
 
 For more detailed customization, refer to the [Swagger Documentation](https://swagger.io/docs/specification/about/).
 
 ## License
 
 This project is licensed under the MIT License.
+
