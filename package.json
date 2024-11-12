@@ -6,9 +6,9 @@
   "main": "server.ts",
   "scripts": {
     "start": "nodemon src/server.ts",
-    "db-migrate": "sequelize db:migrate",
-    "db-migrate-reset": "sequelize db:migrate:undo",
-    "db-migrate-refresh": "sequelize db:migrate:undo && sequelize db:migrate",
+    "db-migrate": "sequelize db:migrate && sequelize db:seed:all",
+    "db-migrate-reset": "sequelize db:migrate:undo:all",
+    "db-migrate-refresh": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "routes:list": "ts-node src/scripts/printRoutes.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

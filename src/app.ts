@@ -5,9 +5,10 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import cors from 'cors';
 import { swaggerOptions } from './../swaggerConfig';
 import { connectAppToDatabase } from "./config/db/db-connection";
-import { authRouter, userRouter,  } from "./api/v1/routes";
+import { authRouter, categoryRouter, userRouter,  } from "./api/v1/routes";
 import { httpLoggerMiddleware } from "./utils/requestLoggerMiddleware";
 import { authenticateToken } from "./api/v1/middlewares/authenticateToken";
+import { getCategories } from "./api/v1/controllers/categoryController";
 
 dotenv.config();
 const app = express();
@@ -19,7 +20,10 @@ app.use(httpLoggerMiddleware);
 connectAppToDatabase();
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/api/v1/users", authenticateToken, userRouter);
 app.use("/api/v1/", authRouter);
+
+app.use("/api/v1/users", authenticateToken, userRouter);
+app.use("/api/v1/categories", authenticateToken, categoryRouter);
+app.get("/api/v1/categoriesPublic", getCategories);
 
 export default app;
