@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize';
 import { initializeUser } from './user';
 import { initializeToken } from './token';
+import { initializeCategory } from './category';
 
 // Initialize Sequelize
 const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, process.env.DB_PASS!, {
@@ -11,10 +12,11 @@ const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, proc
 // Initialize models
 const User = initializeUser(sequelize);
 const Token = initializeToken(sequelize);
+const Category = initializeCategory(sequelize);
 
 // Setup associations
 User.associate({ /* other models */ });
 
 // Export models and sequelize instance
-export { User, Token };
+export { User, Token, Category };
 export default sequelize;
