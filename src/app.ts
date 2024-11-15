@@ -6,7 +6,6 @@ import cors from 'cors';
 import { swaggerOptions } from './../swaggerConfig';
 import { connectAppToDatabase } from "./config/db/db-connection";
 import { authRouter, categoryRouter, userRouter,  } from "./api/v1/routes";
-import { httpLoggerMiddleware } from "./utils/requestLoggerMiddleware";
 import { authenticateToken } from "./api/v1/middlewares/authenticateToken";
 import { getCategories } from "./api/v1/controllers/categoryController";
 
@@ -15,7 +14,6 @@ const app = express();
 app.use(cors());
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use(express.json());
-app.use(httpLoggerMiddleware);
 
 connectAppToDatabase();
 

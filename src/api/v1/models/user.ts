@@ -1,4 +1,5 @@
 import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import Token from './token';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
@@ -10,7 +11,10 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare averageRating: CreationOptional<number>;
 
   static associate(models: any) {
-    // define association here
+    User.hasMany(models.Token, {
+      foreignKey: 'userId',
+      as: 'tokens',
+    });
   }
 }
 
@@ -35,7 +39,7 @@ export function initializeUser(sequelize: Sequelize): typeof User {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    averageRating: DataTypes.DECIMAL
+    averageRating: DataTypes.DECIMAL,
   }, {
     sequelize,
     modelName: 'User',
@@ -44,3 +48,5 @@ export function initializeUser(sequelize: Sequelize): typeof User {
 
   return User;
 }
+
+export default User;

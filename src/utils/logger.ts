@@ -1,8 +1,5 @@
 const env = process.env.NODE_ENV || 'development';
 const version = process.env.VERSION || '1.0.0';
-// add userInfo param to logger function
-const email = '';
-const userId = '';
 
 export const LOGGER_EVENTS = {
     ROUTING: 'routing' as const,
@@ -13,11 +10,13 @@ export const LOGGER_EVENTS = {
   
   export type LogLevel = 'routing' | 'error' | 'debug' | 'info';
   
-  export async function logger(
+  export async function logger (
     event: LogLevel = 'debug',
     payload: any,
     moduleName = '',
     device = '',
+    email = '',
+    userId = '',
     httpRequestDetails: { method?: string; url?: string; statusCode?: number; responseTime?: number } = {}
   ) {
     function formattedMessage(payload: any): string {
@@ -52,11 +51,13 @@ export const LOGGER_EVENTS = {
           `Response Time: ${httpRequestDetails.responseTime}ms`,
         ].join(' | ')
       : '';
+
+    //console.warn('== ******* : ', payload?.request?.headers, payload?.request?.headers['authorization']);
   
     const logMessage = [
       `Log: ${formattedMessage(payload)}`,
       `User email: ${email || 'N/A'}`,
-      `User ID: ${userId}`,
+      `User ID: ${userId || 'N/A'}`,
       `Environment: ${env}`,
       `Module: ${moduleName}`,
       `Version: ${version}`,

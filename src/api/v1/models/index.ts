@@ -14,8 +14,9 @@ const User = initializeUser(sequelize);
 const Token = initializeToken(sequelize);
 const Category = initializeCategory(sequelize);
 
-// Setup associations
-User.associate({ /* other models */ });
+// Define associations
+User.associate({ Token });
+Token.associate({ User });
 
 // Export models and sequelize instance
 export { User, Token, Category };
