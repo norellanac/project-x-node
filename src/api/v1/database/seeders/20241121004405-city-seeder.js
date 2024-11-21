@@ -6,7 +6,7 @@ module.exports = {
       {
         id: 1,
         name: 'Cobán',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -14,7 +14,7 @@ module.exports = {
       {
         id: 2,
         name: 'San Pedro Carchá',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -22,7 +22,7 @@ module.exports = {
       {
         id: 3,
         name: 'San Juan Chamelco',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -30,7 +30,7 @@ module.exports = {
       {
         id: 4,
         name: 'San Cristóbal Verapaz',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -38,7 +38,7 @@ module.exports = {
       {
         id: 5,
         name: 'Tactic',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -46,7 +46,7 @@ module.exports = {
       {
         id: 6,
         name: 'Tucurú',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -54,7 +54,7 @@ module.exports = {
       {
         id: 7,
         name: 'Panzós',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -62,7 +62,7 @@ module.exports = {
       {
         id: 8,
         name: 'Senahú',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -70,7 +70,7 @@ module.exports = {
       {
         id: 9,
         name: 'Cahabón',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -78,7 +78,7 @@ module.exports = {
       {
         id: 10,
         name: 'Lanquín',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -86,7 +86,7 @@ module.exports = {
       {
         id: 11,
         name: 'Chahal',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -94,7 +94,7 @@ module.exports = {
       {
         id: 12,
         name: 'Fray Bartolomé de las Casas',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -102,7 +102,7 @@ module.exports = {
       {
         id: 13,
         name: 'Chisec',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -110,7 +110,7 @@ module.exports = {
       {
         id: 14,
         name: 'Santa Cruz Verapaz',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -118,7 +118,7 @@ module.exports = {
       {
         id: 15,
         name: 'Santa Catalina La Tinta',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -126,7 +126,7 @@ module.exports = {
       {
         id: 16,
         name: 'Raxruhá',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -134,7 +134,7 @@ module.exports = {
       {
         id: 17,
         name: 'Tamahú',
-        url_image: 'https://comidasguatemaltecas.pro/wp-content/uploads/2018/08/Alta-Verapaz-Guatemala.jpg',
+        url_image: '',
         stateId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -206,7 +206,7 @@ module.exports = {
       {
         id: 26,
         name: 'Chimaltenango',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -214,7 +214,7 @@ module.exports = {
       {
         id: 27,
         name: 'San José Poaquíl',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -222,7 +222,7 @@ module.exports = {
       {
         id: 28,
         name: 'San Martín Jilotepeque',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -230,7 +230,7 @@ module.exports = {
       {
         id: 29,
         name: 'San Juan Comalapa',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -238,7 +238,7 @@ module.exports = {
       {
         id: 30,
         name: 'Santa Apolonia',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -246,7 +246,7 @@ module.exports = {
       {
         id: 31,
         name: 'Tecpán Guatemala',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -254,7 +254,7 @@ module.exports = {
       {
         id: 32,
         name: 'Patzún',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -262,7 +262,7 @@ module.exports = {
       {
         id: 33,
         name: 'Pochuta',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -334,7 +334,7 @@ module.exports = {
       {
         id: 42,
         name: 'Chiquimula',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -342,7 +342,7 @@ module.exports = {
       {
         id: 43,
         name: 'Camotán',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -350,7 +350,7 @@ module.exports = {
       {
         id: 44,
         name: 'Concepción Las Minas',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -358,7 +358,7 @@ module.exports = {
       {
         id: 45,
         name: 'Esquipulas',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -366,7 +366,7 @@ module.exports = {
       {
         id: 46,
         name: 'Ipala',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -374,7 +374,7 @@ module.exports = {
       {
         id: 47,
         name: 'Jocotán',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -382,7 +382,7 @@ module.exports = {
       {
         id: 48,
         name: 'Olopa',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -390,7 +390,7 @@ module.exports = {
       {
         id: 49,
         name: 'Quezaltepeque',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -398,7 +398,7 @@ module.exports = {
       {
         id: 50,
         name: 'San José La Arada',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -406,7 +406,7 @@ module.exports = {
       {
         id: 51,
         name: 'San Juan Ermita',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -414,7 +414,7 @@ module.exports = {
       {
         id: 52,
         name: 'San Jacinto',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -422,7 +422,7 @@ module.exports = {
       {
         id: 53,
         name: 'Dolores',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -430,7 +430,7 @@ module.exports = {
       {
         id: 54,
         name: 'San Benito',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -438,7 +438,7 @@ module.exports = {
       {
         id: 55,
         name: 'Flores',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -446,7 +446,7 @@ module.exports = {
       {
         id: 56,
         name: 'San Francisco',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -454,7 +454,7 @@ module.exports = {
       {
         id: 57,
         name: 'La Libertad',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -462,7 +462,7 @@ module.exports = {
       {
         id: 58,
         name: 'San José',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -470,7 +470,7 @@ module.exports = {
       {
         id: 59,
         name: 'Melchor de Mencos',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -478,7 +478,7 @@ module.exports = {
       {
         id: 60,
         name: 'San Luis',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -486,7 +486,7 @@ module.exports = {
       {
         id: 61,
         name: 'Poptún',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -494,7 +494,7 @@ module.exports = {
       {
         id: 62,
         name: 'Santa Ana',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -502,7 +502,7 @@ module.exports = {
       {
         id: 63,
         name: 'San Andrés',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -510,7 +510,7 @@ module.exports = {
       {
         id: 64,
         name: 'Sayaxché',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -518,7 +518,7 @@ module.exports = {
       {
         id: 65,
         name: 'Guastatoya',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -526,7 +526,7 @@ module.exports = {
       {
         id: 66,
         name: 'Morazán',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -534,7 +534,7 @@ module.exports = {
       {
         id: 67,
         name: 'San Agustín Acasaguastlán',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -542,7 +542,7 @@ module.exports = {
       {
         id: 68,
         name: 'San Cristóbal Acasaguastlán',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -550,7 +550,7 @@ module.exports = {
       {
         id: 69,
         name: 'El Jícaro',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -558,7 +558,7 @@ module.exports = {
       {
         id: 70,
         name: 'Sansare',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -566,7 +566,7 @@ module.exports = {
       {
         id: 71,
         name: 'Sanarate',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -574,7 +574,7 @@ module.exports = {
       {
         id: 72,
         name: 'San Antonio La Paz',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -582,7 +582,7 @@ module.exports = {
       {
         id: 73,
         name: 'Santa Cruz del Quiché',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -590,7 +590,7 @@ module.exports = {
       {
         id: 74,
         name: 'Canillá',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -598,7 +598,7 @@ module.exports = {
       {
         id: 75,
         name: 'Chajul',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -606,7 +606,7 @@ module.exports = {
       {
         id: 76,
         name: 'Chicamán',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -614,7 +614,7 @@ module.exports = {
       {
         id: 77,
         name: 'Chiché',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -622,7 +622,7 @@ module.exports = {
       {
         id: 78,
         name: 'Chichicastenango',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -630,7 +630,7 @@ module.exports = {
       {
         id: 79,
         name: 'Chinique',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -638,7 +638,7 @@ module.exports = {
       {
         id: 80,
         name: 'Cunén',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -646,7 +646,7 @@ module.exports = {
       {
         id: 81,
         name: 'Ixcán',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -654,7 +654,7 @@ module.exports = {
       {
         id: 82,
         name: 'Joyabaj',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -662,7 +662,7 @@ module.exports = {
       {
         id: 83,
         name: 'Nebaj',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -670,7 +670,7 @@ module.exports = {
       {
         id: 84,
         name: 'Pachalum',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -678,7 +678,7 @@ module.exports = {
       {
         id: 85,
         name: 'Patzité',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -686,7 +686,7 @@ module.exports = {
       {
         id: 86,
         name: 'Sacapulas',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -694,7 +694,7 @@ module.exports = {
       {
         id: 87,
         name: 'San Andrés Sajcabajá',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -702,7 +702,7 @@ module.exports = {
       {
         id: 88,
         name: 'San Antonio Ilotenango',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -710,7 +710,7 @@ module.exports = {
       {
         id: 89,
         name: 'San Bartolomé Jocotenango',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -718,7 +718,7 @@ module.exports = {
       {
         id: 90,
         name: 'San Juan Cotzal',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -726,7 +726,7 @@ module.exports = {
       {
         id: 91,
         name: 'San Pedro Jocopilas',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -734,7 +734,7 @@ module.exports = {
       {
         id: 92,
         name: 'Uspantán',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -742,7 +742,7 @@ module.exports = {
       {
         id: 93,
         name: 'Zacualpa',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -750,7 +750,7 @@ module.exports = {
       {
         id: 94,
         name: 'Escuintla',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -758,7 +758,7 @@ module.exports = {
       {
         id: 95,
         name: 'Guanagazapa',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -766,7 +766,7 @@ module.exports = {
       {
         id: 96,
         name: 'Iztapa',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -774,7 +774,7 @@ module.exports = {
       {
         id: 97,
         name: 'La Democracia',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -782,7 +782,7 @@ module.exports = {
       {
         id: 98,
         name: 'La Gomera',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -790,7 +790,7 @@ module.exports = {
       {
         id: 99,
         name: 'Masagua',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -798,7 +798,7 @@ module.exports = {
       {
         id: 100,
         name: 'Nueva Concepción',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -806,7 +806,7 @@ module.exports = {
       {
         id: 101,
         name: 'Palín',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -814,7 +814,7 @@ module.exports = {
       {
         id: 102,
         name: 'Puerto San José',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -822,7 +822,7 @@ module.exports = {
       {
         id: 103,
         name: 'San Vicente Pacaya',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -830,7 +830,7 @@ module.exports = {
       {
         id: 104,
         name: 'Santa Lucía Cotzumalguapa',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -838,7 +838,7 @@ module.exports = {
       {
         id: 105,
         name: 'Siquinalá',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -846,7 +846,7 @@ module.exports = {
       {
         id: 106,
         name: 'Tiquisate',
-        url_image: 'https://visitguatemala.com/',
+        url_image: '',
         stateId: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -854,7 +854,7 @@ module.exports = {
       {
         id: 107,
         name: 'Guatemala',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -862,7 +862,7 @@ module.exports = {
       {
         id: 108,
         name: 'Santa Catarina Pinula',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -870,7 +870,7 @@ module.exports = {
       {
         id: 109,
         name: 'San José Pinula',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -878,7 +878,7 @@ module.exports = {
       {
         id: 110,
         name: 'San José del Golfo',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -886,7 +886,7 @@ module.exports = {
       {
         id: 111,
         name: 'Palencia',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -894,7 +894,7 @@ module.exports = {
       {
         id: 112,
         name: 'Chinautla',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -902,7 +902,7 @@ module.exports = {
       {
         id: 113,
         name: 'San Pedro Ayampuc',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -910,7 +910,7 @@ module.exports = {
       {
         id: 114,
         name: 'Mixco',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -918,7 +918,7 @@ module.exports = {
       {
         id: 115,
         name: 'San Pedro Sacatepéquez',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -926,7 +926,7 @@ module.exports = {
       {
         id: 116,
         name: 'San Juan Sacatepéquez',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -934,7 +934,7 @@ module.exports = {
       {
         id: 117,
         name: 'San Raymundo',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -942,7 +942,7 @@ module.exports = {
       {
         id: 118,
         name: 'Chuarrancho',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -950,7 +950,7 @@ module.exports = {
       {
         id: 119,
         name: 'Fraijanes',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -958,7 +958,7 @@ module.exports = {
       {
         id: 120,
         name: 'Amatitlán',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -966,7 +966,7 @@ module.exports = {
       {
         id: 121,
         name: 'Villa Nueva',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 9,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -990,7 +990,7 @@ module.exports = {
       {
         id: 124,
         name: 'Aguacatán',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -998,7 +998,7 @@ module.exports = {
       {
         id: 125,
         name: 'Chiantla',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1006,7 +1006,7 @@ module.exports = {
       {
         id: 126,
         name: 'Colotenango',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1014,7 +1014,7 @@ module.exports = {
       {
         id: 127,
         name: 'Concepción Huista',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1022,7 +1022,7 @@ module.exports = {
       {
         id: 128,
         name: 'Cuilco',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1030,7 +1030,7 @@ module.exports = {
       {
         id: 129,
         name: 'Huehuetenango',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1038,7 +1038,7 @@ module.exports = {
       {
         id: 130,
         name: 'Jacaltenango',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1046,7 +1046,7 @@ module.exports = {
       {
         id: 131,
         name: 'La Democracia',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1054,7 +1054,7 @@ module.exports = {
       {
         id: 132,
         name: 'La Libertad',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1062,7 +1062,7 @@ module.exports = {
       {
         id: 133,
         name: 'Tectitán',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1070,7 +1070,7 @@ module.exports = {
       {
         id: 134,
         name: 'Todos Santos Cuchumatán',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1078,7 +1078,7 @@ module.exports = {
       {
         id: 135,
         name: 'Unión Cantinil',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1086,7 +1086,7 @@ module.exports = {
       {
         id: 136,
         name: 'Malacatancito',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1094,7 +1094,7 @@ module.exports = {
       {
         id: 137,
         name: 'Nentón',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1102,7 +1102,7 @@ module.exports = {
       {
         id: 138,
         name: 'San Antonio Huista',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1110,7 +1110,7 @@ module.exports = {
       {
         id: 139,
         name: 'San Gaspar Ixchil',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1118,7 +1118,7 @@ module.exports = {
       {
         id: 140,
         name: 'San Ildefonso Ixtahuacán',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1126,7 +1126,7 @@ module.exports = {
       {
         id: 141,
         name: 'San Juan Atitán',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1134,7 +1134,7 @@ module.exports = {
       {
         id: 142,
         name: 'San Juan Ixcoy',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1142,7 +1142,7 @@ module.exports = {
       {
         id: 143,
         name: 'San Mateo Ixtatán',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1150,7 +1150,7 @@ module.exports = {
       {
         id: 144,
         name: 'San Miguel Acatán',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1158,7 +1158,7 @@ module.exports = {
       {
         id: 145,
         name: 'San Pedro Necta',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1166,7 +1166,7 @@ module.exports = {
       {
         id: 146,
         name: 'San Pedro Soloma',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1174,7 +1174,7 @@ module.exports = {
       {
         id: 147,
         name: 'San Rafael La Independencia',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1182,7 +1182,7 @@ module.exports = {
       {
         id: 148,
         name: 'San Rafael Petzal',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1190,7 +1190,7 @@ module.exports = {
       {
         id: 149,
         name: 'San Sebastián Coatán',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1198,7 +1198,7 @@ module.exports = {
       {
         id: 150,
         name: 'San Sebastián Huehuetenango',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1206,7 +1206,7 @@ module.exports = {
       {
         id: 151,
         name: 'Santa Ana Huista',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1214,7 +1214,7 @@ module.exports = {
       {
         id: 152,
         name: 'Santa Bárbara',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1222,7 +1222,7 @@ module.exports = {
       {
         id: 153,
         name: 'Santa Cruz Barillas',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1230,7 +1230,7 @@ module.exports = {
       {
         id: 154,
         name: 'Santa Eulalia',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1238,7 +1238,7 @@ module.exports = {
       {
         id: 155,
         name: 'Santiago Chimaltenango',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         stateId: 10,
         createdAt: new Date(),
         updatedAt: new Date(),

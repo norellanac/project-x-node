@@ -6,7 +6,7 @@ module.exports = {
       {
         id: 1,
         name: 'Alta Verapaz',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -14,7 +14,7 @@ module.exports = {
       {
         id: 2,
         name: 'Baja Verapaz',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -22,7 +22,7 @@ module.exports = {
       {
         id: 3,
         name: 'Chimaltenango',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -30,7 +30,7 @@ module.exports = {
       {
         id: 4,
         name: 'Chiquimula',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -38,7 +38,7 @@ module.exports = {
       {
         id: 5,
         name: 'Petén',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -46,7 +46,7 @@ module.exports = {
       {
         id: 6,
         name: 'El Progreso',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -54,7 +54,7 @@ module.exports = {
       {
         id: 7,
         name: 'Quiché',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -62,7 +62,7 @@ module.exports = {
       {
         id: 8,
         name: 'Escuintla',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -70,7 +70,7 @@ module.exports = {
       {
         id: 9,
         name: 'Guatemala',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -78,7 +78,7 @@ module.exports = {
       {
         id: 10,
         name: 'Huehuetenango',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -86,7 +86,7 @@ module.exports = {
       {
         id: 11,
         name: 'Izabal',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -94,7 +94,7 @@ module.exports = {
       {
         id: 12,
         name: 'Jalapa',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -102,7 +102,7 @@ module.exports = {
       {
         id: 13,
         name: 'Jutiapa',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -110,7 +110,7 @@ module.exports = {
       {
         id: 14,
         name: 'Quetzaltenango',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -118,7 +118,7 @@ module.exports = {
       {
         id: 15,
         name: 'Retalhuleu',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -126,7 +126,7 @@ module.exports = {
       {
         id: 16,
         name: 'Sacatepéquez',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -134,7 +134,7 @@ module.exports = {
       {
         id: 17,
         name: 'San Marcos',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -142,7 +142,7 @@ module.exports = {
       {
         id: 18,
         name: 'Santa Rosa',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -150,7 +150,7 @@ module.exports = {
       {
         id: 19,
         name: 'Sololá',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -158,7 +158,7 @@ module.exports = {
       {
         id: 20,
         name: 'Suchitepéquez',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -166,7 +166,7 @@ module.exports = {
       {
         id: 21,
         name: 'Totonicapán',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -174,7 +174,7 @@ module.exports = {
       {
         id: 22,
         name: 'Zacapa',
-        url_image: 'http://aux.iconspalace.com/uploads/1857486532.png',
+        url_image: '',
         countryId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
