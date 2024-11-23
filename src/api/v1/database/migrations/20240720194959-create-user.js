@@ -23,11 +23,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       role: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: true
       },
       averageRating: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.FLOAT,
       },
       createdAt: {
         allowNull: false,

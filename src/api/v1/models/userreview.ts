@@ -56,30 +56,4 @@ export function initializeUserReview(sequelize: Sequelize): typeof UserReview {
   return UserReview;
 }
 
-export default UserReview;'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class UserReview extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  };
-  UserReview.init({
-    merchantId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
-    rating: DataTypes.INTEGER,
-    comment: DataTypes.TEXT,
-    deletedAt: DataTypes.DATE
-  }, {
-    sequelize,
-    modelName: 'UserReview',
-  });
-  return UserReview;
-};
+export default UserReview;

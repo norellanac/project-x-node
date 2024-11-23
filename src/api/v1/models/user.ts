@@ -36,10 +36,10 @@ export function initializeUser(sequelize: Sequelize): typeof User {
     },
     password: DataTypes.STRING,
     role: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
-    averageRating: DataTypes.DECIMAL,
+    averageRating: DataTypes.FLOAT,
   }, {
     sequelize,
     modelName: 'User',
