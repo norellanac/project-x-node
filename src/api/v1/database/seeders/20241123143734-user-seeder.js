@@ -6,7 +6,7 @@ module.exports = {
       {
         name: 'John',
         lastname: 'Doe',
-        email: '1005alexis@gmail,com',
+        email: 'johndoe@example.com',
         password: 'hashedpassword1', // Make sure to hash the password in a real application
         role: '1',
         averageRating: 4.5,
