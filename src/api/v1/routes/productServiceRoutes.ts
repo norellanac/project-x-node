@@ -5,7 +5,7 @@ import {
   createProductService,
   updateProductService,
   deleteProductService,
-} from  '../controllers/productServiceController';
+} from '../controllers/productServiceController';
 
 const router = Router();
 
@@ -14,6 +14,59 @@ const router = Router();
  * tags:
  *   name: ProductServices
  *   description: ProductService management
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     ProductService:
+ *       type: object
+ *       required:
+ *         - name
+ *         - description
+ *         - type
+ *         - price
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The auto-generated ID of the ProductService
+ *         name:
+ *           type: string
+ *           description: The name of the ProductService
+ *         description:
+ *           type: string
+ *           description: The description of the ProductService
+ *         type:
+ *           type: integer
+ *           description: The type of the ProductService
+ *         price:
+ *           type: number
+ *           format: float
+ *           description: The price of the ProductService
+ *         specialPrice:
+ *           type: number
+ *           format: float
+ *           description: The special price of the ProductService
+ *         location:
+ *           type: string
+ *           description: The location of the ProductService
+ *         latitude:
+ *           type: number
+ *           format: float
+ *           description: The latitude of the ProductService location
+ *         longitude:
+ *           type: number
+ *           format: float
+ *           description: The longitude of the ProductService location
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: The creation date of the ProductService
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The last update date of the ProductService
  */
 
 /**
@@ -78,6 +131,8 @@ router.get('/:id', getProductServiceById);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ProductService'
+ *       400:
+ *         description: Bad request
  *       500:
  *         description: Server error
  */
@@ -109,6 +164,8 @@ router.post('/', createProductService);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ProductService'
+ *       400:
+ *         description: Bad request
  *       404:
  *         description: ProductService not found
  *       500:

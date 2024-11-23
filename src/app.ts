@@ -9,6 +9,7 @@ import { authRouter, categoryRouter, userRouter, ProducServiceRouter  } from "./
 import { authenticateToken } from "./api/v1/middlewares/authenticateToken";
 import { getCategories } from "./api/v1/controllers/categoryController";
 import { httpLoggerMiddleware } from "./api/v1/middlewares/requestLoggerMiddleware";
+import { getAllProductServices } from "./api/v1/controllers/productServiceController";
 
 dotenv.config();
 const app = express();
@@ -22,8 +23,14 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/v1/", httpLoggerMiddleware, authRouter);
 
 app.use("/api/v1/users", authenticateToken, userRouter);
+
 app.use("/api/v1/categories", authenticateToken, categoryRouter);
 app.get("/api/v1/categoriesPublic", getCategories);
+
 app.use("/api/v1/products", authenticateToken,  ProducServiceRouter);
+
+// Public routes
+app.get("/api/v1/public/categories", getCategories);
+app.get("/api/v1/public/products", getAllProductServices);
 
 export default app;
