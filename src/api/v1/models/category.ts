@@ -8,7 +8,11 @@ class Category extends Model<InferAttributes<Category>, InferCreationAttributes<
   declare image: string;
 
   static associate(models: any) {
-    // define association here
+    Category.belongsToMany(models.ProductService, {
+      through: 'ProductCategory',
+      foreignKey: 'categoryId',
+      as: 'productServices',
+    });
   }
 }
 
