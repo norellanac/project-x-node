@@ -35,13 +35,13 @@ const Order = initializeOrder(sequelize);
 const UserReview = initializeUserReview(sequelize);
 
 // Define associations
-User.associate({ Token, UserReview, Order });
+User.associate({ Token, UserReview, Order, ProductService });
 Token.associate({ User });
 Category.associate({ ProductService });
 Country.associate({ State });
 State.associate({ Country, City });
 City.associate({ State });
-ProductService.associate({ ProductDetail, ProductLocation, ProductReview, Category, OrderDetail });
+ProductService.associate({ ProductDetail, ProductLocation, ProductReview, Category, OrderDetail, User });
 ProductDetail.associate({ ProductService });
 ProductLocation.associate({ ProductService });
 ProductReview.associate({ ProductService, User });

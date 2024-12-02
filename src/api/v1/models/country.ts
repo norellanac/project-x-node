@@ -3,7 +3,7 @@ import { Model, DataTypes, Sequelize } from 'sequelize';
 class Country extends Model {
   public id!: number;
   public name!: string;
-  public url_image!: string;
+  public urlImage!: string;
   public deletedAt!: Date | null;
 
   static associate(models: any) {
@@ -25,7 +25,7 @@ export function initializeCountry(sequelize: Sequelize): typeof Country {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    url_image: {
+    urlImage: {
       type: DataTypes.STRING,
       allowNull: true,
     },

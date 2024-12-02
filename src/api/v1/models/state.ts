@@ -3,7 +3,7 @@ import { Model, DataTypes, Sequelize } from 'sequelize';
 class State extends Model {
   public id!: number;
   public name!: string;
-  public url_image!: string;
+  public urlImage!: string;
   public countryId!: number;
   public deletedAt!: Date | null;
 
@@ -30,7 +30,7 @@ export function initializeState(sequelize: Sequelize): typeof State {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    url_image: {
+    urlImage: {
       type: DataTypes.STRING,
       allowNull: true,
     },

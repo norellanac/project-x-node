@@ -3,7 +3,7 @@ import { Model, DataTypes, Sequelize } from 'sequelize';
 class City extends Model {
   public id!: number;
   public name!: string;
-  public url_image!: string;
+  public urlImage!: string;
   public stateId!: number;
   public deletedAt!: Date | null;
 
@@ -26,7 +26,7 @@ export function initializeCity(sequelize: Sequelize): typeof City {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    url_image: {
+    urlImage: {
       type: DataTypes.STRING,
       allowNull: true,
     },
