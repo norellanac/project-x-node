@@ -1,13 +1,18 @@
 import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import User from './user';
 
 class Token extends Model<InferAttributes<Token>, InferCreationAttributes<Token>> {
   declare id: CreationOptional<number>;
   declare userId: number;
   declare token: string;
   declare expiryDate: Date;
+  declare user?: User;
 
   static associate(models: any) {
-    // define association here
+    Token.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user',
+    });
   }
 }
 
@@ -33,7 +38,7 @@ export function initializeToken(sequelize: Sequelize): typeof Token {
   }, {
     sequelize,
     modelName: 'Token',
-    paranoid: true, // Optional: if you want soft deletes
+    paranoid: true,
   });
 
   return Token;

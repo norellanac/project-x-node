@@ -1,33 +1,38 @@
 'use strict';
-
-const { type } = require("os");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Tokens', {
+    await queryInterface.createTable('ProductDetails', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
+      productServiceId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Users',
-          key: 'id',
+          model: 'ProductServices', // name of the target table
+          key: 'id' // key in the target table that we're referencing
         },
-        onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      token: {
+      label: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      expiryDate: {
-        type: Sequelize.DATE,
+      value: {
+        type: Sequelize.STRING,
         allowNull: false
+      },
+      description: {
+        type: Sequelize.TEXT,
+        allowNull: true
+      },
+      deletedAt: {
+        type: Sequelize.DATE,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
@@ -36,16 +41,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      deletedAt: {
-        type: Sequelize.DATE
       }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Tokens');
+    await queryInterface.dropTable('ProductDetails');
   }
 };
-
-//cmd to create this migrations:
-//yarn sequelize model:generate --name Token --attributes userId:integer,token:string,expiryDate:date

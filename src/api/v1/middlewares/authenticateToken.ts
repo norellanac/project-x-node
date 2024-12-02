@@ -1,33 +1,72 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import Token from '../models/token';
-import dotenv from 'dotenv';
+import { logger, LOGGER_EVENTS } from '../../../utils/logger';
 
 export const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
-  dotenv.config();
+  const start = Date.now();
+  const requestBody = JSON.parse(JSON.stringify(req.body));
+  let responseBody = {};
+  let requestByUser: { email: string; id: string | number ; } = { email: '', id: '' };
+
+  const originalSend = res.send.bind(res);
+  res.send = (body) => {
+    responseBody = JSON.parse(JSON.stringify(body));
+    return originalSend(body);
+  };
+
   const token = req.headers['authorization'];
-  //const token = authHeader && authHeader.split(' ')[1];
-  if (!token) return res.sendStatus(401); // Unauthorized
+  if (!token) {
+    logger(LOGGER_EVENTS.INFO, { message: 'No token provided' }, 'authenticateToken', req.headers['user-agent']);
+    return res.sendStatus(401); // Unauthorized
+  }
+
+  const storedToken = await Token.findOne({ where: { token: token }, include: { association: 'user' } });
+    const {email, id} = storedToken?.user ? storedToken.user.toJSON() : { email: '', id: '' };
+	  requestByUser = { email, id: id.toString() };
 
   type DecodedToken = {
     userId: number;
     iat: number;
     exp: number;
   };
+
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!);
     if (typeof decoded === 'string') {
+      logger(LOGGER_EVENTS.INFO, { message: 'Invalid token format' }, 'authenticateToken', req.headers['user-agent']);
       return res.sendStatus(403); // Forbidden
     }
-    const userDecoded = decoded as DecodedToken;
-    const storedToken = await Token.findOne({ where: { token: token } });
-    if (!storedToken) return res.sendStatus(401); // Unauthorized
 
-    req.body.user_id = userDecoded.userId;
-
-  console.log('===DEBUG===: ', storedToken.userId, userDecoded.userId, req.body.user_id);
+    if (!storedToken) {
+      logger(LOGGER_EVENTS.INFO, { message: 'Token not found in database' }, 'authenticateToken', req.headers['user-agent']);
+      return res.sendStatus(401); // Unauthorized
+    }
+    logger(LOGGER_EVENTS.INFO, { message: 'Token authenticated successfully', decoded, storedToken: storedToken.toJSON() }, 'authenticateToken', req.headers['user-agent'], requestByUser.email, requestByUser.id.toString());
     next();
   } catch (err) {
+    logger(LOGGER_EVENTS.ERROR, { message: 'Token verification failed', error: err }, 'authenticateToken', req.headers['user-agent'], requestByUser.email, requestByUser.id.toString());
     return res.sendStatus(403); // Forbidden
+  } finally {
+    res.on('finish', () => {
+      const duration = Date.now() - start;
+      const logInfo = {
+        request: {
+          method: req.method,
+          url: req.originalUrl,
+          headers: req.headers,
+          body: requestBody,
+        },
+        response: {
+          statusCode: res.statusCode,
+          headers: res.getHeaders(),
+          body: responseBody,
+          responseTime: duration,
+        },
+      };
+
+      logger(LOGGER_EVENTS.DEBUG, logInfo, 'HTTP Request and Response', req.headers['user-agent'], requestByUser.email || '' , requestByUser.id.toString() || '');
+    });
   }
 };

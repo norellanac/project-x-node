@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { logger, LOGGER_EVENTS } from "./logger";
+import { logger, LOGGER_EVENTS } from "../../../utils/logger";
+import { Token } from "../models";
 
-export const httpLoggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const httpLoggerMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
   const requestBody = JSON.parse(JSON.stringify(req.body));
   let responseBody = {};
@@ -29,7 +30,7 @@ export const httpLoggerMiddleware = (req: Request, res: Response, next: NextFunc
 	  }
 	};
 
-	logger(LOGGER_EVENTS.INFO, logInfo, 'HTTP Request and Response', req.headers['user-agent']);
+	logger(LOGGER_EVENTS.INFO, logInfo, 'HTTP Request and Response', req.headers['user-agent'], requestBody?.email);
   });
 
   next();

@@ -5,14 +5,14 @@ import { User } from "../models";
 
 
 export const index = async (req: Request, res: Response) => {
-  const users = await User.findAll();
+  const users = await User.findAll( {include: { association: 'tokens' }, attributes: {exclude: ['password']}} );
   res.json(users);
 };
 
 export const show = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(id, {attributes: {exclude: ['password']}});
     if (!user) {
       createResponse(res, { success: false, message: "User not found", statusCode: 404 });
       return;
@@ -62,7 +62,7 @@ export const update = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
 
-    return createResponse(res, { success: true, data: updatedUser });
+    return createResponse(res, { success: true, data: updatedUser.toJSON() });
   } catch (err: any) {
     console.error("**Error**: ", err);
     const statusCode = err.errors ? 400 : 500;

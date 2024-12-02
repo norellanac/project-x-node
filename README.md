@@ -124,6 +124,52 @@ To run tests (currently, no tests are specified):
 yarn test
 ```
 
+
+## Creating a New Model and Migration
+
+To create a new model and its corresponding migration using the command line, follow these steps:
+
+### Generate a New Model
+
+Use the Sequelize CLI to generate a new model. Replace `ModelName` with the name of your model and specify the attributes for the model.
+
+```bash
+yarn sequelize model:generate --name ModelName --attributes attribute1:type,attribute2:type
+```
+
+For example, to create a `User` model with `username` and `email` attributes:
+
+```bash
+yarn sequelize model:generate --name User --attributes username:string,email:string
+```
+
+This command will create two files:
+- A model file in the `src/api/v1/models` directory.
+- A migration file in the `migrations` directory.
+
+### Run the Migration
+
+After generating the model and migration files, run the migration to create the corresponding table in the database:
+
+```bash
+yarn run db:migrate
+```
+
+This will execute the migration and create the new table based on the model definition.
+
+### Undoing the Migration
+
+If you need to undo the migration, you can use the following command:
+
+```bash
+yarn run db:migrate:undo
+```
+
+This will revert the last migration that was run.
+
+
+By following these steps, you can easily create and manage models and migrations in your ProjectX Backend Node.js application.
+
 ## Project Structure
 
 ```

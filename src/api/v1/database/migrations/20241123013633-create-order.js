@@ -1,10 +1,7 @@
 'use strict';
-
-const { type } = require("os");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Tokens', {
+    await queryInterface.createTable('Orders', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,19 +12,25 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Users',
-          key: 'id',
+          model: 'Users', // name of the target table
+          key: 'id' // key in the target table that we're referencing
         },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
       },
-      token: {
-        type: Sequelize.STRING,
+      totalAmount: {
+        type: Sequelize.FLOAT,
         allowNull: false
       },
-      expiryDate: {
+      status: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      comment: {
+        type: Sequelize.TEXT,
+        allowNull: true
+      },
+      deletedAt: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
@@ -36,16 +39,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      deletedAt: {
-        type: Sequelize.DATE
       }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Tokens');
+    await queryInterface.dropTable('Orders');
   }
 };
-
-//cmd to create this migrations:
-//yarn sequelize model:generate --name Token --attributes userId:integer,token:string,expiryDate:date
