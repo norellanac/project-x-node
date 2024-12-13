@@ -10,6 +10,8 @@ class ProductService extends Model<InferAttributes<ProductService>, InferCreatio
   declare location?: string;
   declare latitude?: number;
   declare longitude?: number;
+  declare userId: number;
+  declare averageRating: CreationOptional<number>;
   declare deletedAt?: Date;
 
   static associate(models: any) {
@@ -29,6 +31,10 @@ class ProductService extends Model<InferAttributes<ProductService>, InferCreatio
       through: 'ProductCategory',
       foreignKey: 'productServiceId',
       as: 'categories',
+    });
+    ProductService.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user',
     });
   }
 }
@@ -69,6 +75,14 @@ export function initializeProductService(sequelize: Sequelize): typeof ProductSe
       allowNull: true,
     },
     longitude: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    averageRating: {
       type: DataTypes.FLOAT,
       allowNull: true,
     },

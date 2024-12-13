@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Category, ProductService, ProductDetail, ProductLocation, ProductReview, OrderDetail } from '../models';
+import { Category, ProductService, ProductDetail, ProductLocation, ProductReview, OrderDetail, User, City } from '../models';
 
 // Get all ProductServices with all associations
 export const getAllProductServices = async (req: Request, res: Response) => {
@@ -10,6 +10,7 @@ export const getAllProductServices = async (req: Request, res: Response) => {
         { model: ProductDetail, as: 'details' },
         { model: ProductLocation, as: 'locations' },
         { model: ProductReview, as: 'reviews' },
+        { model: User, as: 'user' }
       ]
     });
     res.status(200).json(productServices);
@@ -27,6 +28,7 @@ export const getProductServiceById = async (req: Request, res: Response) => {
         { model: ProductDetail, as: 'details' },
         { model: ProductLocation, as: 'locations' },
         { model: ProductReview, as: 'reviews' },
+        { model: City, as: 'cities' },
       ]
     });
     if (productService) {

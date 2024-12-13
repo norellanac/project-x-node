@@ -11,7 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      url_image: {
+      urlImage: {
         type: Sequelize.STRING
       },
       stateId: {

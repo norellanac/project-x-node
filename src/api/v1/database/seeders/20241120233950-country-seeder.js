@@ -6,7 +6,7 @@ module.exports = {
       {
         id: 1,
         name: 'Guatemala',
-        url_image: '',
+        urlImage: '',
         createdAt: '2019-09-05 00:21:37',
         updatedAt: new Date(),
       },

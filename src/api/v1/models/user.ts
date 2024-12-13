@@ -9,11 +9,16 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare password: string;
   declare role: CreationOptional<string>;
   declare averageRating: CreationOptional<number>;
+  declare avatarUrl: CreationOptional<string>;
 
   static associate(models: any) {
     User.hasMany(models.Token, {
       foreignKey: 'userId',
       as: 'tokens',
+    });
+    User.hasMany(models.ProductService, {
+      foreignKey: 'userId',
+      as: 'products',
     });
   }
 }
@@ -40,11 +45,12 @@ export function initializeUser(sequelize: Sequelize): typeof User {
       allowNull: true,
     },
     averageRating: DataTypes.FLOAT,
+    avatarUrl: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'User',
     paranoid: true,
-  });
+  },);
 
   return User;
 }

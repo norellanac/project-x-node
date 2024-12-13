@@ -40,6 +40,19 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: true
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      },
+      averageRating: {
+        type: Sequelize.FLOAT,
+      },
       deletedAt: {
         type: Sequelize.DATE,
         allowNull: true
