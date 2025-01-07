@@ -28,7 +28,7 @@ export const getProductServiceById = async (req: Request, res: Response) => {
         { model: ProductDetail, as: 'details' },
         { model: ProductLocation, as: 'locations' },
         { model: ProductReview, as: 'reviews' },
-        { model: City, as: 'cities' },
+        { model: User, as: 'user' }
       ]
     });
     if (productService) {
