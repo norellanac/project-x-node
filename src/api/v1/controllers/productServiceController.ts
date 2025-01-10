@@ -5,6 +5,7 @@ export const getAllProductServices = async (req: Request, res: Response) => {
   try {
     const { limit, offset } = req.pagination!;
 
+    const totalItems = await ProductService.count();
     const productServices = await ProductService.findAll({
       include: [
         { model: Category, as: 'categories' },
@@ -19,7 +20,7 @@ export const getAllProductServices = async (req: Request, res: Response) => {
     });
 
     const currentPage = Math.floor(offset / limit) + 1;
-    const totalPages = Math.ceil(productServices.length / limit);
+    const totalPages = Math.ceil(totalItems / limit);
 
     res.status(200).json({
       data: productServices,
@@ -27,7 +28,7 @@ export const getAllProductServices = async (req: Request, res: Response) => {
         currentPage,
         totalPages,
         pageSize: limit,
-        totalItems: productServices.length,
+        totalItems,
       },
     });
   } catch (error) {
