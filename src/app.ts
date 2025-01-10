@@ -12,6 +12,7 @@ import { authenticateToken } from "./api/v1/middlewares/authenticateToken";
 import { getCategories } from "./api/v1/controllers/categoryController";
 import { httpLoggerMiddleware } from "./api/v1/middlewares/requestLoggerMiddleware";
 import { getAllProductServices, getProductServiceById } from "./api/v1/controllers/productServiceController";
+import { paginationMiddleware } from "./api/v1/middlewares/paginationMiddleware";
 
 
 dotenv.config();
@@ -37,7 +38,7 @@ app.use((`${apiPathAndVersion}/products`), authenticateToken,  ProducServiceRout
 
 // Public routes
 app.get((`${apiPathAndVersion}/public/categories`), getCategories);
-app.get((`${apiPathAndVersion}/public/products`), getAllProductServices);
+app.get((`${apiPathAndVersion}/public/products`), paginationMiddleware,  getAllProductServices);
 app.get((`${apiPathAndVersion}/public/products/:id`), getProductServiceById);
 
 export default app;

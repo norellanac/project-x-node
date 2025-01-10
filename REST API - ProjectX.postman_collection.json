@@ -1024,11 +1024,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/products?limit=2&offset=0",
+							"raw": "{{base_url}}/public/products?limit=2&offset=2",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
+								"public",
 								"products"
 							],
 							"query": [
@@ -1038,7 +1039,7 @@
 								},
 								{
 									"key": "offset",
-									"value": "0"
+									"value": "2"
 								}
 							]
 						}
