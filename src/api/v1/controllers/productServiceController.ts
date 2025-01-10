@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import { Category, ProductService, ProductDetail, ProductLocation, ProductReview, OrderDetail, User, City } from '../models';
 
-// Get all ProductServices with all associations
 export const getAllProductServices = async (req: Request, res: Response) => {
   try {
+    const { limit, offset } = req.pagination!;
+
     const productServices = await ProductService.findAll({
       include: [
         { model: Category, as: 'categories' },
@@ -11,13 +12,29 @@ export const getAllProductServices = async (req: Request, res: Response) => {
         { model: ProductLocation, as: 'locations' },
         { model: ProductReview, as: 'reviews' },
         { model: User, as: 'user' }
-      ]
+      ],
+      limit,
+      offset,
+      order: [['createdAt', 'DESC']] // Optional: Order by createdAt
     });
-    res.status(200).json(productServices);
+
+    const currentPage = Math.floor(offset / limit) + 1;
+    const totalPages = Math.ceil(productServices.length / limit);
+
+    res.status(200).json({
+      data: productServices,
+      pagination: {
+        currentPage,
+        totalPages,
+        pageSize: limit,
+        totalItems: productServices.length,
+      },
+    });
   } catch (error) {
-    res.status(500).json({ error});
+    res.status(500).json({ error: 'Failed to fetch product services', details: error });
   }
 };
+
 
 // Get a single ProductService by ID with all associations
 export const getProductServiceById = async (req: Request, res: Response) => {
