@@ -127,38 +127,49 @@ export const destroy = async (req: Request, res: Response) => {
 export const updateAvatar = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const customName = `avatar-${id}`;
-    const avatarUrl = await fileStorage.saveFile('avatars', customName, req, res);
 
+    // Check if user exists
     const user = await User.findByPk(id);
     if (!user) {
-      createResponse(res, {
+      return createResponse(res, {
         success: false,
         message: 'User not found',
         statusCode: 404,
       });
-      return;
     }
 
-    if (avatarUrl) {
-      if (user.avatarUrl) {
+    // Delete the old avatar if it exists
+    if (user.avatarUrl) {
+      try {
         fileStorage.deleteFile(`.${user.avatarUrl}`);
+      } catch (error) {
+        console.error('Failed to delete old avatar:', error);
       }
-      user.avatarUrl = avatarUrl;
-      await user.save();
-      createResponse(res, { success: true, data: user });
-    } else {
-      createResponse(res, {
+    }
+
+    // Define a custom name for the uploaded file
+    const customName = `avatar-${id}`;
+    const avatarUrl = await fileStorage.saveFile('avatars', customName, req, res);
+
+    if (!avatarUrl) {
+      return createResponse(res, {
         success: false,
         message: 'Failed to upload avatar',
         statusCode: 400,
       });
     }
+
+    // Update user record with new avatar URL
+    user.avatarUrl = avatarUrl;
+    await user.save();
+
+    return createResponse(res, { success: true, data: user });
   } catch (err: any) {
-    console.error('**Error**: ', err);
-    createResponse(res, {
+    console.error('**Error in updateAvatar**:', err);
+    return createResponse(res, {
       success: false,
-      message: 'An error occurred',
+      message: 'An error occurred while updating the avatar',
+      errors: err,
       statusCode: 500,
     });
   }
