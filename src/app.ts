@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import cors from 'cors';
+import multer from 'multer';
+import path from "path";
 import { swaggerOptions } from './../swaggerConfig';
 import { connectAppToDatabase } from "./config/db/db-connection";
 import { authRouter, categoryRouter, userRouter, ProducServiceRouter  } from "./api/v1/routes";
@@ -11,26 +13,30 @@ import { getCategories } from "./api/v1/controllers/categoryController";
 import { httpLoggerMiddleware } from "./api/v1/middlewares/requestLoggerMiddleware";
 import { getAllProductServices } from "./api/v1/controllers/productServiceController";
 
+
 dotenv.config();
 const app = express();
+const apiPathAndVersion = "/api/v1";
+const upload = multer({ dest: 'uploads/' })
 app.use(cors());
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use(express.json());
+app.use(`${apiPathAndVersion}/uploads`, express.static(path .join(__dirname, '../uploads')));
 
 connectAppToDatabase();
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/api/v1/", httpLoggerMiddleware, authRouter);
+app.use((`${apiPathAndVersion}/`), httpLoggerMiddleware, authRouter);
 
-app.use("/api/v1/users", authenticateToken, userRouter);
+app.use((`${apiPathAndVersion}/users`), authenticateToken, userRouter);
 
-app.use("/api/v1/categories", authenticateToken, categoryRouter);
-app.get("/api/v1/categoriesPublic", getCategories);
+app.use((`${apiPathAndVersion}/categories`), authenticateToken, categoryRouter);
+app.get((`${apiPathAndVersion}/categoriesPublic`), getCategories);
 
-app.use("/api/v1/products", authenticateToken,  ProducServiceRouter);
+app.use((`${apiPathAndVersion}/products`), authenticateToken,  ProducServiceRouter);
 
 // Public routes
-app.get("/api/v1/public/categories", getCategories);
-app.get("/api/v1/public/products", getAllProductServices);
+app.get((`${apiPathAndVersion}/public/categories`), getCategories);
+app.get((`${apiPathAndVersion}/public/products`), getAllProductServices);
 
 export default app;

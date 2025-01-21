@@ -1,29 +1,61 @@
 import { Router } from 'express';
-import {
-  store,
-  index,
-  show,
-  update,
-  destroy,
-} from '../controllers/userController';
+import { index, show, store, update, destroy, updateAvatar } from '../controllers/userController'; // Adjust the import path as needed
 
 const router = Router();
 
 /**
  * @swagger
- * /api/v1/users:
+ * tags:
+ *   name: Users
+ *   description: User management
+ */
+
+/**
+ * @swagger
+ * /users:
  *   get:
  *     summary: Get all users
  *     tags: [Users]
  *     responses:
  *       200:
- *         description: The list of users.
+ *         description: List of all users
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ */
+router.get('/', index);
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     summary: Get a user by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: The user data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ */
+router.get('/:id', show);
+
+/**
+ * @swagger
+ * /users:
  *   post:
  *     summary: Create a new user
  *     tags: [Users]
@@ -35,44 +67,31 @@ const router = Router();
  *             $ref: '#/components/schemas/User'
  *     responses:
  *       201:
- *         description: The user was successfully created.
+ *         description: The created user
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       400:
- *         description: Bad request.
- * 
- * /api/v1/users/{id}:
- *   get:
- *     summary: Get the user by id
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: The user id
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: The user description by id.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       404:
- *         description: The user was not found.
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
+router.post('/', store);
+
+/**
+ * @swagger
+ * /users/{id}:
  *   put:
- *     summary: Update the user by id
+ *     summary: Update a user by ID
  *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
- *         required: true
- *         description: The user id
  *         schema:
  *           type: integer
+ *         required: true
+ *         description: The user ID
  *     requestBody:
  *       required: true
  *       content:
@@ -81,74 +100,80 @@ const router = Router();
  *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
- *         description: The user was updated.
+ *         description: The updated user data
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       400:
- *         description: Bad request.
+ *         description: Bad request
  *       404:
- *         description: The user was not found.
+ *         description: User not found
+ *       500:
+ *         description: Server error
+ */
+router.put('/:id', update);
+
+/**
+ * @swagger
+ * /users/{id}:
  *   delete:
- *     summary: Delete the user by id
+ *     summary: Delete a user by ID
  *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
- *         required: true
- *         description: The user id
  *         schema:
  *           type: integer
+ *         required: true
+ *         description: The user ID
+ *     responses:
+ *       204:
+ *         description: No content
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Server error
+ */
+router.delete('/:id', destroy);
+
+/**
+ * @swagger
+ * /users/{id}/avatar:
+ *   put:
+ *     summary: Update a user's avatar
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The user ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               avatar:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       200:
- *         description: The user was deleted.
+ *         description: The updated user data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Bad request
  *       404:
- *         description: The user was not found.
- * 
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       required:
- *         - name
- *         - email
- *       properties:
- *         id:
- *           type: integer
- *           description: The user ID.
- *         name:
- *           type: string
- *           description: The user name.
- *         lastname:
- *           type: string
- *           description: The user lastname.
- *         email: 
- *           type: string
- *           description: The user email.
- *         password:
- *           type: string
- *           description: The user password.
- *         role:
- *           type: string
- *           description: The user role.
- *         averageRating:
- *           type: number
- *           description: The user average rating.
- *         created_at:
- *           type: string
- *           format: date-time
- *           description: The user creation date.
- *         updated_at:
- *           type: string
- *           format: date-time
- *           description: The user update date.
+ *         description: User not found
+ *       500:
+ *         description: Server error
  */
-
-router.get('/', index);
-router.post('/', store);
-router.get('/:id', show);
-router.put('/:id', update);
-router.delete('/:id', destroy);
+router.put('/:id/avatar', updateAvatar);
 
 export default router;
