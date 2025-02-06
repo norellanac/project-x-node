@@ -12,6 +12,10 @@ import { initializeProductReview } from './productreview';
 import { initializeOrderDetail } from './orderdetail';
 import { initializeOrder } from './order';
 import { initializeUserReview } from './userreview';
+import { initializeRole } from './role';
+import { initializePermission } from './permission';
+import { initializeUserRole } from './userrole';
+import { initializeRolePermission } from './rolepermission';
 
 // Initialize Sequelize
 const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, process.env.DB_PASS!, {
@@ -33,9 +37,13 @@ const ProductReview = initializeProductReview(sequelize);
 const OrderDetail = initializeOrderDetail(sequelize);
 const Order = initializeOrder(sequelize);
 const UserReview = initializeUserReview(sequelize);
+const Role = initializeRole(sequelize);
+const Permission = initializePermission(sequelize);
+const UserRole = initializeUserRole(sequelize);
+const RolePermission = initializeRolePermission(sequelize);
 
 // Define associations
-User.associate({ Token, UserReview, Order, ProductService });
+User.associate({ Token, UserReview, Order, ProductService, Role });
 Token.associate({ User });
 Category.associate({ ProductService });
 Country.associate({ State });
@@ -48,6 +56,10 @@ ProductReview.associate({ ProductService, User });
 Order.associate({ User, OrderDetail });
 OrderDetail.associate({ Order, ProductService });
 UserReview.associate({ User });
+Role.associate({ User, Permission });
+Permission.associate({ Role });
+UserRole.associate({ User, Role });
+RolePermission.associate({ Role, Permission });
 
 // Export models and sequelize instance
 export {
@@ -64,5 +76,9 @@ export {
   ProductReview,
   OrderDetail,
   Order,
-  UserReview
+  UserReview,
+  Role,
+  Permission,
+  UserRole,
+  RolePermission,
 };
