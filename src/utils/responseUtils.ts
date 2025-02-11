@@ -1,5 +1,7 @@
 import { Response } from 'express';
 import { STATUS_CODES, MESSAGES } from './constants';
+//TODO:
+//This should be migrated and use responseHandler.ts
 
 interface ApiResponse<T> {
   success: boolean;

@@ -7,7 +7,7 @@ import multer from 'multer';
 import path from "path";
 import { swaggerOptions } from './../swaggerConfig';
 import { connectAppToDatabase } from "./config/db/db-connection";
-import { authRouter, categoryRouter, userRouter, ProducServiceRouter  } from "./api/v1/routes";
+import { authRouter, categoryRouter, userRouter, ProducServiceRouter, locationRouter  } from "./api/v1/routes";
 import { authenticateToken } from "./api/v1/middlewares/authenticateToken";
 import { getCategories } from "./api/v1/controllers/categoryController";
 import { httpLoggerMiddleware } from "./api/v1/middlewares/requestLoggerMiddleware";
@@ -40,5 +40,6 @@ app.use((`${apiPathAndVersion}/products`), authenticateToken,  ProducServiceRout
 app.get((`${apiPathAndVersion}/public/categories`), getCategories);
 app.get((`${apiPathAndVersion}/public/products`), paginationMiddleware,  getAllProductServices);
 app.get((`${apiPathAndVersion}/public/products/:id`), getProductServiceById);
+app.use((`${apiPathAndVersion}/public`), locationRouter);
 
 export default app;

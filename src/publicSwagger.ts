@@ -85,6 +85,96 @@
 
 /**
  * @swagger
+ * /public/states:
+ *   get:
+ *     summary: Get all states
+ *     tags: [States]
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved all states
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/State'
+ *       500:
+ *         description: Failed to fetch states
+ */
+
+/**
+ * @swagger
+ * /public/states/{id}:
+ *   get:
+ *     summary: Get a state by ID
+ *     tags: [States]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The state ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved the state
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/State'
+ *       404:
+ *         description: State not found
+ *       500:
+ *         description: Failed to fetch state
+ */
+
+/**
+ * @swagger
+ * /public/cities:
+ *   get:
+ *     summary: Get all cities
+ *     tags: [Cities]
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved all cities
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/City'
+ *       500:
+ *         description: Failed to fetch cities
+ */
+
+/**
+ * @swagger
+ * /public/states/{id}/cities:
+ *   get:
+ *     summary: Get all cities by state ID
+ *     tags: [Cities]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The state ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved all cities for the state
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/City'
+ *       500:
+ *         description: Failed to fetch cities
+ */
+
+/**
+ * @swagger
  * components:
  *   schemas:
  *     Category:
@@ -248,6 +338,54 @@
  *         email:
  *           type: string
  *           example: "user@example.com"
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *     State:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         name:
+ *           type: string
+ *           example: "California"
+ *         urlImage:
+ *           type: string
+ *           example: "http://example.com/image.jpg"
+ *         countryId:
+ *           type: integer
+ *           example: 1
+ *         deletedAt:
+ *           type: string
+ *           format: date-time
+ *           nullable: true
+ *           example: "2023-01-01T00:00:00.000Z"
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *     City:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         name:
+ *           type: string
+ *           example: "Los Angeles"
+ *         stateId:
+ *           type: integer
+ *           example: 1
  *         createdAt:
  *           type: string
  *           format: date-time
