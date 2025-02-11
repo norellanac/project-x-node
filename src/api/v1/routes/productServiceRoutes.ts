@@ -1,14 +1,18 @@
 import { Router } from 'express';
+import multer from 'multer';
 import {
   getAllProductServices,
   getProductServiceById,
   createProductService,
   updateProductService,
   deleteProductService,
+  uploadProductServiceImage,
 } from '../controllers/productServiceController';
 import { paginationMiddleware } from '../middlewares/paginationMiddleware';
 
 const router = Router();
+const upload = multer({ dest: 'uploads/' }); // Configure multer for file uploads
+
 
 /**
  * @swagger
@@ -230,5 +234,8 @@ router.put('/:id', updateProductService);
  *         description: Server error
  */
 router.delete('/:id', deleteProductService);
+
+router.put('/:id/image', uploadProductServiceImage);
+
 
 export default router;

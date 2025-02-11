@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 import { logger } from '../../utils/logger';
-import { log } from 'console';
 
 dotenv.config();
 

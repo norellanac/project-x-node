@@ -4,13 +4,11 @@ import { sendApiResponse } from '../../../utils/responseHandler';
 // Get all states
 export const getAllStates = async (req: Request, res: Response) => {
   try {
-    const states = await State.findAll({
-      order: [['name', 'ASC']], // Optional: Order by state name
-    });
+    const states = await State.findAll();
 
     sendApiResponse(res, true, 200, states);
   } catch (error) {
-    sendApiResponse(res, false, 500, null, 'Failed to fetch states');
+    sendApiResponse(res, false, 500, null, (error as Error).message);
   }
 };
 
@@ -25,20 +23,18 @@ export const getStateById = async (req: Request, res: Response) => {
       sendApiResponse(res, false, 404, null);
     }
   } catch (error) {
-    sendApiResponse(res, false, 500, null, 'Failed to fetch state');
+    sendApiResponse(res, false, 500, null, (error as Error).message);
   }
 };
 
 // Get all cities
 export const getAllCities = async (req: Request, res: Response) => {
   try {
-    const cities = await City.findAll({
-      order: [['name', 'ASC']], // Optional: Order by city name
-    });
+    const cities = await City.findAll();
 
     sendApiResponse(res, true, 200, cities);
   } catch (error) {
-    sendApiResponse(res, false, 500, null, 'Failed to fetch cities');
+    sendApiResponse(res, false, 500, null, (error as Error).message);
   }
 };
 
@@ -46,12 +42,17 @@ export const getAllCities = async (req: Request, res: Response) => {
 export const getCitiesByStateId = async (req: Request, res: Response) => {
   try {
     const cities = await City.findAll({
-      where: { stateId: req.params.id },
-      order: [['name', 'ASC']], // Optional: Order by city name
+      where: { stateId: req.params.id }
     });
 
-    sendApiResponse(res, true, 200, cities);
+    // Check if the state has any cities
+    if (cities.length) {
+      sendApiResponse(res, true, 200, cities);
+    } else {
+      sendApiResponse(res, false, 404, null);
+    }
+
   } catch (error) {
-    sendApiResponse(res, false, 500, null, 'Failed to fetch cities');
+    sendApiResponse(res, false, 500, null, (error as Error).message);
   }
 };

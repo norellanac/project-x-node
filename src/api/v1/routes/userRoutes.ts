@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { index, show, store, update, destroy, updateAvatar } from '../controllers/userController'; // Adjust the import path as needed
+import { index, show, store, update, destroy, updateAvatar } from '../controllers/userController';
 import { authorizeRole } from '../middlewares/authorizeRole';
 
 const router = Router();

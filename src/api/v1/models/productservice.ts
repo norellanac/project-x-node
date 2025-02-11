@@ -1,9 +1,17 @@
-import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import { 
+  Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute, HasManySetAssociationsMixin, BelongsToManySetAssociationsMixin
+} from 'sequelize';
+import Category from './category';
+import ProductDetail from './productdetail';
+import ProductLocation from './productlocation';
+import ProductReview from './productreview';
+import User from './user';
 
 class ProductService extends Model<InferAttributes<ProductService>, InferCreationAttributes<ProductService>> {
   declare id: CreationOptional<number>;
   declare name: string;
   declare description: string;
+  declare urlImage?: string;
   declare type: number;
   declare price: number;
   declare specialPrice?: number;
@@ -13,6 +21,18 @@ class ProductService extends Model<InferAttributes<ProductService>, InferCreatio
   declare userId: number;
   declare averageRating: CreationOptional<number>;
   declare deletedAt?: Date;
+
+  // Associations
+  declare categories?: NonAttribute<Category[]>;
+  declare details?: NonAttribute<ProductDetail[]>;
+  declare locations?: NonAttribute<ProductLocation[]>;
+  declare reviews?: NonAttribute<ProductReview[]>;
+  declare user?: NonAttribute<User>;
+
+  // Association Methods
+  declare setCategories: BelongsToManySetAssociationsMixin<Category, number>;
+  declare setDetails: HasManySetAssociationsMixin<ProductDetail, number>;
+  declare setLocations: HasManySetAssociationsMixin<ProductLocation, number>;
 
   static associate(models: any) {
     ProductService.hasMany(models.ProductDetail, {
@@ -52,6 +72,10 @@ export function initializeProductService(sequelize: Sequelize): typeof ProductSe
     },
     description: {
       type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    urlImage: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
     type: {
