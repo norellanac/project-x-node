@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { Category, ProductService, ProductDetail, ProductLocation, ProductReview, OrderDetail, User } from '../models';
 import { sendApiResponse } from '../../../utils/responseHandler';
 import fileStorage from '../middlewares/fileStorage';
-import { connectAppToDatabase, sequelize } from '../../../config/db/db-connection';
+import { sequelize } from '../../../config/db/db-connection';
 
 export const getAllProductServices = async (req: Request, res: Response) => {
   try {

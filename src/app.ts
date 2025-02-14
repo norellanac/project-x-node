@@ -9,7 +9,7 @@ import { swaggerOptions } from './../swaggerConfig';
 import { connectAppToDatabase } from "./config/db/db-connection";
 import { authRouter, categoryRouter, userRouter, ProducServiceRouter, locationRouter  } from "./api/v1/routes";
 import { authenticateToken } from "./api/v1/middlewares/authenticateToken";
-import { getCategories } from "./api/v1/controllers/categoryController";
+import { getAllCategories } from "./api/v1/controllers/categoryController";
 import { httpLoggerMiddleware } from "./api/v1/middlewares/requestLoggerMiddleware";
 import { getAllProductServices, getProductServiceById } from "./api/v1/controllers/productServiceController";
 import { paginationMiddleware } from "./api/v1/middlewares/paginationMiddleware";
@@ -32,12 +32,12 @@ app.use((`${apiPathAndVersion}/`), httpLoggerMiddleware, authRouter);
 app.use((`${apiPathAndVersion}/users`), authenticateToken, userRouter);
 
 app.use((`${apiPathAndVersion}/categories`), authenticateToken, categoryRouter);
-app.get((`${apiPathAndVersion}/categoriesPublic`), getCategories);
+app.get((`${apiPathAndVersion}/categoriesPublic`), getAllCategories);
 
 app.use((`${apiPathAndVersion}/products`), authenticateToken,  ProducServiceRouter);
 
 // Public routes
-app.get((`${apiPathAndVersion}/public/categories`), getCategories);
+app.get((`${apiPathAndVersion}/public/categories`), getAllCategories);
 app.get((`${apiPathAndVersion}/public/products`), paginationMiddleware,  getAllProductServices);
 app.get((`${apiPathAndVersion}/public/products/:id`), getProductServiceById);
 app.use((`${apiPathAndVersion}/public`), locationRouter);
