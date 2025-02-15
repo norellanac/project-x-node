@@ -16,6 +16,9 @@ import { initializeRole } from './role';
 import { initializePermission } from './permission';
 import { initializeUserRole } from './userrole';
 import { initializeRolePermission } from './rolepermission';
+import { initializeConversation } from './conversation';
+import { initializeMessage } from './message';
+import { initializeReaction } from './reaction';
 
 // Initialize Sequelize
 const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, process.env.DB_PASS!, {
@@ -41,9 +44,12 @@ const Role = initializeRole(sequelize);
 const Permission = initializePermission(sequelize);
 const UserRole = initializeUserRole(sequelize);
 const RolePermission = initializeRolePermission(sequelize);
+const Conversation = initializeConversation(sequelize);
+const Message = initializeMessage(sequelize);
+const Reaction = initializeReaction(sequelize);
 
 // Define associations
-User.associate({ Token, UserReview, Order, ProductService, Role });
+User.associate({ Token, UserReview, Order, ProductService, Role, Conversation, Message, Reaction });
 Token.associate({ User });
 Category.associate({ ProductService });
 Country.associate({ State });
@@ -60,6 +66,9 @@ Role.associate({ User, Permission });
 Permission.associate({ Role });
 UserRole.associate({ User, Role });
 RolePermission.associate({ Role, Permission });
+Conversation.associate({ User, Message });
+Message.associate({ Conversation, User, Reaction });
+Reaction.associate({ User, Message });
 
 // Export models and sequelize instance
 export {
@@ -81,4 +90,7 @@ export {
   Permission,
   UserRole,
   RolePermission,
+  Conversation,
+  Message,
+  Reaction,
 };

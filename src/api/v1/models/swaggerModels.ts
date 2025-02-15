@@ -425,4 +425,85 @@
  *           type: string
  *           format: date-time
  *           example: "2023-01-01T00:00:00.000Z"
+ *     Conversation:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         user1Id:
+ *           type: integer
+ *           example: 1
+ *         user2Id:
+ *           type: integer
+ *           example: 2
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *         deletedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *     Message:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         conversationId:
+ *           type: integer
+ *           example: 1
+ *         senderId:
+ *           type: integer
+ *           example: 1
+ *         content:
+ *           type: string
+ *           example: "Hello, how are you?"
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *         deletedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *     Reaction:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         userId:
+ *           type: integer
+ *           example: 1
+ *         reactableType:
+ *           type: string
+ *           example: "message"
+ *         reactableId:
+ *           type: integer
+ *           example: 1
+ *         type:
+ *           type: string
+ *           example: "like"
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
+ *         deletedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2023-01-01T00:00:00.000Z"
  */

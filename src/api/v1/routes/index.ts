@@ -4,5 +4,16 @@ import categoryRouter from './categoryRoutes';
 import ProducServiceRouter from './productServiceRoutes';
 import locationRouter from './locationRoutes';
 import orderRouter from './orderRoutes';
+import chatRouter from './chatRoutes';
+import reactionRouter from './reactionRoutes';
 
-export { authRouter, userRouter, categoryRouter, ProducServiceRouter, orderRouter, locationRouter };
+export {
+  authRouter,
+  userRouter,
+  categoryRouter,
+  ProducServiceRouter,
+  orderRouter,
+  locationRouter,
+  chatRouter,
+  reactionRouter,
+};
