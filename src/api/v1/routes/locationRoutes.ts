@@ -6,23 +6,16 @@ const router = Router();
 /**
  * @swagger
  * tags:
- *   name: States
- *   description: API endpoints for managing states
+ *   name: Locations
+ *   description: API endpoints for managing locations
  */
 
 /**
  * @swagger
- * tags:
- *   name: Cities
- *   description: API endpoints for managing cities
- */
-
-/**
- * @swagger
- * /public/states:
+ * /states:
  *   get:
  *     summary: Get all states
- *     tags: [States]
+ *     tags: [Locations]
  *     responses:
  *       200:
  *         description: Successfully retrieved all states
@@ -39,10 +32,10 @@ router.get('/states', getAllStates);
 
 /**
  * @swagger
- * /public/states/{id}:
+ * /states/{id}:
  *   get:
  *     summary: Get a state by ID
- *     tags: [States]
+ *     tags: [Locations]
  *     parameters:
  *       - in: path
  *         name: id
@@ -66,10 +59,10 @@ router.get('/states/:id', getStateById);
 
 /**
  * @swagger
- * /public/cities:
+ * /cities:
  *   get:
  *     summary: Get all cities
- *     tags: [Cities]
+ *     tags: [Locations]
  *     responses:
  *       200:
  *         description: Successfully retrieved all cities
@@ -86,10 +79,10 @@ router.get('/cities', getAllCities);
 
 /**
  * @swagger
- * /public/states/{id}/cities:
+ * /states/{id}/cities:
  *   get:
  *     summary: Get all cities by state ID
- *     tags: [Cities]
+ *     tags: [Locations]
  *     parameters:
  *       - in: path
  *         name: id
@@ -106,6 +99,8 @@ router.get('/cities', getAllCities);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/City'
+ *       404:
+ *         description: No cities found for the state
  *       500:
  *         description: Failed to fetch cities
  */

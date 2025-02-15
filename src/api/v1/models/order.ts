@@ -6,6 +6,8 @@ class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>
   declare totalAmount: number;
   declare status: number;
   declare comment?: string;
+  declare startDate?: Date;
+  declare endDate?: Date;
   declare deletedAt?: Date;
 
   static associate(models: any) {
@@ -41,6 +43,14 @@ export function initializeOrder(sequelize: Sequelize): typeof Order {
     },
     comment: {
       type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    startDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    endDate: {
+      type: DataTypes.DATE,
       allowNull: true,
     },
     deletedAt: {

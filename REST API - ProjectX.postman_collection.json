@@ -8,6 +8,284 @@
 	},
 	"item": [
 		{
+			"name": "PUBLIC_URLS",
+			"item": [
+				{
+					"name": "SERVICES - Pag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/public/categories?limit=2&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"public",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CATEGORIES",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/public/categories?limit=2&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"public",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "STATES",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/public/states/88/cities"
+					},
+					"response": []
+				},
+				{
+					"name": "STATE ID - Cities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/public/states/3/cities"
+					},
+					"response": []
+				},
+				{
+					"name": "CITIES",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/public/cities"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "AUTH",
 			"item": [
 				{
@@ -143,6 +421,592 @@
 							}
 						},
 						"url": "{{base_url}}/reset-password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CATEGORIES",
+			"item": [
+				{
+					"name": "CATEGORIES All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"var template = `",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> ",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"myChart\");",
+									"",
+									"    var myChart = new Chart(ctx, {",
+									"        type: \"pie\",",
+									"        data: {",
+									"            labels: [\"Admin\", \"User\"],",
+									"            datasets: [{",
+									"                data: [{{response.adminCount}}, {{response.userCount}}],",
+									"                ",
+									"                // Change these colours to customize the chart",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\"],",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            title: {",
+									"                display: true,",
+									"                text: 'User Role Distribution'",
+									"            }",
+									"        }",
+									"",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        myChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    ",
+									"    var adminCount = res.filter(user => user.role === \"admin\").length;",
+									"    var userCount = res.filter(user => user.role === \"user\").length;",
+									"",
+									"    var visualizerData = {",
+									"        adminCount: adminCount,",
+									"        userCount: userCount",
+									"    };",
+									"",
+									"    return {response: visualizerData};",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/categories/"
+					},
+					"response": []
+				},
+				{
+					"name": "CATEGORIES ById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"var template = `",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> ",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"myChart\");",
+									"",
+									"    var myChart = new Chart(ctx, {",
+									"        type: \"pie\",",
+									"        data: {",
+									"            labels: [\"Admin\", \"User\"],",
+									"            datasets: [{",
+									"                data: [{{response.adminCount}}, {{response.userCount}}],",
+									"                ",
+									"                // Change these colours to customize the chart",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\"],",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            title: {",
+									"                display: true,",
+									"                text: 'User Role Distribution'",
+									"            }",
+									"        }",
+									"",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        myChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    ",
+									"    var adminCount = res.filter(user => user.role === \"admin\").length;",
+									"    var userCount = res.filter(user => user.role === \"user\").length;",
+									"",
+									"    var visualizerData = {",
+									"        adminCount: adminCount,",
+									"        userCount: userCount",
+									"    };",
+									"",
+									"    return {response: visualizerData};",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/categories/11"
+					},
+					"response": []
+				},
+				{
+					"name": "CATEGORIES Add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"var template = `",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> ",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"myChart\");",
+									"",
+									"    var myChart = new Chart(ctx, {",
+									"        type: \"pie\",",
+									"        data: {",
+									"            labels: [\"Admin\", \"User\"],",
+									"            datasets: [{",
+									"                data: [{{response.adminCount}}, {{response.userCount}}],",
+									"                ",
+									"                // Change these colours to customize the chart",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\"],",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            title: {",
+									"                display: true,",
+									"                text: 'User Role Distribution'",
+									"            }",
+									"        }",
+									"",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        myChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    ",
+									"    var adminCount = res.filter(user => user.role === \"admin\").length;",
+									"    var userCount = res.filter(user => user.role === \"user\").length;",
+									"",
+									"    var visualizerData = {",
+									"        adminCount: adminCount,",
+									"        userCount: userCount",
+									"    };",
+									"",
+									"    return {response: visualizerData};",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"name\": \"Otra categoria Más\",\n        \"description\": \"Nueva categoria\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/categories/"
+					},
+					"response": []
+				},
+				{
+					"name": "CATEGORIES Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"var template = `",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> ",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"myChart\");",
+									"",
+									"    var myChart = new Chart(ctx, {",
+									"        type: \"pie\",",
+									"        data: {",
+									"            labels: [\"Admin\", \"User\"],",
+									"            datasets: [{",
+									"                data: [{{response.adminCount}}, {{response.userCount}}],",
+									"                ",
+									"                // Change these colours to customize the chart",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\"],",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            title: {",
+									"                display: true,",
+									"                text: 'User Role Distribution'",
+									"            }",
+									"        }",
+									"",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        myChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    ",
+									"    var adminCount = res.filter(user => user.role === \"admin\").length;",
+									"    var userCount = res.filter(user => user.role === \"user\").length;",
+									"",
+									"    var visualizerData = {",
+									"        adminCount: adminCount,",
+									"        userCount: userCount",
+									"    };",
+									"",
+									"    return {response: visualizerData};",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"name\": \"Otra categoria - UPDATE-\",\n        \"description\": \"Otros - UPDATE -\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/categories/12"
+					},
+					"response": []
+				},
+				{
+					"name": "CATEGORIES image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var template = `",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> ",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"myChart\");",
+									"",
+									"    var myChart = new Chart(ctx, {",
+									"        type: \"pie\",",
+									"        data: {",
+									"            labels: [\"Admin\", \"User\"],",
+									"            datasets: [{",
+									"                data: [{{response.adminCount}}, {{response.userCount}}],",
+									"                ",
+									"                // Change these colours to customize the chart",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\"],",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            title: {",
+									"                display: true,",
+									"                text: 'User Role Distribution'",
+									"            }",
+									"        }",
+									"",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        myChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    ",
+									"    var adminCount = res.filter(user => user.role === \"admin\").length;",
+									"    var userCount = res.filter(user => user.role === \"user\").length;",
+									"",
+									"    var visualizerData = {",
+									"        adminCount: adminCount,",
+									"        userCount: userCount",
+									"    };",
+									"",
+									"    return {response: visualizerData};",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/neryalexisorellana/Downloads/norellanac.JPG"
+								}
+							]
+						},
+						"url": "{{base_url}}/categories/1/avatar"
+					},
+					"response": []
+				},
+				{
+					"name": "CATEGORIES Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"var template = `",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> ",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"myChart\");",
+									"",
+									"    var myChart = new Chart(ctx, {",
+									"        type: \"pie\",",
+									"        data: {",
+									"            labels: [\"Admin\", \"User\"],",
+									"            datasets: [{",
+									"                data: [{{response.adminCount}}, {{response.userCount}}],",
+									"                ",
+									"                // Change these colours to customize the chart",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\"],",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            title: {",
+									"                display: true,",
+									"                text: 'User Role Distribution'",
+									"            }",
+									"        }",
+									"",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        myChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    ",
+									"    var adminCount = res.filter(user => user.role === \"admin\").length;",
+									"    var userCount = res.filter(user => user.role === \"user\").length;",
+									"",
+									"    var visualizerData = {",
+									"        adminCount: adminCount,",
+									"        userCount: userCount",
+									"    };",
+									"",
+									"    return {response: visualizerData};",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/categories/21"
 					},
 					"response": []
 				}
@@ -1332,288 +2196,10 @@
 			]
 		},
 		{
-			"name": "PUBLIC_URLS",
+			"name": "ORDERS",
 			"item": [
 				{
-					"name": "SERVICES - Pag",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "{{my_session_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/public/categories?limit=2&offset=0",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"public",
-								"categories"
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "2"
-								},
-								{
-									"key": "offset",
-									"value": "0"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CATEGORIES",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "{{my_session_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/public/categories?limit=2&offset=0",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"public",
-								"categories"
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "2"
-								},
-								{
-									"key": "offset",
-									"value": "0"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "STATES",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "{{my_session_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{base_url}}/public/states/88/cities"
-					},
-					"response": []
-				},
-				{
-					"name": "STATE ID - Cities",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "{{my_session_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{base_url}}/public/states/3/cities"
-					},
-					"response": []
-				},
-				{
-					"name": "CITIES",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "{{my_session_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{base_url}}/public/cities"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "CATEGORIES",
-			"item": [
-				{
-					"name": "CATEGORIES All",
+					"name": "ORDERS All",
 					"event": [
 						{
 							"listen": "test",
@@ -1706,12 +2292,12 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/categories/"
+						"url": "{{base_url}}/orders/"
 					},
 					"response": []
 				},
 				{
-					"name": "CATEGORIES ById",
+					"name": "ORDERS ById",
 					"event": [
 						{
 							"listen": "test",
@@ -1804,12 +2390,12 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/categories/11"
+						"url": "{{base_url}}/orders/1"
 					},
 					"response": []
 				},
 				{
-					"name": "CATEGORIES Add",
+					"name": "ORDERS Add",
 					"event": [
 						{
 							"listen": "test",
@@ -1892,19 +2478,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n        \"name\": \"Otra categoria Más\",\n        \"description\": \"Nueva categoria\"\n    }",
+							"raw": "{\n  \"userId\": 1,\n  \"totalAmount\": 150.00,\n  \"status\": 1,\n  \"comment\": \"This is a test order\",\n  \"startDate\": \"2025-02-15T00:00:00.000Z\",\n  \"endDate\": \"2025-02-20T00:00:00.000Z\",\n  \"details\": [\n    {\n      \"productServiceId\": 1,\n      \"quantity\": 2,\n      \"price\": 50.00,\n      \"discount\": 5.00,\n      \"charge\": 0.00,\n      \"comment\": \"First item\"\n    },\n    {\n      \"productServiceId\": 2,\n      \"quantity\": 1,\n      \"price\": 100.00,\n      \"discount\": 10.00,\n      \"charge\": 0.00,\n      \"comment\": \"Second item\"\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{base_url}}/categories/"
+						"url": "{{base_url}}/orders/"
 					},
 					"response": []
 				},
 				{
-					"name": "CATEGORIES Update",
+					"name": "ORDERS Update",
 					"event": [
 						{
 							"listen": "test",
@@ -1987,119 +2573,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n        \"name\": \"Otra categoria - UPDATE-\",\n        \"description\": \"Otros - UPDATE -\"\n    }",
+							"raw": "{\n  \"userId\": 1,\n  \"totalAmount\": 200.00,\n  \"status\": 1,\n  \"comment\": \"This is a test order - UPDATE\",\n  \"startDate\": \"2025-02-16T00:00:00.000Z\",\n  \"endDate\": \"2025-02-21T00:00:00.000Z\",\n  \"details\": [\n    {\n      \"productServiceId\": 1,\n      \"quantity\": 2,\n      \"price\": 50.00,\n      \"discount\": 5.00,\n      \"charge\": 0.00,\n      \"comment\": \"First item\"\n    },\n    {\n      \"productServiceId\": 2,\n      \"quantity\": 1,\n      \"price\": 100.00,\n      \"discount\": 10.00,\n      \"charge\": 0.00,\n      \"comment\": \"Second item\"\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{base_url}}/categories/12"
+						"url": "{{base_url}}/orders/1"
 					},
 					"response": []
 				},
 				{
-					"name": "CATEGORIES image",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"var template = `",
-									"<canvas id=\"myChart\" height=\"75\"></canvas>",
-									"",
-									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> ",
-									"",
-									"<script>",
-									"    var ctx = document.getElementById(\"myChart\");",
-									"",
-									"    var myChart = new Chart(ctx, {",
-									"        type: \"pie\",",
-									"        data: {",
-									"            labels: [\"Admin\", \"User\"],",
-									"            datasets: [{",
-									"                data: [{{response.adminCount}}, {{response.userCount}}],",
-									"                ",
-									"                // Change these colours to customize the chart",
-									"                backgroundColor: [\"#003f5c\", \"#58508d\"],",
-									"            }]",
-									"        },",
-									"        options: {",
-									"            title: {",
-									"                display: true,",
-									"                text: 'User Role Distribution'",
-									"            }",
-									"        }",
-									"",
-									"    });",
-									"",
-									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
-									"    // code of the Visualizer template",
-									"    pm.getData(function (err, value) {",
-									"        myChart.update();",
-									"    });",
-									"",
-									"</script>`;",
-									"",
-									"function constructVisualizerPayload() {",
-									"    var res = pm.response.json();",
-									"    ",
-									"    var adminCount = res.filter(user => user.role === \"admin\").length;",
-									"    var userCount = res.filter(user => user.role === \"user\").length;",
-									"",
-									"    var visualizerData = {",
-									"        adminCount: adminCount,",
-									"        userCount: userCount",
-									"    };",
-									"",
-									"    return {response: visualizerData};",
-									"}",
-									"",
-									"pm.visualizer.set(template, constructVisualizerPayload());"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "authorization",
-								"value": "{{my_session_token}}",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "multipart/form-data",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "file",
-									"type": "file",
-									"src": "/Users/neryalexisorellana/Downloads/norellanac.JPG"
-								}
-							]
-						},
-						"url": "{{base_url}}/categories/1/avatar"
-					},
-					"response": []
-				},
-				{
-					"name": "CATEGORIES Delete",
+					"name": "ORDERS Delete",
 					"event": [
 						{
 							"listen": "test",
@@ -2189,7 +2675,7 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/categories/21"
+						"url": "{{base_url}}/orders/1"
 					},
 					"response": []
 				}
