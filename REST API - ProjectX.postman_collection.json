@@ -876,11 +876,11 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/neryalexisorellana/Downloads/Group 12.png"
+									"src": "/Users/neryalexisorellana/Downloads/IMG_1438 Copy Copy.jpg"
 								}
 							]
 						},
-						"url": "{{base_url}}/users/1/avatar"
+						"url": "{{base_url}}/products/1/image"
 					},
 					"response": []
 				},
@@ -977,7 +977,7 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/products/1"
+						"url": "{{base_url}}/products/6"
 					},
 					"response": []
 				},
@@ -1064,7 +1064,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Example Product Service\",\n  \"description\": \"This is an example product service.\",\n  \"urlImage\": \"http://example.com/image.jpg\",\n  \"type\": 1,\n  \"price\": 100.0,\n  \"specialPrice\": 80.0,\n  \"location\": \"Example Location\",\n  \"latitude\": 40.7128,\n  \"longitude\": -74.0060,\n  \"userId\": 1,\n  \"categories\": [1, 2]\n}",
+							"raw": "{\n  \"name\": \"Example Product Service\",\n  \"description\": \"This is an example product service.\",\n  \"urlImage\": \"http://example.com/image.jpg\",\n  \"type\": 1,\n  \"price\": 100.0,\n  \"specialPrice\": 80.0,\n  \"location\": \"State, city\",\n  \"latitude\": 40.7128,\n  \"longitude\": -74.0060,\n  \"userId\": 1,\n  \"categories\": [1, 2],\n  \"details\": [\n    {\n      \"label\": \"Bedrooms\",\n      \"value\": \"3\",\n      \"description\": \"Three spacious bedrooms\"\n    },\n    {\n      \"label\": \"Bathrooms\",\n      \"value\": \"2\",\n      \"description\": \"Two modern bathrooms\"\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1072,6 +1072,194 @@
 							}
 						},
 						"url": "{{base_url}}/products/"
+					},
+					"response": []
+				},
+				{
+					"name": "SERVICES Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var template = `",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> ",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"myChart\");",
+									"",
+									"    var myChart = new Chart(ctx, {",
+									"        type: \"pie\",",
+									"        data: {",
+									"            labels: [\"Admin\", \"User\"],",
+									"            datasets: [{",
+									"                data: [{{response.adminCount}}, {{response.userCount}}],",
+									"                ",
+									"                // Change these colours to customize the chart",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\"],",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            title: {",
+									"                display: true,",
+									"                text: 'User Role Distribution'",
+									"            }",
+									"        }",
+									"",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        myChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    ",
+									"    var adminCount = res.filter(user => user.role === \"admin\").length;",
+									"    var userCount = res.filter(user => user.role === \"user\").length;",
+									"",
+									"    var visualizerData = {",
+									"        adminCount: adminCount,",
+									"        userCount: userCount",
+									"    };",
+									"",
+									"    return {response: visualizerData};",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Luxury Apartment\",\n  \"description\": \"An updated description for the luxurious apartment in the city center\",\n  \"urlImage\": \"http://example.com/new-image.jpg\",\n  \"type\": 1,\n  \"price\": 220.00,\n  \"specialPrice\": 200.00,\n  \"location\": \"123 Main St, City, Country\",\n  \"latitude\": 40.7128,\n  \"longitude\": -74.0060,\n  \"userId\": 1,\n  \"categories\": [1, 3],\n  \"details\": [\n    {\n      \"label\": \"Bedrooms\",\n      \"value\": \"4\",\n      \"description\": \"Four spacious bedrooms\"\n    },\n    {\n      \"label\": \"Bathrooms\",\n      \"value\": \"3\",\n      \"description\": \"Three modern bathrooms\"\n    }\n  ],\n  \"locations\": [\n    {\n      \"name\": \"Main Entrance\",\n      \"description\": \"The main entrance of the apartment\",\n      \"type\": 1,\n      \"cityId\": 1,\n      \"latitude\": 40.7128,\n      \"longitude\": -74.0060\n    },\n    {\n      \"name\": \"Parking Lot\",\n      \"description\": \"Private parking lot\",\n      \"type\": 2,\n      \"cityId\": 1,\n      \"latitude\": 40.7130,\n      \"longitude\": -74.0070\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/products/6"
+					},
+					"response": []
+				},
+				{
+					"name": "SERVICES Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var template = `",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> ",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"myChart\");",
+									"",
+									"    var myChart = new Chart(ctx, {",
+									"        type: \"pie\",",
+									"        data: {",
+									"            labels: [\"Admin\", \"User\"],",
+									"            datasets: [{",
+									"                data: [{{response.adminCount}}, {{response.userCount}}],",
+									"                ",
+									"                // Change these colours to customize the chart",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\"],",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            title: {",
+									"                display: true,",
+									"                text: 'User Role Distribution'",
+									"            }",
+									"        }",
+									"",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        myChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    ",
+									"    var adminCount = res.filter(user => user.role === \"admin\").length;",
+									"    var userCount = res.filter(user => user.role === \"user\").length;",
+									"",
+									"    var visualizerData = {",
+									"        adminCount: adminCount,",
+									"        userCount: userCount",
+									"    };",
+									"",
+									"    return {response: visualizerData};",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/products/6"
 					},
 					"response": []
 				},

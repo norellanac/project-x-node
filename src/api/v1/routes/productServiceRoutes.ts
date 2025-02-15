@@ -13,7 +13,6 @@ import { paginationMiddleware } from '../middlewares/paginationMiddleware';
 const router = Router();
 const upload = multer({ dest: 'uploads/' }); // Configure multer for file uploads
 
-
 /**
  * @swagger
  * tags:
@@ -235,7 +234,41 @@ router.put('/:id', updateProductService);
  */
 router.delete('/:id', deleteProductService);
 
-router.put('/:id/image', uploadProductServiceImage);
-
+/**
+ * @swagger
+ * /services/{id}/image:
+ *   put:
+ *     summary: Upload an image for a ProductService
+ *     tags: [ProductServices]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ProductService ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Image uploaded successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ProductService'
+ *       404:
+ *         description: ProductService not found
+ *       500:
+ *         description: Server error
+ */
+router.put('/:id/image', upload.single('image'), uploadProductServiceImage);
 
 export default router;

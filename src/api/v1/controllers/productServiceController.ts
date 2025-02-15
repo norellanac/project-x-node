@@ -61,42 +61,6 @@ export const getProductServiceById = async (req: Request, res: Response) => {
   }
 };
 
-// Create a new ProductService
-// export const createProductService = async (req: Request, res: Response) => {
-//   const transaction = await ProductService.sequelize!.transaction();
-//   try {
-//     const { categories, details, locations, ...productServiceData } = req.body;
-
-//     // Create the ProductService instance
-//     const productService = await ProductService.create(productServiceData, { transaction });
-
-//     // Add categories
-//     if (categories && categories.length > 0) {
-//       const categoryInstances = await Category.findAll({ where: { id: categories } });
-//       await productService.setCategories('categories', categoryInstances, { transaction });
-//     }
-
-//     // Add details
-//     if (details && details.length > 0) {
-//       const detailInstances = await ProductDetail.bulkCreate(details, { transaction });
-//       await productService.setDetails('details', detailInstances, { transaction });
-//     }
-
-//     // Add locations
-//     if (locations && locations.length > 0) {
-//       const locationInstances = await ProductLocation.bulkCreate(locations, { transaction });
-//       await productService.setLocations('locations', locationInstances, { transaction });
-//     }
-
-//     // Commit the transaction
-//     await transaction.commit();
-//     sendApiResponse(res, true, 201, productService);
-//   } catch (error) {
-//     // Rollback the transaction in case of error
-//     await transaction.rollback();
-//     sendApiResponse(res, false, 500, null, 'Failed to create product service');
-//   }
-// };
 
 
 export const createProductService = async (req: Request, res: Response) => {
@@ -172,28 +136,106 @@ export const createProductService = async (req: Request, res: Response) => {
   }
 };
 
+
 // Update an existing ProductService
 export const updateProductService = async (req: Request, res: Response) => {
+  const transaction = await sequelize.transaction();
+
   try {
-    const [updated] = await ProductService.update(req.body, {
-      where: { id: req.params.id }
-    });
-    if (updated) {
-      const updatedProductService = await ProductService.findByPk(req.params.id, {
-        include: [
-          { model: Category, as: 'categories' },
-          { model: ProductDetail, as: 'details' },
-          { model: ProductLocation, as: 'locations' },
-          { model: ProductReview, as: 'reviews' },
-          { model: OrderDetail, as: 'orderDetails' }
-        ]
-      });
-      sendApiResponse(res, true, 200, updatedProductService);
-    } else {
-      sendApiResponse(res, false, 404, null, 'ProductService not found');
+    const {
+      name,
+      description,
+      urlImage,
+      type,
+      price,
+      specialPrice,
+      location,
+      latitude,
+      longitude,
+      userId,
+      categories,
+      details,
+      locations,
+    } = req.body;
+
+    // Update the product service
+    const [updated] = await ProductService.update(
+      {
+        name,
+        description,
+        urlImage,
+        type,
+        price,
+        specialPrice,
+        location,
+        latitude,
+        longitude,
+        userId,
+      },
+      {
+        where: { id: req.params.id },
+        transaction,
+      }
+    );
+
+    if (!updated) {
+      await transaction.rollback();
+      return res.status(404).json({ success: false, error: 'ProductService not found' });
     }
+
+    const productService = await ProductService.findByPk(req.params.id, { transaction });
+
+    // Update categories (if any)
+    if (categories && categories.length > 0) {
+      const categoryInstances = await Category.findAll({
+        where: { id: categories },
+        transaction,
+      });
+      await productService!.setCategories(categoryInstances, { transaction });
+    }
+
+    // Update details (if any)
+    if (details && details.length > 0) {
+      await ProductDetail.destroy({
+        where: { productServiceId: productService!.id },
+        transaction,
+      });
+      const detailInstances = details.map((detail: any) => ({
+        ...detail,
+        productServiceId: productService!.id,
+      }));
+      await ProductDetail.bulkCreate(detailInstances, { transaction });
+    }
+
+    // Update locations (if any)
+    if (locations && locations.length > 0) {
+      await ProductLocation.destroy({
+        where: { productServiceId: productService!.id },
+        transaction,
+      });
+      const locationInstances = locations.map((loc: any) => ({
+        ...loc,
+        productServiceId: productService!.id,
+      }));
+      await ProductLocation.bulkCreate(locationInstances, { transaction });
+    }
+
+    await transaction.commit();
+
+    const updatedProductService = await ProductService.findByPk(req.params.id, {
+      include: [
+        { model: Category, as: 'categories' },
+        { model: ProductDetail, as: 'details' },
+        { model: ProductLocation, as: 'locations' },
+        { model: ProductReview, as: 'reviews' },
+      ],
+    });
+
+    return res.status(200).json({ success: true, productService: updatedProductService });
   } catch (error) {
-    sendApiResponse(res, false, 500, null, 'Failed to update product service');
+    await transaction.rollback();
+    console.error('Error updating product service:', error);
+    return res.status(500).json({ success: false, error: 'Internal Server Error' });
   }
 };
 
@@ -204,7 +246,7 @@ export const deleteProductService = async (req: Request, res: Response) => {
       where: { id: req.params.id }
     });
     if (deleted) {
-      sendApiResponse(res, true, 204);
+      sendApiResponse(res, true, 200, null, 'ProductService deleted successfully');
     } else {
       sendApiResponse(res, false, 404, null, 'ProductService not found');
     }

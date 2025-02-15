@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Category } from '../models';
 import { sendApiResponse } from '../../../utils/responseHandler';
 import fileStorage from '../middlewares/fileStorage';
+import { logger } from '../../../utils/logger';
 
 // Get all categories
 export const getAllCategories = async (req: Request, res: Response) => {
@@ -68,21 +69,16 @@ export const deleteCategory = async (req: Request, res: Response) => {
     const deleted = await Category.destroy({
       where: { id: req.params.id }
     });
-    console.log('****DEBUG:', deleted, typeof deleted, deleted === 1);
     if (deleted === 1) {
-      sendApiResponse(res, true, 204);
-
-    console.log('****DELETED:', deleted, res);
+      sendApiResponse(res, true, 200, null, 'Category deleted successfully');
     } else {
       sendApiResponse(res, false, 404, null, 'Category not found');
-      console.error('****Category not found:', deleted);
     }
   } catch (error) {
     sendApiResponse(res, false, 500, null, (error as Error).message);
   }
 };
 
-// Upload an image for a category
 export const uploadCategoryImage = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -99,6 +95,7 @@ export const uploadCategoryImage = async (req: Request, res: Response) => {
         fileStorage.deleteFile(`.${category.urlImage}`);
       } catch (error) {
         console.error('Failed to delete old image:', error);
+        logger('error', error, 'uploadCategoryImage', req.headers['user-agent'], id);
       }
     }
 
@@ -116,7 +113,7 @@ export const uploadCategoryImage = async (req: Request, res: Response) => {
 
     return sendApiResponse(res, true, 200, category, 'Image uploaded successfully');
   } catch (error) {
-    console.error('**Error in uploadCategoryImage**:', error);
+    logger('error', error, 'uploadCategoryImage', req.headers['user-agent'], req.params.id);
     return sendApiResponse(res, false, 500, null, 'An error occurred while uploading the image');
   }
 };
