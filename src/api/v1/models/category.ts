@@ -5,7 +5,7 @@ class Category extends Model<InferAttributes<Category>, InferCreationAttributes<
   declare name: string;
   declare description: string;
   declare icon: string;
-  declare image: string;
+  declare urlImage: string;
 
   static associate(models: any) {
     Category.belongsToMany(models.ProductService, {
@@ -35,7 +35,7 @@ export function initializeCategory(sequelize: Sequelize): typeof Category {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    image: {
+    urlImage: {
       type: DataTypes.STRING,
       allowNull: true,
     },

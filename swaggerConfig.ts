@@ -15,7 +15,7 @@ const swaggerOptions = {
     //   },
     // ],
   },
-  apis: ['src/api/v1/routes/**/*.ts', './src/publicSwagger.ts'], // Make sure this path matches your project structure
+  apis: ['src/api/v1/routes/**/*.ts', './src/publicSwagger.ts', './src/api/v1/models/swaggerModels.ts'], // Make sure this path matches your project structure
 };
 
 export { swaggerOptions };

@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { index, show, store, update, destroy, updateAvatar } from '../controllers/userController'; // Adjust the import path as needed
+import { index, show, store, update, destroy, updateAvatar } from '../controllers/userController';
+import { authorizeRole } from '../middlewares/authorizeRole';
 
 const router = Router();
 
@@ -51,7 +52,7 @@ router.get('/', index);
  *       404:
  *         description: User not found
  */
-router.get('/:id', show);
+router.get('/:id', authorizeRole(['Admin']), show);
 
 /**
  * @swagger

@@ -2,8 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import Token from '../models/token';
 import { logger, LOGGER_EVENTS } from '../../../utils/logger';
+import { AuthUserIdRequest } from './types';
 
-export const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
+export const authenticateToken = async (req: AuthUserIdRequest, res: Response, next: NextFunction) => {
   const start = Date.now();
   const requestBody = JSON.parse(JSON.stringify(req.body));
   let responseBody = {};
@@ -43,6 +44,7 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
       logger(LOGGER_EVENTS.INFO, { message: 'Token not found in database' }, 'authenticateToken', req.headers['user-agent']);
       return res.sendStatus(401); // Unauthorized
     }
+    req.userId = (decoded as DecodedToken).userId;
     logger(LOGGER_EVENTS.INFO, { message: 'Token authenticated successfully', decoded, storedToken: storedToken.toJSON() }, 'authenticateToken', req.headers['user-agent'], requestByUser.email, requestByUser.id.toString());
     next();
   } catch (err) {

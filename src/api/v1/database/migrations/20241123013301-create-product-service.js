@@ -16,6 +16,10 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true
       },
+      urlImage: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       type: {
         type: Sequelize.INTEGER,
         allowNull: false

@@ -1,13 +1,66 @@
 import { Router } from 'express';
 import {
   createCategory,
-  getCategories,
+  getAllCategories,
   getCategoryById,
   updateCategory,
   deleteCategory,
+  uploadCategoryImage,
 } from '../controllers/categoryController';
 
 const router = Router();
+
+/**
+ * @swagger
+ * tags:
+ *   name: Categories
+ *   description: Category management
+ */
+
+/**
+ * @swagger
+ * /categories:
+ *   get:
+ *     summary: Get all categories
+ *     tags: [Categories]
+ *     responses:
+ *       200:
+ *         description: List of all categories
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Category'
+ *       500:
+ *         description: Failed to fetch categories
+ */
+
+/**
+ * @swagger
+ * /categories/{id}:
+ *   get:
+ *     summary: Get a category by ID
+ *     tags: [Categories]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The category ID
+ *     responses:
+ *       200:
+ *         description: The category data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Category'
+ *       404:
+ *         description: Category not found
+ *       500:
+ *         description: Failed to fetch category
+ */
 
 /**
  * @swagger
@@ -16,192 +69,151 @@ const router = Router();
  *     summary: Create a new category
  *     tags: [Categories]
  *     requestBody:
- *       description: Category data
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - name
- *               - description
- *               - icon
- *               - image
- *             properties:
- *               name:
- *                 type: string
- *                 description: Name of the category
- *               description:
- *                 type: string
- *                 description: Description of the category
- *               icon:
- *                 type: string
- *                 description: URL of the category icon
- *               image:
- *                 type: string
- *                 description: URL of the category image
+ *             $ref: '#/components/schemas/Category'
  *     responses:
  *       201:
- *         description: Category created successfully
+ *         description: The created category
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                 data:
- *                   $ref: '#/components/schemas/Category'
+ *               $ref: '#/components/schemas/Category'
  *       500:
- *         description: Internal server error
- * 
- *   get:
- *     summary: Get all categories
- *     tags: [Categories]
- *     responses:
- *       200:
- *         description: List of categories
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Category'
- *       500:
- *         description: Internal server error
- * 
+ *         description: Failed to create category
+ */
+
+/**
+ * @swagger
  * /categories/{id}:
- *   get:
- *     summary: Get a category by ID
- *     tags: [Categories]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID of the category
- *     responses:
- *       200:
- *         description: Category data
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                 data:
- *                   $ref: '#/components/schemas/Category'
- *       404:
- *         description: Category not found
- *       500:
- *         description: Internal server error
- * 
  *   put:
- *     summary: Update a category by ID
+ *     summary: Update an existing category
  *     tags: [Categories]
  *     parameters:
  *       - in: path
  *         name: id
- *         required: true
  *         schema:
  *           type: integer
- *         description: ID of the category
+ *         required: true
+ *         description: The category ID
  *     requestBody:
- *       description: Updated category data
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 description: Name of the category
- *               description:
- *                 type: string
- *                 description: Description of the category
- *               icon:
- *                 type: string
- *                 description: URL of the category icon
- *               image:
- *                 type: string
- *                 description: URL of the category image
+ *             $ref: '#/components/schemas/Category'
  *     responses:
  *       200:
- *         description: Category updated successfully
+ *         description: The updated category
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                 data:
- *                   $ref: '#/components/schemas/Category'
+ *               $ref: '#/components/schemas/Category'
  *       404:
  *         description: Category not found
  *       500:
- *         description: Internal server error
- * 
+ *         description: Failed to update category
+ */
+
+/**
+ * @swagger
+ * /categories/{id}:
  *   delete:
- *     summary: Delete a category by ID
+ *     summary: Delete a category
  *     tags: [Categories]
  *     parameters:
  *       - in: path
  *         name: id
- *         required: true
  *         schema:
  *           type: integer
- *         description: ID of the category
+ *         required: true
+ *         description: The category ID
  *     responses:
- *       200:
+ *       204:
  *         description: Category deleted successfully
  *       404:
  *         description: Category not found
  *       500:
- *         description: Internal server error
- * 
+ *         description: Failed to delete category
+ */
+
+/**
+ * @swagger
+ * /categories/{id}/image:
+ *   post:
+ *     summary: Upload an image for a category
+ *     tags: [Categories]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The category ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Image uploaded successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Category'
+ *       400:
+ *         description: Failed to upload image
+ *       404:
+ *         description: Category not found
+ *       500:
+ *         description: An error occurred while uploading the image
+ */
+
+/**
+ * @swagger
  * components:
  *   schemas:
  *     Category:
  *       type: object
- *       required:
- *         - name
- *         - description
- *         - icon
- *         - image
  *       properties:
  *         id:
  *           type: integer
- *           description: The category ID
+ *           example: 1
  *         name:
  *           type: string
- *           description: The category name
+ *           example: "Category Name"
  *         description:
  *           type: string
- *           description: The category description
+ *           example: "Description of the category"
  *         icon:
  *           type: string
- *           description: The category icon URL
- *         image:
+ *           example: "http://example.com/icon.jpg"
+ *         urlImage:
  *           type: string
- *           description: The category image URL
+ *           example: "http://example.com/image.jpg"
  *         createdAt:
  *           type: string
  *           format: date-time
- *           description: The category creation date
+ *           example: "2023-01-01T00:00:00.000Z"
  *         updatedAt:
  *           type: string
  *           format: date-time
- *           description: The category update date
+ *           example: "2023-01-01T00:00:00.000Z"
  */
 
 router.post('/', createCategory);
-router.get('/', getCategories);
+router.get('/', getAllCategories);
 router.get('/:id', getCategoryById);
 router.put('/:id', updateCategory);
 router.delete('/:id', deleteCategory);
+router.put('/:id/image', uploadCategoryImage);
 
 export default router;

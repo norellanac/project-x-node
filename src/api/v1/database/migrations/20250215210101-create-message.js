@@ -1,24 +1,30 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Categories', {
+    await queryInterface.createTable('Messages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      conversationId: {
+        type: Sequelize.INTEGER
       },
-      description: {
+      senderId: {
+        type: Sequelize.INTEGER
+      },
+      content: {
         type: Sequelize.TEXT
       },
-      icon: {
-        type: Sequelize.STRING
+      createdAt: {
+        type: Sequelize.DATE
       },
-      urlImage: {
-        type: Sequelize.STRING
+      updatedAt: {
+        type: Sequelize.DATE
+      },
+      deletedAt: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -27,13 +33,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      deletedAt: {
-        type: Sequelize.DATE
       }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Categories');
+    await queryInterface.dropTable('Messages');
   }
 };
