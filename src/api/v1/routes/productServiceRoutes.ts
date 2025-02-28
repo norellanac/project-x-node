@@ -269,6 +269,6 @@ router.delete('/:id', deleteProductService);
  *       500:
  *         description: Server error
  */
-router.put('/:id/image', upload.single('image'), uploadProductServiceImage);
+router.put('/:id/image', uploadProductServiceImage);
 
 export default router;
