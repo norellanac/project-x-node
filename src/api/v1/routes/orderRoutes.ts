@@ -4,7 +4,8 @@ import {
   getOrderById,
   createOrder,
   updateOrder,
-  deleteOrder
+  deleteOrder,
+  getOrdersByUserId
 } from '../controllers/orderController';
 
 const router = Router();
@@ -113,6 +114,36 @@ router.get('/', getAllOrders);
  *         description: Server error
  */
 router.get('/:id', getOrderById);
+
+/**
+ * @swagger
+ * /orders/user/{userId}:
+ *   get:
+ *     summary: Get orders by user ID
+ *     tags: [Orders]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: List of orders by user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Order'
+ *       404:
+ *         description: No orders found for this user
+ *       500:
+ *         description: Server error
+ */
+
+router.get('/user/:userId', getOrdersByUserId);
 
 /**
  * @swagger

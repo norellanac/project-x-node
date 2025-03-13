@@ -10,6 +10,10 @@ class Message extends Model {
   public deletedAt!: Date;
 
   public static associate(models: any) {
+    Message.belongsTo(models.Conversation, {
+      foreignKey: 'conversationId',
+      as: 'conversation',
+    });
     Message.hasMany(models.Reaction, {
       foreignKey: 'reactableId',
       constraints: false,

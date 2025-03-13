@@ -61,6 +61,9 @@ export function initializeOrder(sequelize: Sequelize): typeof Order {
     sequelize,
     modelName: 'Order',
     paranoid: true,
+    defaultScope: {
+      order: [['createdAt', 'DESC']],
+    },
   });
 
   return Order;

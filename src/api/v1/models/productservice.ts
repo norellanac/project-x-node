@@ -118,6 +118,9 @@ export function initializeProductService(sequelize: Sequelize): typeof ProductSe
     sequelize,
     modelName: 'ProductService',
     paranoid: true,
+    defaultScope: {
+      order: [['createdAt', 'DESC']],
+    },
   });
 
   return ProductService;

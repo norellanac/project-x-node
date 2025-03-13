@@ -1,8 +1,8 @@
-// filepath: /Users/neryalexisorellana/Documents/devProjects/js/node/projectx-be-node/src/api/v1/controllers/chatController.ts
 import { Request, Response } from 'express';
 import { Conversation, Message, Reaction } from '../models';
 import { sendApiResponse } from '../../../utils/responseHandler';
 import { logger } from '../../../utils/logger';
+import { Op } from 'sequelize';
 
 // Create a new conversation between two users
 export const createConversation = async (req: Request, res: Response) => {
@@ -11,7 +11,7 @@ export const createConversation = async (req: Request, res: Response) => {
     const conversation = await Conversation.create({ user1Id, user2Id });
     sendApiResponse(res, true, 201, conversation);
   } catch (error) {
-    // logger.error('Error creating conversation:', error);
+    //logger.error('Error creating conversation:', error);
     sendApiResponse(res, false, 500, null, (error as Error).message);
   }
 };
@@ -40,6 +40,33 @@ export const getMessages = async (req: Request, res: Response) => {
     sendApiResponse(res, true, 200, messages);
   } catch (error) {
     // logger.error('Error getting messages:', error);
+    sendApiResponse(res, false, 500, null, (error as Error).message);
+  }
+};
+
+// Get conversations by user ID
+export const getConversationsByUserId = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const conversations = await Conversation.findAll({
+      where: {
+        [Op.or]: [
+          { user1Id: userId },
+          { user2Id: userId }
+        ]
+      },
+      include: [
+        { model: Message, as: 'messages', include: [{ model: Reaction, as: 'Reactions' }] }
+      ],
+      order: [['createdAt', 'DESC']]
+    });
+    if (conversations.length > 0) {
+      sendApiResponse(res, true, 200, conversations);
+    } else {
+      sendApiResponse(res, false, 404, null, 'No conversations found for this user');
+    }
+  } catch (error) {
+    // logger.error('Error getting conversations:', error);
     sendApiResponse(res, false, 500, null, (error as Error).message);
   }
 };
