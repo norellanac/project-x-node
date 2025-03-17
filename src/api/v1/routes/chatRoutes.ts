@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createConversation, sendMessage, getMessages } from '../controllers/chatController';
+import { createConversation, sendMessage, getMessages, getConversationsByUserId } from '../controllers/chatController';
 import { addReaction, getReactions } from '../controllers/reactionController';
 
 const router = Router();
@@ -13,7 +13,7 @@ const router = Router();
 
 /**
  * @swagger
- * /conversation:
+ * /chat/conversation:
  *   post:
  *     summary: Create a conversation
  *     tags: [Chat]
@@ -38,7 +38,7 @@ router.post('/conversation', createConversation);
 
 /**
  * @swagger
- * /message:
+ * /chat/message:
  *   post:
  *     summary: Send a message
  *     tags: [Chat]
@@ -65,7 +65,7 @@ router.post('/message', sendMessage);
 
 /**
  * @swagger
- * /messages/{conversationId}:
+ * /chat/messages/{conversationId}:
  *   get:
  *     summary: Get messages in a conversation
  *     tags: [Chat]
@@ -92,7 +92,36 @@ router.get('/messages/:conversationId', getMessages);
 
 /**
  * @swagger
- * /reaction:
+ * /chat/conversations/user/{userId}:
+ *   get:
+ *     summary: Get conversations by user ID
+ *     tags: [Chat]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: List of conversations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Conversation'
+ *       404:
+ *         description: No conversations found for this user
+ *       500:
+ *         description: Server error
+ */
+router.get('/conversations/user/:userId', getConversationsByUserId);
+
+/**
+ * @swagger
+ * /chat/reaction:
  *   post:
  *     summary: Add a reaction to a message
  *     tags: [Chat]
@@ -122,7 +151,7 @@ router.post('/reaction', addReaction);
 
 /**
  * @swagger
- * /reactions/{reactableType}/{reactableId}:
+ * /chat/reactions/{reactableType}/{reactableId}:
  *   get:
  *     summary: Get reactions for a message
  *     tags: [Chat]

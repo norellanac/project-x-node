@@ -2,7 +2,7 @@ const path = require('path');
 require('ts-node/register');
 
 module.exports = {
-  'config': path.resolve('config/', 'databases.json'),
+  'config': path.resolve('config/', 'databases.js'),
   'models-path': path.resolve('src/api/v1/models/'),
   'seeders-path': path.resolve('src/api/v1/database/seeders/'),
   'migrations-path': path.resolve('src/api/v1/database/migrations/'),

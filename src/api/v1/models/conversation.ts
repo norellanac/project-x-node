@@ -10,6 +10,10 @@ class Conversation extends Model {
 
   public static associate(models: any) {
     // Define associations here if needed
+    Conversation.hasMany(models.Message, {
+      foreignKey: 'conversationId',
+      as: 'messages',
+    });
   }
 }
 
@@ -45,6 +49,9 @@ export function initializeConversation(sequelize: Sequelize): typeof Conversatio
     modelName: 'Conversation',
     timestamps: true,
     paranoid: true,
+    defaultScope: {
+      order: [['createdAt', 'DESC']],
+    },
   });
 
   return Conversation;
