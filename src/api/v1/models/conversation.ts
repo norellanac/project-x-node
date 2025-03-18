@@ -14,6 +14,14 @@ class Conversation extends Model {
       foreignKey: 'conversationId',
       as: 'messages',
     });
+    Conversation.belongsTo(models.User, {
+      foreignKey: 'user1Id',
+      as: 'user1',
+    });
+    Conversation.belongsTo(models.User, {
+      foreignKey: 'user2Id',
+      as: 'user2',
+    });
   }
 }
 

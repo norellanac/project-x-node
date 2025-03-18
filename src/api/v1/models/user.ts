@@ -27,6 +27,11 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
       foreignKey: 'userId',
       as: 'roles',
     });
+    User.belongsToMany(models.Conversation, {
+      through: 'UserConversation',
+      foreignKey: 'userId',
+      as: 'conversations',
+    });
   }
 }
 
