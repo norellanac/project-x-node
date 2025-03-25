@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Conversation, Message, Reaction } from '../models';
+import { Conversation, Message, Reaction, User } from '../models';
 import { sendApiResponse } from '../../../utils/responseHandler';
 import { logger } from '../../../utils/logger';
 import { Op } from 'sequelize';
@@ -35,7 +35,9 @@ export const getMessages = async (req: Request, res: Response) => {
     const messages = await Message.findAll({
       where: { conversationId },
       order: [['createdAt', 'ASC']],
-      include: [{ model: Reaction, as: 'Reactions' }] // Include reactions in the response
+      include: [{ model: Reaction, as: 'Reactions', include: [{ model: User, as: 'user' }] },
+        { model: User, as: 'sender'},
+      ]
     });
     sendApiResponse(res, true, 200, messages);
   } catch (error) {
@@ -56,7 +58,9 @@ export const getConversationsByUserId = async (req: Request, res: Response) => {
         ]
       },
       include: [
-        { model: Message, as: 'messages', include: [{ model: Reaction, as: 'Reactions' }] }
+        { model: Message, as: 'messages', include: [{ model: Reaction, as: 'Reactions' }] },
+        { model: User, as: 'user1' },
+        { model: User, as: 'user2' }
       ],
       order: [['createdAt', 'DESC']]
     });

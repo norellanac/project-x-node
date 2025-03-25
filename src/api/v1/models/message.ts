@@ -22,6 +22,11 @@ class Message extends Model {
       },
       as: 'Reactions' // Alias for the association
     });
+    Message.hasOne(models.User, {
+      foreignKey: 'id',
+      sourceKey: 'senderId',
+      as: 'sender',
+    });
   }
 }
 

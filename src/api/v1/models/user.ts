@@ -27,6 +27,11 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
       foreignKey: 'userId',
       as: 'roles',
     });
+    User.belongsToMany(models.Conversation, {
+      through: 'UserConversation',
+      foreignKey: 'userId',
+      as: 'conversations',
+    });
   }
 }
 
@@ -55,6 +60,14 @@ export function initializeUser(sequelize: Sequelize): typeof User {
     sequelize,
     modelName: 'User',
     paranoid: true,
+    defaultScope: {
+      attributes: { exclude: ['password'] }, // Exclude password by default
+    },
+    scopes: {
+      withPassword: {
+        attributes: undefined, // Include all attributes, including password
+      },
+    },
   });
 
   return User;

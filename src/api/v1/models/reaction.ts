@@ -12,6 +12,11 @@ class Reaction extends Model {
 
   public static associate(models: any) {
     // Define associations here if needed
+    Reaction.hasOne(models.User, {
+      foreignKey: 'id',
+      sourceKey: 'userId',
+      as: 'user',
+    });
   }
 }
 

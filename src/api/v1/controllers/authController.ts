@@ -48,7 +48,7 @@ export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
     logger('info', `Attempting to login user with email: ${email}`, 'authController.login', req.headers['user-agent'], email);
-    const user = await User.findOne({ where: { email } });
+    const user = await User.scope('withPassword').findOne({ where: { email } });
 
     if (!user) {
       logger('error', `User not found with email: ${email}`, 'authController.login', req.headers['user-agent'], email);
