@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Category, ProductService, ProductDetail, ProductLocation, ProductReview, OrderDetail, User } from '../models';
+import { Category, ProductService, ProductDetail, ProductLocation, ProductReview, OrderDetail, User, City } from '../models';
 import { sendApiResponse } from '../../../utils/responseHandler';
 import fileStorage from '../middlewares/fileStorage';
 import { sequelize } from '../../../config/db/db-connection';
@@ -13,7 +13,7 @@ export const getAllProductServices = async (req: Request, res: Response) => {
       include: [
         { model: Category, as: 'categories' },
         { model: ProductDetail, as: 'details' },
-        { model: ProductLocation, as: 'locations' },
+        { model: ProductLocation, as: 'locations', include: [{ model: City, as: 'city' }] },
         { model: ProductReview, as: 'reviews' },
         { model: User, as: 'user' }
       ],
@@ -46,7 +46,7 @@ export const getProductServiceById = async (req: Request, res: Response) => {
       include: [
         { model: Category, as: 'categories' },
         { model: ProductDetail, as: 'details' },
-        { model: ProductLocation, as: 'locations' },
+        { model: ProductLocation, as: 'locations', include: [{ model: City, as: 'city' }] },
         { model: ProductReview, as: 'reviews' },
         { model: User, as: 'user' }
       ]
