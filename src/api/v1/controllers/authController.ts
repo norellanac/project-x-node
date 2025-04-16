@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { createResponse } from '../../../utils/responseUtils';
-import { User } from '../models';
+import { Role, User } from '../models';
 import { logger } from '../../../utils/logger';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -26,14 +26,48 @@ const generateOTP = () => {
 export const register = async (req: Request, res: Response) => {
   try {
     const { name, lastname, email, password } = req.body;
-    logger('info', `Registering user with email: ${email}`, 'authController.register', req.headers['user-agent'], email);
+
+    logger(
+      'info',
+      `Registering user with email: ${email}`,
+      'authController.register',
+      req.headers['user-agent'],
+      email
+    );
+
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create the user
     const user = User.build({ name, lastname, email, password: hashedPassword });
     await user.save();
-    logger('info', `User registered successfully with email: ${email}`, 'authController.register', req.headers['user-agent'], email, user.id.toString());
+
+    // Assign a default role to the user
+    const defaultRole = await Role.findOne({ where: { name: 'User' } }); // Replace 'User' with your default role name
+    if (defaultRole) {
+      await user.addRole(defaultRole); // Use Sequelize's association method to assign the role
+    }
+
+    logger(
+      'info',
+      `User registered successfully with email: ${email}`,
+      'authController.register',
+      req.headers['user-agent'],
+      email,
+      user.id.toString()
+    );
+    
+    user.password = '';
     createResponse(res, { success: true, data: user, statusCode: 201 });
   } catch (err: any) {
-    logger('error', err, 'authController.register', req.headers['user-agent'], req.body.email);
+    logger(
+      'error',
+      err,
+      'authController.register',
+      req.headers['user-agent'],
+      req.body.email
+    );
+
     err.errors
       ? createResponse(res, {
           success: false,
@@ -48,7 +82,10 @@ export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
     logger('info', `Attempting to login user with email: ${email}`, 'authController.login', req.headers['user-agent'], email);
-    const user = await User.scope('withPassword').findOne({ where: { email } });
+    const user = await User.scope('withPassword').findOne(
+      { where: { email }, 
+      include: [{ model: Role, as: 'roles' }]
+    });
 
     if (!user) {
       logger('error', `User not found with email: ${email}`, 'authController.login', req.headers['user-agent'], email);

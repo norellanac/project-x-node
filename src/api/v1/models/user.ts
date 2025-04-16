@@ -1,4 +1,4 @@
-import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute } from 'sequelize';
 import Token from './token';
 import Role from './role';
 
@@ -8,10 +8,18 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare lastname: string;
   declare email: string;
   declare password: string;
-  declare role: CreationOptional<string>;
   declare averageRating: CreationOptional<number>;
   declare avatarUrl: CreationOptional<string>;
-  declare roles?: Role[];
+  
+  // Association Methods
+  declare setRoles: (roles: Role[]) => Promise<void>;
+  declare getRoles: () => Promise<Role[]>;
+  declare addRole: (role: Role) => Promise<void>;
+  declare removeRole: (role: Role) => Promise<void>;
+  declare hasRole: (role: Role) => Promise<boolean>;
+
+  // Associations
+  declare roles?: NonAttribute<Role[]>;
 
   static associate(models: any) {
     User.hasMany(models.Token, {
@@ -53,7 +61,6 @@ export function initializeUser(sequelize: Sequelize): typeof User {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    role: DataTypes.STRING,
     averageRating: DataTypes.FLOAT,
     avatarUrl: DataTypes.STRING,
   }, {

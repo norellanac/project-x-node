@@ -1,21 +1,33 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { createResponse } from '../../../utils/responseUtils';
-import { ProductService, User } from '../models';
+import { ProductService, Role, User } from '../models';
 import fileStorage from '../middlewares/fileStorage';
 
 export const index = async (req: Request, res: Response) => {
-  const users = await User.findAll({
-    include: [{ model: ProductService, as: 'products' }],
-    attributes: { exclude: ['password'] },
-  });
-  res.json(users);
+  try {
+    const users = await User.findAll({
+      include: [
+        { model: ProductService, as: 'products' },
+        { model: Role, as: 'roles' }, // Include roles
+      ],
+      attributes: { exclude: ['password'] },
+    });
+    createResponse(res, { success: true, data: users });
+  } catch (err: any) {
+    console.error('**Error**: ', err);
+    createResponse(res, { success: false, errors: err, statusCode: 500 });
+  }
 };
 
 export const show = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const user = await User.findByPk(id, {
+      include: [
+        { model: ProductService, as: 'products' },
+        { model: Role, as: 'roles' },
+      ],
       attributes: { exclude: ['password'] },
     });
     if (!user) {
@@ -35,19 +47,32 @@ export const show = async (req: Request, res: Response) => {
 
 export const store = async (req: Request, res: Response) => {
   try {
-    const { name, lastname, email, password } = req.body;
-    const user = User.build({ name, lastname, email, password });
-    await user.save();
-    createResponse(res, { success: true, data: user, statusCode: 201 });
+    const { name, lastname, email, password, roles } = req.body;
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create the user
+    const user = await User.create({ name, lastname, email, password: hashedPassword });
+
+    // Assign roles if provided
+    if (roles && roles.length > 0) {
+      const roleInstances = await Role.findAll({ where: { id: roles } });
+      await user.setRoles(roleInstances);
+    }
+
+    const userWithRoles = await User.findByPk(user.id, {
+      include: [{ model: Role, as: 'roles' }],
+    });
+
+    createResponse(res, { success: true, data: userWithRoles, statusCode: 201 });
   } catch (err: any) {
     console.error('**Error**: ', err);
-    err.errors
-      ? createResponse(res, {
-          success: false,
-          errors: err.errors,
-          statusCode: 400,
-        })
-      : createResponse(res, { success: false, errors: err, statusCode: 500 });
+    createResponse(res, {
+      success: false,
+      errors: err.errors ?? err,
+      statusCode: 400,
+    });
   }
 };
 
@@ -62,7 +87,7 @@ const hashPassword = async (
 export const update = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, lastname, email, password } = req.body;
+    const { name, lastname, email, password, roles } = req.body;
 
     const user = await User.findByPk(id);
     if (!user) {
@@ -75,14 +100,25 @@ export const update = async (req: Request, res: Response) => {
 
     const hashedPassword = await hashPassword(password, user.password);
 
-    const updatedUser = await user.update({
+    // Update user fields
+    await user.update({
       name: name ?? user.name,
       lastname: lastname ?? user.lastname,
-      email: email ? email : user.email,
+      email: email ?? user.email,
       password: hashedPassword,
     });
 
-    return createResponse(res, { success: true, data: updatedUser.toJSON() });
+    // Update roles if provided
+    if (roles && roles.length > 0) {
+      const roleInstances = await Role.findAll({ where: { id: roles } });
+      await user.setRoles(roleInstances);
+    }
+
+    const updatedUser = await User.findByPk(id, {
+      include: [{ model: Role, as: 'roles' }],
+    });
+
+    return createResponse(res, { success: true, data: updatedUser });
   } catch (err: any) {
     console.error('**Error**: ', err);
     const statusCode = err.errors ? 400 : 500;
@@ -113,13 +149,11 @@ export const destroy = async (req: Request, res: Response) => {
     });
   } catch (err: any) {
     console.error('**Error**: ', err);
-    err.errors
-      ? createResponse(res, {
-          success: false,
-          errors: err.errors,
-          statusCode: 400,
-        })
-      : createResponse(res, { success: false, errors: err, statusCode: 500 });
+    createResponse(res, {
+      success: false,
+      errors: err.errors ?? err,
+      statusCode: 500,
+    });
   }
 };
 
