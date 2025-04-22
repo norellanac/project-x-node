@@ -22,10 +22,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      role: {
-        type: Sequelize.INTEGER,
-        allowNull: true
-      },
       averageRating: {
         type: Sequelize.FLOAT,
       },
