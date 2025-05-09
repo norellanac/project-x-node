@@ -8,7 +8,7 @@
       "forceConsistentCasingInFileNames": true,
       "outDir": "./dist"
     },
-    "include": ["src/**/*.ts", "src/api/v1/models/v1/user.js"],
+    "include": ["src/**/*.ts", "src/api/v1/models/v1/user.js", "src/api/v1/routes/userReviewRoutes.ts"],
     "exclude": ["node_modules"]
   }
   

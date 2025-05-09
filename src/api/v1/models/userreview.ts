@@ -1,4 +1,5 @@
 import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import User from './user';
 
 class UserReview extends Model<InferAttributes<UserReview>, InferCreationAttributes<UserReview>> {
   declare id: CreationOptional<number>;
@@ -38,6 +39,10 @@ export function initializeUserReview(sequelize: Sequelize): typeof UserReview {
     rating: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 1,
+        max: 5,
+      },
     },
     comment: {
       type: DataTypes.TEXT,
@@ -53,7 +58,30 @@ export function initializeUserReview(sequelize: Sequelize): typeof UserReview {
     paranoid: true,
   });
 
+  // Hooks to update average rating
+  UserReview.afterCreate(async (review, options) => {
+    await updateMerchantAverageRating(review.merchantId);
+  });
+
+  UserReview.afterUpdate(async (review, options) => {
+    await updateMerchantAverageRating(review.merchantId);
+  });
+
+  UserReview.afterDestroy(async (review, options) => {
+    await updateMerchantAverageRating(review.merchantId);
+  });
+
   return UserReview;
+}
+
+// Helper function to update the average rating of a merchant
+async function updateMerchantAverageRating(merchantId: number) {
+  const reviews = await UserReview.findAll({ where: { merchantId } });
+  const averageRating = reviews.length > 0
+    ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+    : 0; // Set to null if no reviews exist
+
+  await User.update({ averageRating }, { where: { id: merchantId } });
 }
 
 export default UserReview;

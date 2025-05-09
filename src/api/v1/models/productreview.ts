@@ -1,4 +1,5 @@
 import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import ProductService from './productservice';
 
 class ProductReview extends Model<InferAttributes<ProductReview>, InferCreationAttributes<ProductReview>> {
   declare id: CreationOptional<number>;
@@ -38,6 +39,10 @@ export function initializeProductReview(sequelize: Sequelize): typeof ProductRev
     rating: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 1,
+        max: 5,
+      },
     },
     comment: {
       type: DataTypes.TEXT,
@@ -51,6 +56,30 @@ export function initializeProductReview(sequelize: Sequelize): typeof ProductRev
     sequelize,
     modelName: 'ProductReview',
     paranoid: true,
+  });
+
+  // Add hooks to update averageRating in ProductService
+  ProductReview.afterCreate(async (review, options) => {
+    const reviews = await ProductReview.findAll({ where: { productServiceId: review.productServiceId } });
+    const averageRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+
+    await ProductService.update({ averageRating }, { where: { id: review.productServiceId } });
+  });
+
+  ProductReview.afterUpdate(async (review, options) => {
+    const reviews = await ProductReview.findAll({ where: { productServiceId: review.productServiceId } });
+    const averageRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+
+    await ProductService.update({ averageRating }, { where: { id: review.productServiceId } });
+  });
+
+  ProductReview.afterDestroy(async (review, options) => {
+    const reviews = await ProductReview.findAll({ where: { productServiceId: review.productServiceId } });
+    const averageRating = reviews.length > 0
+      ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+      : 0;
+
+    await ProductService.update({ averageRating }, { where: { id: review.productServiceId } });
   });
 
   return ProductReview;
