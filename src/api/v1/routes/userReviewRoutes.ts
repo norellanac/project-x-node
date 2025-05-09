@@ -28,9 +28,9 @@ const router = Router();
  *           schema:
  *             type: object
  *             properties:
- *               merchantId:
- *                 type: integer
  *               userId:
+ *                 type: integer
+ *               reviewerId:
  *                 type: integer
  *               rating:
  *                 type: integer
@@ -46,24 +46,24 @@ router.post('/', createUserReview);
 
 /**
  * @swagger
- * /user-reviews/{merchantId}:
+ * /user-reviews/{userId}:
  *   get:
  *     summary: Get all reviews for a user
  *     tags: [User Reviews]
  *     parameters:
  *       - in: path
- *         name: merchantId
+ *         name: userId
  *         schema:
  *           type: integer
  *         required: true
- *         description: The merchant (user) ID
+ *         description: The user ID
  *     responses:
  *       200:
  *         description: List of user reviews
  *       500:
  *         description: Server error
  */
-router.get('/:merchantId', getUserReviews);
+router.get('/:userId', getUserReviews);
 
 /**
  * @swagger

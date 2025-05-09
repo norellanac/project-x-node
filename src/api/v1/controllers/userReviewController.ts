@@ -15,16 +15,16 @@ const updateUserAverageRating = async (userId: number) => {
 // Create a user review
 export const createUserReview = async (req: Request, res: Response) => {
   try {
-    const { merchantId, userId, rating, comment } = req.body;
+    const { userId, reviewerId, rating, comment } = req.body;
 
     const review = await UserReview.create({
-      merchantId,
-      userId,
+      userId, // The user being reviewed
+      reviewerId, // The user writing the review
       rating,
       comment,
     });
 
-    // Update average rating for the merchant
+    // Update average rating for the user being reviewed
     await updateUserAverageRating(userId);
 
     sendApiResponse(res, true, 201, review, 'User review created successfully');
@@ -38,7 +38,7 @@ export const getUserReviews = async (req: Request, res: Response) => {
   try {
     const reviews = await UserReview.findAll({
       where: { userId: req.params.userId },
-      include: [{ association: 'user' }],
+      include: [{ association: 'reviewer' }], // Include the reviewer details
     });
 
     sendApiResponse(res, true, 200, reviews);
@@ -60,7 +60,7 @@ export const updateUserReview = async (req: Request, res: Response) => {
     if (updated) {
       const updatedReview = await UserReview.findByPk(req.params.id);
 
-      // Update average rating for the merchant
+      // Update average rating for the user being reviewed
       if (updatedReview) {
         await updateUserAverageRating(updatedReview.userId);
       }
@@ -86,7 +86,7 @@ export const deleteUserReview = async (req: Request, res: Response) => {
     const deleted = await UserReview.destroy({ where: { id: req.params.id } });
 
     if (deleted) {
-      // Update average rating for the merchant
+      // Update average rating for the user being reviewed
       await updateUserAverageRating(review.userId);
 
       sendApiResponse(res, true, 200, null, 'User review deleted successfully');
