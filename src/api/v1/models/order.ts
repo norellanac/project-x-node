@@ -40,6 +40,10 @@ export function initializeOrder(sequelize: Sequelize): typeof Order {
     status: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 1, // 1: requested, 2: in progress, 3: completed, 4: cancelled, 5: refunded, 6: failed, 7: reviewed
+      validate: {
+        isIn: [[1, 2, 3, 4, 5, 6, 7]],
+      },
     },
     comment: {
       type: DataTypes.TEXT,

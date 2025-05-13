@@ -8,10 +8,34 @@ import { Op } from 'sequelize';
 export const createConversation = async (req: Request, res: Response) => {
   try {
     const { user1Id, user2Id } = req.body;
+
+    // Check if a conversation already exists between the two users
+    const existingConversation = await Conversation.findOne({
+      where: {
+        [Op.or]: [
+          { user1Id, user2Id },
+          { user1Id: user2Id, user2Id: user1Id } // Check both directions
+        ]
+      }
+    });
+
+    if (existingConversation) {
+      // If conversation exists, return its ID
+      return sendApiResponse(res, true, 200, {
+        message: 'Conversation already exists',
+        conversationId: existingConversation.id
+      });
+    }
+
+    // Create a new conversation if it doesn't exist
     const conversation = await Conversation.create({ user1Id, user2Id });
-    sendApiResponse(res, true, 201, conversation);
+    sendApiResponse(res, true, 201, {
+      message: 'Conversation created successfully',
+      conversationId: conversation.id
+    });
   } catch (error) {
-    //logger.error('Error creating conversation:', error);
+    // Log the error and send a 500 response
+    // logger.error('Error creating conversation:', error);
     sendApiResponse(res, false, 500, null, (error as Error).message);
   }
 };

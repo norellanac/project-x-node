@@ -6,6 +6,8 @@ import locationRouter from './locationRoutes';
 import orderRouter from './orderRoutes';
 import chatRouter from './chatRoutes';
 import reactionRouter from './reactionRoutes';
+import userReviewRoutes from './userReviewRoutes';
+import productReviewRoutes from './productReviewRoutes';
 
 export {
   authRouter,
@@ -16,4 +18,6 @@ export {
   locationRouter,
   chatRouter,
   reactionRouter,
+  userReviewRoutes,
+  productReviewRoutes,
 };

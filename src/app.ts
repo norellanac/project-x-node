@@ -7,7 +7,7 @@ import multer from 'multer';
 import path from "path";
 import { swaggerOptions } from './../swaggerConfig';
 import { connectAppToDatabase } from "./config/db/db-connection";
-import { authRouter, categoryRouter, userRouter, ProducServiceRouter, locationRouter, orderRouter, chatRouter, reactionRouter } from "./api/v1/routes";
+import { authRouter, categoryRouter, userRouter, ProducServiceRouter, locationRouter, orderRouter, chatRouter, reactionRouter, productReviewRoutes, userReviewRoutes } from "./api/v1/routes";
 import { authenticateToken } from "./api/v1/middlewares/authenticateToken";
 import { getAllCategories } from "./api/v1/controllers/categoryController";
 import { httpLoggerMiddleware } from "./api/v1/middlewares/requestLoggerMiddleware";
@@ -49,6 +49,12 @@ app.use((`${apiPathAndVersion}/chat`), authenticateToken, chatRouter);
 
 // Reaction routes
 app.use((`${apiPathAndVersion}/reactions`), authenticateToken, reactionRouter);
+
+
+//Review Routes
+app.use((`${apiPathAndVersion}/productReview`), authenticateToken, productReviewRoutes);
+app.use((`${apiPathAndVersion}/userReview`), authenticateToken, userReviewRoutes);
+
 
 const server = app.listen(process.env.PORT || 3000, () => {
   console.log(`Server is running on port ${process.env.PORT || 3000}`);
