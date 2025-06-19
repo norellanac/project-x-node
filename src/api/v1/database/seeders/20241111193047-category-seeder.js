@@ -4,90 +4,98 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Categories', [
       {
-        name: 'Construcción y Obras',
+        name: 'Construcción y Remodelación',
         description: 'Contratistas, arquitectos, ingenieros, albañiles',
-        icon: 'https://picsum.photos/50/50?random=1',
-        urlImage: 'https://picsum.photos/300/200?random=1',
+        icon: '/uploads/categories/category-1.svg',
+        urlImage: '/uploads/categories/category-1.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Tecnicos Industriales',
+        name: 'Servicios Industriales',
         description: 'Electricistas, plomeros, soldadores, carpinteros',
-        icon: 'https://picsum.photos/50/50?random=2',
-        urlImage: 'https://picsum.photos/300/200?random=2',
+        icon: '/uploads/categories/category-2.svg',
+        urlImage: '/uploads/categories/category-2.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Vehiculos y Transporte',
+        name: 'Mecánica y Autos',
         description: 'Mecánicos, elecromecánicos, pilotos, gruas y más',
-        icon: 'https://picsum.photos/50/50?random=3',
-        urlImage: 'https://picsum.photos/300/200?random=3',
+        icon: '/uploads/categories/category-3.svg',
+        urlImage: '/uploads/categories/category-3.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Mantenimiento',
+        name: 'Hogar y Jardín',
         description: 'Mantenimiento de casas, edificios y oficinas',
-        icon: 'https://picsum.photos/50/50?random=4',
-        urlImage: 'https://picsum.photos/300/200?random=4',
+        icon: '/uploads/categories/category-4.svg',
+        urlImage: '/uploads/categories/category-4.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Profesionales del Hogar',
+        name: 'Tecnología y Computación',
         description: 'Jaridnería, limpieza, plomería, cerrajería',
-        icon: 'https://picsum.photos/50/50?random=5',
-        urlImage: 'https://picsum.photos/300/200?random=5',
+        icon: '/uploads/categories/category-5.svg',
+        urlImage: '/uploads/categories/category-5.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Tecnología y Electrónica',
+        name: 'Bienestar y Cuidado Personal',
         description: 'Reparación de computadoras, celulares, televisores',
-        icon: 'https://picsum.photos/50/50?random=6',
-        urlImage: 'https://picsum.photos/300/200?random=6',
+        icon: '/uploads/categories/category-6.svg',
+        urlImage: '/uploads/categories/category-6.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Salud y Belleza',
+        name: 'Eventos y Celebraciones',
         description : 'Médicos, dentistas, estilistas, masajistas',
-        icon: 'https://picsum.photos/50/50?random=7',
-        urlImage: 'https://picsum.photos/300/200?random=7',
+        icon: '/uploads/categories/category-7.svg',
+        urlImage: '/uploads/categories/category-7.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Eventos y Entretenimiento',
+        name: 'Clases y Tutorías',
         description: 'Organizadores de eventos, payasos, músicos, magos',
-        icon: 'https://picsum.photos/50/50?random=8',
-        urlImage: 'https://picsum.photos/300/200?random=8',
+        icon: '/uploads/categories/category-8.svg',
+        urlImage: '/uploads/categories/category-8.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Educación y Formación',
+        name: 'Asesoría Profesional',
         description: 'Profesores, tutores, traductores, instructores',
-        icon: 'https://picsum.photos/50/50?random=9',
-        urlImage: 'https://picsum.photos/300/200?random=9',
+        icon: '/uploads/categories/category-9.svg',
+        urlImage: '/uploads/categories/category-9.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Asesoria Legal',
+        name: 'Reparaciones Especializadas',
         description: 'Abogados, notarios, mediadores, gestores',
-        icon: 'https://picsum.photos/50/50?random=10',
-        urlImage: 'https://picsum.photos/300/200?random=10',
+        icon: '/uploads/categories/category-10.svg',
+        urlImage: '/uploads/categories/category-10.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Servicios de Reparación',
+        name: 'Cuidado de Mascotas',
         description: 'Reparación de electrodomésticos, muebles, ropa',
-        icon: 'https://picsum.photos/50/50?random=14',
-        urlImage: 'https://picsum.photos/300/200?random=14',
+        icon: '/uploads/categories/category-11.svg',
+        urlImage: '/uploads/categories/category-11.svg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Logística y Transporte',
+        description: 'Reparación de electrodomésticos, muebles, ropa',
+        icon: '/uploads/categories/category-12.svg',
+        urlImage: '/uploads/categories/category-12.svg',
         createdAt: new Date(),
         updatedAt: new Date()
       },

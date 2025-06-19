@@ -9,7 +9,7 @@ module.exports = {
       {
         name: 'John',
         lastname: 'Doe',
-        email: 'john.doe@example.com',
+        email: 'orellana.marketing@gmail.com',
         password: hashedPassword,
         averageRating: 4.5,
         avatarUrl: 'https://picsum.photos/50/50?random=1',
@@ -19,7 +19,7 @@ module.exports = {
       {
         name: 'Jane',
         lastname: 'Smith',
-        email: 'jane.smith@example.com',
+        email: 'alvanesc@gmail.com',
         password: hashedPassword,
         averageRating: 4.0,
         avatarUrl: 'https://picsum.photos/50/50?random=2',
@@ -29,7 +29,7 @@ module.exports = {
       {
         name: 'Alice',
         lastname: 'Johnson',
-        email: 'alice.johnson@example.com',
+        email: 'aforellanar@gmail.com',
         password: hashedPassword,
         averageRating: 4.2,
         avatarUrl: 'https://picsum.photos/50/50?random=3',
@@ -37,8 +37,8 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        name: 'My',
-        lastname: 'Test',
+        name: 'Dev',
+        lastname: 'User',
         email: '1005alexis@gmail.com',
         password: hashedPassword,
         averageRating: 4.2,
