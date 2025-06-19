@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Order, OrderDetail, ProductService, User } from '../models';
 import { sendApiResponse } from '../../../utils/responseHandler';
 import { sequelize } from '../../../config/db/db-connection';
+import { Op } from 'sequelize';
 
 // Get all orders
 export const getAllOrders = async (req: Request, res: Response) => {
@@ -168,6 +169,74 @@ export const deleteOrder = async (req: Request, res: Response) => {
       sendApiResponse(res, true, 200, null, 'Order deleted successfully');
     } else {
       sendApiResponse(res, false, 404, null, 'Order not found');
+    }
+  } catch (error) {
+    sendApiResponse(res, false, 500, null, (error as Error).message);
+  }
+};
+
+
+
+// Get orders for a merchant (user who owns products in the orders)
+export const getMerchantOrders = async (req: Request, res: Response) => {
+  try {
+    const { merchantId } = req.params;
+    
+    // Find all orders that contain products owned by this merchant
+    const orders = await Order.findAll({
+      include: [
+        { 
+          model: User, 
+          as: 'user' // Customer who placed the order
+        },
+        { 
+          model: OrderDetail, 
+          as: 'details',
+          required: true, // Only include orders that have details
+          include: [
+            { 
+              model: ProductService, 
+              as: 'productService',
+              required: true, // Only include details with products
+              where: { userId: merchantId }, // Filter by merchant's products
+              include: [
+                { 
+                  model: User, 
+                  as: 'user' // Product owner/merchant
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      // distinct: true, // Avoid duplicates
+      order: [['createdAt', 'DESC']] // Most recent first
+    });
+
+    if (orders.length > 0) {
+      // Calculate merchant-specific totals for each order
+      const ordersWithMerchantTotals = orders.map(order => {
+        const merchantDetails = order.details? order.details.filter(detail =>
+          detail.productService? detail.productService.userId === parseInt(merchantId, 10)
+          : false
+        ) : [];
+        
+        const merchantTotal = merchantDetails.reduce((total, detail) => {
+          const itemTotal = (detail.quantity * detail.price) - (detail.discount || 0) + (detail.charge || 0);
+          return total + itemTotal;
+        }, 0);
+
+        return {
+          ...order.toJSON(),
+          merchantTotal,
+          merchantItemCount: merchantDetails.length,
+          details: merchantDetails // Only show merchant's products
+        };
+      });
+
+      sendApiResponse(res, true, 200, ordersWithMerchantTotals);
+    } else {
+      sendApiResponse(res, false, 404, null, 'No orders found for this merchant');
     }
   } catch (error) {
     sendApiResponse(res, false, 500, null, (error as Error).message);

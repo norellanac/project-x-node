@@ -1,4 +1,5 @@
-import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute } from 'sequelize';
+import OrderDetail from './orderdetail';
 
 class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>> {
   declare id: CreationOptional<number>;
@@ -9,6 +10,11 @@ class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>
   declare startDate?: Date;
   declare endDate?: Date;
   declare deletedAt?: Date;
+
+    // Association properties
+  declare details?: NonAttribute<OrderDetail[]>; // OrderDetail[]
+  declare user?: NonAttribute<any>; // User
+
 
   static associate(models: any) {
     Order.belongsTo(models.User, {

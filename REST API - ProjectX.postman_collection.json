@@ -949,11 +949,11 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/neryalexisorellana/Downloads/norellanac.JPG"
+									"src": "/Users/neryalexisorellana/Downloads/Construcción y remodelación.svg"
 								}
 							]
 						},
-						"url": "{{base_url}}/categories/1/avatar"
+						"url": "{{base_url}}/categories/1/image"
 					},
 					"response": []
 				},
@@ -3110,6 +3110,104 @@
 					"response": []
 				},
 				{
+					"name": "ORDERS By Merchant Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"var template = `",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> ",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"myChart\");",
+									"",
+									"    var myChart = new Chart(ctx, {",
+									"        type: \"pie\",",
+									"        data: {",
+									"            labels: [\"Admin\", \"User\"],",
+									"            datasets: [{",
+									"                data: [{{response.adminCount}}, {{response.userCount}}],",
+									"                ",
+									"                // Change these colours to customize the chart",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\"],",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            title: {",
+									"                display: true,",
+									"                text: 'User Role Distribution'",
+									"            }",
+									"        }",
+									"",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        myChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    ",
+									"    var adminCount = res.filter(user => user.role === \"admin\").length;",
+									"    var userCount = res.filter(user => user.role === \"user\").length;",
+									"",
+									"    var visualizerData = {",
+									"        adminCount: adminCount,",
+									"        userCount: userCount",
+									"    };",
+									"",
+									"    return {response: visualizerData};",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{my_session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/orders/merchant/1"
+					},
+					"response": []
+				},
+				{
 					"name": "ORDERS Add",
 					"event": [
 						{
@@ -3193,7 +3291,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"userId\": 1,\n  \"totalAmount\": 150.00,\n  \"status\": 1,\n  \"comment\": \"This is a test order\",\n  \"startDate\": \"2025-02-15T00:00:00.000Z\",\n  \"endDate\": \"2025-02-20T00:00:00.000Z\",\n  \"details\": [\n    {\n      \"productServiceId\": 1,\n      \"quantity\": 2,\n      \"price\": 50.00,\n      \"discount\": 5.00,\n      \"charge\": 0.00,\n      \"comment\": \"First item\"\n    },\n    {\n      \"productServiceId\": 2,\n      \"quantity\": 1,\n      \"price\": 100.00,\n      \"discount\": 10.00,\n      \"charge\": 0.00,\n      \"comment\": \"Second item\"\n    }\n  ]\n}",
+							"raw": "{\n  \"userId\": 1,\n  \"totalAmount\": 150.00,\n  \"status\": 1, // 1: requested, 2: in progress, 3: completed, 4: cancelled, 5: refunded, 6: failed, 7: reviewed\n  \"comment\": \"This is a test order\",\n  \"startDate\": \"2025-02-15T00:00:00.000Z\",\n  \"endDate\": \"2025-02-20T00:00:00.000Z\",\n  \"details\": [\n    {\n      \"productServiceId\": 1,\n      \"quantity\": 5,\n      \"price\": 5000,\n      \"discount\": 1500,\n      \"charge\": 300,\n      \"comment\": \"First item\"\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
