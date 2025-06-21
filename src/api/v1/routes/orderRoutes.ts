@@ -5,7 +5,8 @@ import {
   createOrder,
   updateOrder,
   deleteOrder,
-  getOrdersByUserId
+  getOrdersByUserId,
+  getMerchantOrders
 } from '../controllers/orderController';
 
 const router = Router();
@@ -224,5 +225,36 @@ router.put('/:id', updateOrder);
  *         description: Server error
  */
 router.delete('/:id', deleteOrder);
+
+/**
+ * @swagger
+ * /orders/merchant/{merchantId}:
+ *   get:
+ *     summary: Get all orders for a merchant
+ *     tags: [Orders]
+ *     parameters:
+ *       - in: path
+ *         name: merchantId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The merchant ID
+ *     responses:
+ *       200:
+ *         description: List of orders for the merchant
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Order'
+ *       404:
+ *         description: No orders found for this merchant
+ *       500:
+ *         description: Server error
+ */
+router.get('/merchant/:merchantId', getMerchantOrders);
+
+
 
 export default router;

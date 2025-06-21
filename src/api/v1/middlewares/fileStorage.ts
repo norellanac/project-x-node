@@ -30,7 +30,7 @@ const upload = (folder: string, customName: string) => {
 };
 
 const checkFileType = (file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-  const filetypes = /jpeg|jpg|png|gif|pdf|doc|docx|mp4|avi/;
+  const filetypes = /jpeg|jpg|png|gif|svg|pdf|doc|docx|mp4|avi/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = filetypes.test(file.mimetype);
 
