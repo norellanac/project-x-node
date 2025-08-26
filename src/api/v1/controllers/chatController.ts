@@ -56,12 +56,13 @@ export const sendMessage = async (req: Request, res: Response) => {
 export const getMessages = async (req: Request, res: Response) => {
   try {
     const { conversationId } = req.params;
-    const messages = await Message.findAll({
-      where: { conversationId },
+    const messages = await Conversation.findByPk(conversationId, {
       order: [['createdAt', 'ASC']],
-      include: [{ model: Reaction, as: 'Reactions', include: [{ model: User, as: 'user' }] },
-        { model: User, as: 'sender'},
-      ]
+      include: [
+        { model: Message, as: 'messages', include: [{ model: Reaction, as: 'Reactions' }] },
+        { model: User, as: 'user1' },
+        { model: User, as: 'user2' }
+      ],
     });
     sendApiResponse(res, true, 200, messages);
   } catch (error) {
