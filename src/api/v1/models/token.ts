@@ -7,7 +7,6 @@ class Token extends Model<InferAttributes<Token>, InferCreationAttributes<Token>
   declare token: string;
   declare type: 'ACCESS' | 'REFRESH' | 'PASSWORD_RESET';
   declare expiryDate: Date;
-  declare isExpired: boolean;
   declare user?: User;
 
   static associate(models: any) {

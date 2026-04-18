@@ -113,20 +113,21 @@ export const login = async (req: Request, res: Response) => {
     const refreshToken = crypto.randomBytes(40).toString('hex');
 
     // Store Access Token (Optional, for blacklisting if needed, but here used for session tracking)
-    await Token.create({
+    const accestokenTimeExpiration = new Date(Date.now() + 1 * 60 * 1000); // 15 minutes
+    await (Token as any).create({
       userId: user.id,
       token: accessToken,
       type: 'ACCESS',
-      expiryDate: new Date(Date.now() + 15 * 60 * 1000), // 15 minutes
+      expiryDate: accestokenTimeExpiration,
     });
 
     // Store Refresh Token
-    const tokenExpirationTime = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
-    await Token.create({
+    const refreshTokenExpiration = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+    await (Token as any).create({
       userId: user.id,
       token: refreshToken,
       type: 'REFRESH',
-      expiryDate: tokenExpirationTime,
+      expiryDate: refreshTokenExpiration,
     });
 
     user.password = '';
@@ -239,14 +240,14 @@ export const refreshToken = async (req: Request, res: Response) => {
       return createResponse(res, { success: false, message: 'User not found', statusCode: 404 });
     }
 
-    const newAccessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '1m' });
+    const newAccessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '15m' });
     
     // Store New Access Token
     await Token.create({
       userId: user.id,
       token: newAccessToken,
       type: 'ACCESS',
-      expiryDate: new Date(Date.now() + 1 * 60 * 1000), // 1 minute for testing
+      expiryDate: new Date(Date.now() + 15 * 60 * 1000), // 15 minutes
     });
 
     // Optionally rotate refresh token
@@ -255,7 +256,7 @@ export const refreshToken = async (req: Request, res: Response) => {
       userId: user.id,
       token: newRefreshToken,
       type: 'REFRESH',
-      expiryDate: new Date(Date.now() + 2 * 60 * 1000), // 2 minutes for testing
+      expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
     });
 
     // Delete the old refresh token
