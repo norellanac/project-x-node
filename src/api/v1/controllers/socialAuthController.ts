@@ -3,9 +3,30 @@ import axios from 'axios';
 import { User, Role } from '../models';
 import jwt from 'jsonwebtoken';
 import { createResponse } from '../../../utils/responseUtils';
+import crypto from 'crypto';
+import Token from '../models/token';
 
-const generateJWT = (userId: number) => {
-  return jwt.sign({ userId }, process.env.JWT_SECRET!, { expiresIn: '12h' });
+const generateTokens = async (userId: number) => {
+  const accessToken = jwt.sign({ userId }, process.env.JWT_SECRET!, { expiresIn: '15m' });
+  const refreshToken = crypto.randomBytes(40).toString('hex');
+
+  // Store Access Token
+  await (Token as any).create({
+    userId,
+    token: accessToken,
+    type: 'ACCESS',
+    expiryDate: new Date(Date.now() + 15 * 60 * 1000), // 15 minutes
+  });
+
+  // Store Refresh Token
+  await (Token as any).create({
+    userId,
+    token: refreshToken,
+    type: 'REFRESH',
+    expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+  });
+
+  return { accessToken, refreshToken };
 };
 
 
@@ -58,9 +79,9 @@ export const googleAuth = async (req: Request, res: Response) => {
         }
       }
   
-      // Step 4: Generate a JWT token
-      const jwtToken = generateJWT(user.id);
-      createResponse(res, { success: true, data: { user, token: jwtToken } });
+      // Step 4: Generate tokens
+      const { accessToken, refreshToken } = await generateTokens(user.id);
+      createResponse(res, { success: true, data: { user, accessToken, refreshToken } });
     } catch (err: any) {
       console.error('Google authentication error:', err.response?.data || err.message);
       createResponse(res, { success: false, message: 'Google authentication failed', statusCode: 500 });
@@ -91,8 +112,8 @@ export const facebookAuth = async (req: Request, res: Response) => {
       }
     }
 
-    const jwtToken = generateJWT(user.id);
-    createResponse(res, { success: true, data: { user, token: jwtToken } });
+    const { accessToken: newAccessToken, refreshToken: newRefreshToken } = await generateTokens(user.id);
+    createResponse(res, { success: true, data: { user, accessToken: newAccessToken, refreshToken: newRefreshToken } });
   } catch (err: any) {
     console.error('Facebook authentication error:', err);
     createResponse(res, { success: false, message: 'Facebook authentication failed', statusCode: 500 });

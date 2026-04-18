@@ -58,7 +58,24 @@ export const register = async (req: Request, res: Response) => {
     );
     
     user.password = '';
-    createResponse(res, { success: true, data: user, statusCode: 201 });
+    const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '15m' });
+    const refreshToken = crypto.randomBytes(40).toString('hex');
+
+    await (Token as any).create({
+      userId: user.id,
+      token: accessToken,
+      type: 'ACCESS',
+      expiryDate: new Date(Date.now() + 15 * 60 * 1000),
+    });
+
+    await (Token as any).create({
+      userId: user.id,
+      token: refreshToken,
+      type: 'REFRESH',
+      expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    });
+
+    createResponse(res, { success: true, data: { user, accessToken, refreshToken }, statusCode: 201 });
   } catch (err: any) {
     logger(
       'error',
