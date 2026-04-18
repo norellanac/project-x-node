@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login, requestPasswordReset, resetPassword } from '../controllers/authController';
+import { register, login, requestPasswordReset, resetPassword, refreshToken, logout } from '../controllers/authController';
 import { facebookAuth, googleAuth } from '../controllers/socialAuthController';
 
 const router = Router();
@@ -251,8 +251,8 @@ const router = Router();
  */
 
 router.post("/register", register);
-router.post("/login", login);
-router.post('/request-password-reset', requestPasswordReset);
+router.post("/login", login);router.post('/refresh-token', refreshToken);
+router.post('/logout', logout);router.post('/request-password-reset', requestPasswordReset);
 router.post('/reset-password', resetPassword);
 
 router.post('/google', googleAuth);

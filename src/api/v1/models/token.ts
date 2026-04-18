@@ -5,7 +5,9 @@ class Token extends Model<InferAttributes<Token>, InferCreationAttributes<Token>
   declare id: CreationOptional<number>;
   declare userId: number;
   declare token: string;
+  declare type: 'ACCESS' | 'REFRESH' | 'PASSWORD_RESET';
   declare expiryDate: Date;
+  declare isExpired: boolean;
   declare user?: User;
 
   static associate(models: any) {
@@ -30,6 +32,11 @@ export function initializeToken(sequelize: Sequelize): typeof Token {
     token: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    type: {
+      type: DataTypes.ENUM('ACCESS', 'REFRESH', 'PASSWORD_RESET'),
+      allowNull: false,
+      defaultValue: 'ACCESS',
     },
     expiryDate: {
       type: DataTypes.DATE,
