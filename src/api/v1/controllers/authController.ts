@@ -109,17 +109,29 @@ export const login = async (req: Request, res: Response) => {
       return;
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '12h' });
+    const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '15m' });
+    const refreshToken = crypto.randomBytes(40).toString('hex');
 
+    // Store Access Token (Optional, for blacklisting if needed, but here used for session tracking)
     await Token.create({
       userId: user.id,
-      token: token,
-      expiryDate: new Date(Date.now() + 3600000), // 1 hour from now
+      token: accessToken,
+      type: 'ACCESS',
+      expiryDate: new Date(Date.now() + 15 * 60 * 1000), // 15 minutes
+    });
+
+    // Store Refresh Token
+    const tokenExpirationTime = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+    await Token.create({
+      userId: user.id,
+      token: refreshToken,
+      type: 'REFRESH',
+      expiryDate: tokenExpirationTime,
     });
 
     user.password = '';
     logger('info', `User logged in successfully with email: ${email}`, 'authController.login', req.headers['user-agent'], email, user.id.toString());
-    createResponse(res, { success: true, data: { user, token } });
+    createResponse(res, { success: true, data: { user, accessToken, refreshToken } });
   } catch (err: any) {
     logger('error', err, 'authController.login', req.headers['user-agent'], email);
     createResponse(res, { success: false, message: err.message, statusCode: 500 });
@@ -147,9 +159,10 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
     await Token.create({
       userId: user.id,
       token: otp,
+      type: 'PASSWORD_RESET',
       expiryDate: expiryDate,
     });
-
+        
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: user.email,
@@ -172,7 +185,7 @@ export const resetPassword = async (req: Request, res: Response) => {
     const { otp, newPassword } = req.body;
     logger('info', `Resetting password with OTP: ${otp}`, 'authController.resetPassword', req.headers['user-agent'], req.body.email);
 
-    const storedToken = await Token.findOne({ where: { token: otp } });
+    const storedToken = await Token.findOne({ where: { token: otp, type: 'PASSWORD_RESET' } });
     if (!storedToken || storedToken.expiryDate < new Date()) {
       logger('error', 'Invalid or expired OTP', 'authController.resetPassword', req.headers['user-agent'], req.body.email);
       createResponse(res, {
@@ -204,6 +217,75 @@ export const resetPassword = async (req: Request, res: Response) => {
     createResponse(res, { success: true, message: 'Password reset successful' });
   } catch (err: any) {
     logger('error', err, 'authController.resetPassword', req.headers['user-agent'], req.body.email);
+    createResponse(res, { success: false, message: err.message, statusCode: 500 });
+  }
+};
+
+export const refreshToken = async (req: Request, res: Response) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken) {
+    return createResponse(res, { success: false, message: 'Refresh token is required', statusCode: 400 });
+  }
+
+  try {
+    const storedToken = await Token.findOne({ where: { token: refreshToken, type: 'REFRESH' }, include: { association: 'user' } });
+
+    if (!storedToken || storedToken.expiryDate < new Date()) {
+      return createResponse(res, { success: false, message: 'Invalid or expired refresh token', statusCode: 403 });
+    }
+
+    const user = storedToken.user;
+    if (!user) {
+      return createResponse(res, { success: false, message: 'User not found', statusCode: 404 });
+    }
+
+    const newAccessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '1m' });
+    
+    // Store New Access Token
+    await Token.create({
+      userId: user.id,
+      token: newAccessToken,
+      type: 'ACCESS',
+      expiryDate: new Date(Date.now() + 1 * 60 * 1000), // 1 minute for testing
+    });
+
+    // Optionally rotate refresh token
+    const newRefreshToken = crypto.randomBytes(40).toString('hex');
+    await Token.create({
+      userId: user.id,
+      token: newRefreshToken,
+      type: 'REFRESH',
+      expiryDate: new Date(Date.now() + 2 * 60 * 1000), // 2 minutes for testing
+    });
+
+    // Delete the old refresh token
+    await storedToken.destroy();
+
+    createResponse(res, { success: true, data: { accessToken: newAccessToken, refreshToken: newRefreshToken } });
+  } catch (err: any) {
+    logger('error', err, 'authController.refreshToken', req.headers['user-agent']);
+    createResponse(res, { success: false, message: err.message, statusCode: 500 });
+  }
+};
+
+export const logout = async (req: Request, res: Response) => {
+  const { refreshToken } = req.body;
+  const accessToken = req.headers['authorization'];
+
+  try {
+    if (refreshToken) {
+      await Token.destroy({ where: { token: refreshToken, type: 'REFRESH' } });
+    }
+    if (accessToken) {
+      let tokenValue = accessToken;
+      if (tokenValue.startsWith('Bearer ')) {
+        tokenValue = tokenValue.slice(7, tokenValue.length);
+      }
+      await Token.destroy({ where: { token: tokenValue, type: 'ACCESS' } });
+    }
+    createResponse(res, { success: true, message: 'Logged out successfully' });
+  } catch (err: any) {
+    logger('error', err, 'authController.logout', req.headers['user-agent']);
     createResponse(res, { success: false, message: err.message, statusCode: 500 });
   }
 };
