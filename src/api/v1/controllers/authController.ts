@@ -113,7 +113,7 @@ export const login = async (req: Request, res: Response) => {
     const refreshToken = crypto.randomBytes(40).toString('hex');
 
     // Store Access Token (Optional, for blacklisting if needed, but here used for session tracking)
-    const accestokenTimeExpiration = new Date(Date.now() + 1 * 60 * 1000); // 15 minutes
+    const accestokenTimeExpiration = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
     await (Token as any).create({
       userId: user.id,
       token: accessToken,
@@ -122,7 +122,7 @@ export const login = async (req: Request, res: Response) => {
     });
 
     // Store Refresh Token
-    const refreshTokenExpiration = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+    const refreshTokenExpiration = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
     await (Token as any).create({
       userId: user.id,
       token: refreshToken,
