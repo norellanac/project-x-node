@@ -145,6 +145,8 @@ const router = Router();
  *   post:
  *     summary: Upload an image for a category
  *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -159,7 +161,7 @@ const router = Router();
  *           schema:
  *             type: object
  *             properties:
- *               image:
+ *               file:
  *                 type: string
  *                 format: binary
  *     responses:
@@ -168,52 +170,22 @@ const router = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Category'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   $ref: '#/components/schemas/Category'
  *       400:
  *         description: Failed to upload image
  *       404:
  *         description: Category not found
- *       500:
- *         description: An error occurred while uploading the image
  */
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     Category:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           example: 1
- *         name:
- *           type: string
- *           example: "Category Name"
- *         description:
- *           type: string
- *           example: "Description of the category"
- *         icon:
- *           type: string
- *           example: "http://example.com/icon.jpg"
- *         urlImage:
- *           type: string
- *           example: "http://example.com/image.jpg"
- *         createdAt:
- *           type: string
- *           format: date-time
- *           example: "2023-01-01T00:00:00.000Z"
- *         updatedAt:
- *           type: string
- *           format: date-time
- *           example: "2023-01-01T00:00:00.000Z"
- */
-
-router.post('/', createCategory);
 router.get('/', getAllCategories);
 router.get('/:id', getCategoryById);
+router.post('/', createCategory);
 router.put('/:id', updateCategory);
 router.delete('/:id', deleteCategory);
-router.put('/:id/image', uploadCategoryImage);
+router.post('/:id/image', uploadCategoryImage);
 
 export default router;

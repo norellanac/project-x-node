@@ -316,7 +316,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Alexis\",\n    \"lastname\": \"Orellana\",\n    \"email\": \"{{my_email}}\",\n    \"password\": \"123123\"\n\n}",
+							"raw": "{\n  \"name\": \"Alexis\",\n  \"lastname\": \"Orellana\",\n  \"email\": \"{{my_email}}\",\n  \"password\": \"123123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -326,7 +326,42 @@
 						"url": "{{base_url}}/register/",
 						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Registration Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Alexis\",\n  \"lastname\": \"Orellana\",\n  \"email\": \"{{my_email}}\",\n  \"password\": \"123123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/register/"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"user\": {\n            \"id\": 1,\n            \"name\": \"Alexis\",\n            \"lastname\": \"Orellana\",\n            \"email\": \"alexis@example.com\"\n        },\n        \"accessToken\": \"eyJhbGci...\",\n        \"refreshToken\": \"some-refresh-token\"\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "AUTH Login",
@@ -3885,6 +3920,89 @@
 							}
 						},
 						"url": "{{base_url}}/userReview/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BRANDING",
+			"item": [
+				{
+					"name": "Get Branding",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/branding"
+					},
+					"response": [
+						{
+							"name": "Default Branding",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{base_url}}/branding"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 1,\n        \"appName\": \"My App\",\n        \"tagline\": \"\",\n        \"legalName\": \"\",\n        \"colorsLight\": {\n            \"primary\": \"#6750A4\",\n            \"primaryContainer\": \"#EADDFF\",\n            \"secondary\": \"#625B71\",\n            \"secondaryContainer\": \"#E8DEF8\",\n            \"tertiary\": \"#7D5260\",\n            \"tertiaryContainer\": \"#FFD8E4\",\n            \"error\": \"#B3261E\",\n            \"errorContainer\": \"#F9DEDC\",\n            \"background\": \"#FFFFFF\",\n            \"surface\": \"#FFFFFF\",\n            \"textPrimary\": \"#000000\",\n            \"textSecondary\": \"#49454F\",\n            \"onPrimary\": \"#FFFFFF\",\n            \"onSecondary\": \"#FFFFFF\",\n            \"onTertiary\": \"#FFFFFF\"\n        },\n        \"colorsDark\": {\n            \"primary\": \"#D0BCFF\",\n            \"primaryContainer\": \"#25232A\",\n            \"secondary\": \"#CCC2DC\",\n            \"secondaryContainer\": \"#4A4458\",\n            \"tertiary\": \"#EFB8C8\",\n            \"tertiaryContainer\": \"#633B48\",\n            \"error\": \"#F2B8B5\",\n            \"errorContainer\": \"#8C1D18\",\n            \"background\": \"#1C1B1F\",\n            \"surface\": \"#121212\",\n            \"textPrimary\": \"#FFFFFF\",\n            \"textSecondary\": \"#CAC4D0\",\n            \"onPrimary\": \"#000000\",\n            \"onSecondary\": \"#000000\",\n            \"onTertiary\": \"#000000\"\n        },\n        \"features\": {\n            \"chatEnabled\": true,\n            \"tasksEnabled\": true,\n            \"newsletterEnabled\": true,\n            \"socialAuthEnabled\": false,\n            \"darkModeEnabled\": true,\n            \"biometricsEnabled\": true\n        },\n        \"copyOverrides\": {},\n        \"sliderImages\": []\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Branding",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{my_admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"appName\": \"Updated ProjectX\",\n    \"tagline\": \"The best white-label solution\",\n    \"buttonBorderRadius\": 12,\n    \"features\": {\n        \"chatEnabled\": true,\n        \"socialAuthEnabled\": true\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/branding"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Logo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{my_admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": "{{base_url}}/branding/assets/logo"
 					},
 					"response": []
 				}
