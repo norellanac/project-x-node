@@ -62,7 +62,11 @@ export const authenticateToken = async (req: AuthUserIdRequest, res: Response, n
     req.userId = (decoded as DecodedToken).userId;
     logger(LOGGER_EVENTS.INFO, { message: 'Token authenticated successfully', decoded, storedToken: storedToken.toJSON() }, 'authenticateToken', req.headers['user-agent'], requestByUser.email, requestByUser.id.toString());
     next();
-  } catch (err) {
+  } catch (err: any) {
+    if (err.name === 'TokenExpiredError') {
+      logger(LOGGER_EVENTS.INFO, { message: 'Token expired', error: err }, 'authenticateToken', req.headers['user-agent'], requestByUser.email, requestByUser.id.toString());
+      return res.status(401).json({ success: false, message: 'Token expired', error: 'TokenExpiredError' });
+    }
     logger(LOGGER_EVENTS.ERROR, { message: 'Token verification failed', error: err }, 'authenticateToken', req.headers['user-agent'], requestByUser.email, requestByUser.id.toString());
     return res.status(403).json({ success: false, message: 'Forbidden' });
   } finally {
