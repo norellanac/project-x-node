@@ -8,6 +8,7 @@ This project is a backend application built with Node.js and Sequelize. It uses 
 - [Project Setup](#project-setup)
 - [Running the Application](#running-the-application)
 - [Database Migrations](#database-migrations)
+- [Deployment](#deployment)
 - [Listing Routes](#listing-routes)
 - [Testing](#testing)
 - [Project Structure](#project-structure)
@@ -107,6 +108,25 @@ To undo all migrations and then run them again:
 ```bash
 yarn run db:migrate:refresh
 ```
+
+## Deployment
+
+To deploy changes to the production server and restart the PM2 process:
+
+1. **Build the project**:
+   ```bash
+   yarn build
+   ```
+
+2. **Restart the PM2 processes**:
+   ```bash
+   pm2 restart reco-api-https
+   ```
+
+3. **Monitor logs**:
+   ```bash
+   pm2 logs reco-api-https
+   ```
 
 ## Listing Routes
 

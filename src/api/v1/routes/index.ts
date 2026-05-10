@@ -8,6 +8,7 @@ import chatRouter from './chatRoutes';
 import reactionRouter from './reactionRoutes';
 import userReviewRoutes from './userReviewRoutes';
 import productReviewRoutes from './productReviewRoutes';
+import brandingRouter from './brandingRoutes';
 
 export {
   authRouter,
@@ -20,4 +21,5 @@ export {
   reactionRouter,
   userReviewRoutes,
   productReviewRoutes,
+  brandingRouter,
 };

@@ -19,6 +19,7 @@ import { initializeRolePermission } from './rolepermission';
 import { initializeConversation } from './conversation';
 import { initializeMessage } from './message';
 import { initializeReaction } from './reaction';
+import { initializeBranding } from './branding';
 
 // Initialize Sequelize
 const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, process.env.DB_PASS!, {
@@ -47,6 +48,7 @@ const RolePermission = initializeRolePermission(sequelize);
 const Conversation = initializeConversation(sequelize);
 const Message = initializeMessage(sequelize);
 const Reaction = initializeReaction(sequelize);
+const Branding = initializeBranding(sequelize);
 
 // Define associations
 User.associate({ Token, UserReview, Order, ProductService, Role, Conversation, Message, Reaction });
@@ -93,4 +95,5 @@ export {
   Conversation,
   Message,
   Reaction,
+  Branding,
 };
