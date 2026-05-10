@@ -25,6 +25,12 @@ export interface BrandingColors {
   onTertiary: string;
 }
 
+export interface IntroSlide {
+  imageUrl: string;
+  title: string;
+  subtitle?: string;
+}
+
 export interface BrandingFeatures {
   chatEnabled: boolean;
   tasksEnabled: boolean;
@@ -90,6 +96,9 @@ class Branding extends Model<InferAttributes<Branding>, InferCreationAttributes<
   declare faviconUrl: CreationOptional<string>;
   declare defaultImageUrl: CreationOptional<string>;
   declare sliderImages: CreationOptional<string[]>;
+  declare introSlides: CreationOptional<IntroSlide[]>;
+  declare appStoreUrl: CreationOptional<string>;
+  declare playStoreUrl: CreationOptional<string>;
   declare colorsLight: BrandingColors;
   declare colorsDark: BrandingColors;
   declare fontFamily: CreationOptional<string>;
@@ -122,6 +131,9 @@ export function initializeBranding(sequelize: Sequelize): typeof Branding {
       faviconUrl: DataTypes.STRING,
       defaultImageUrl: DataTypes.STRING,
       sliderImages: DataTypes.JSON,
+      introSlides: { type: DataTypes.JSON, defaultValue: [] },
+      appStoreUrl: { type: DataTypes.STRING, defaultValue: '' },
+      playStoreUrl: { type: DataTypes.STRING, defaultValue: '' },
       colorsLight: { type: DataTypes.JSON, allowNull: false, defaultValue: DEFAULT_COLORS_LIGHT },
       colorsDark: { type: DataTypes.JSON, allowNull: false, defaultValue: DEFAULT_COLORS_DARK },
       fontFamily: { type: DataTypes.STRING, defaultValue: 'Roboto' },

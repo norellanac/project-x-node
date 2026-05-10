@@ -10,6 +10,7 @@ const ASSET_FOLDERS: Record<string, string> = {
   favicon: 'branding',
   defaultImage: 'branding',
   slider: 'branding',
+  introSlide: 'branding',
 };
 
 const getOrCreateBranding = async () => {
@@ -66,7 +67,7 @@ export const updateBranding = async (req: Request, res: Response) => {
       'termsUrl', 'privacyUrl', 'supportUrl',
       'privacyEmail', 'legalEmail', 'companyAddress',
       'mailchimpApiUrl', 'features', 'copyOverrides',
-      'sliderImages',
+      'sliderImages', 'introSlides', 'appStoreUrl', 'playStoreUrl',
     ];
     allowed.forEach((key) => {
       if (req.body[key] !== undefined) {
@@ -88,8 +89,8 @@ export const uploadBrandingAsset = async (req: Request, res: Response) => {
     }
 
     const branding = await getOrCreateBranding();
-    const customName = type === 'slider'
-      ? `slider-${Date.now()}`
+    const customName = (type === 'slider' || type === 'introSlide')
+      ? `${type}-${Date.now()}`
       : type;
 
     const imageUrl = await fileStorage.saveFile(ASSET_FOLDERS[type], customName, req, res);
@@ -100,6 +101,10 @@ export const uploadBrandingAsset = async (req: Request, res: Response) => {
     if (type === 'slider') {
       const current = (branding.sliderImages as string[]) || [];
       branding.sliderImages = [...current, imageUrl];
+    } else if (type === 'introSlide') {
+      const { title = '', subtitle = '' } = req.body;
+      const current = (branding.introSlides as any[]) || [];
+      branding.introSlides = [...current, { imageUrl, title, subtitle }];
     } else {
       const fieldMap: Record<string, keyof typeof branding> = {
         logo: 'logoUrl',
@@ -113,6 +118,25 @@ export const uploadBrandingAsset = async (req: Request, res: Response) => {
 
     await branding.save();
     sendApiResponse(res, true, 200, branding, 'Asset uploaded successfully');
+  } catch (error) {
+    sendApiResponse(res, false, 500, null, (error as Error).message);
+  }
+};
+
+export const removeIntroSlide = async (req: Request, res: Response) => {
+  try {
+    const { index } = req.params;
+    const branding = await getOrCreateBranding();
+    const current = (branding.introSlides as any[]) || [];
+    const idx = parseInt(index, 10);
+    if (idx < 0 || idx >= current.length) {
+      return sendApiResponse(res, false, 400, null, 'Invalid intro slide index');
+    }
+    const removed = current[idx];
+    if (removed?.imageUrl) fileStorage.deleteFile(`.${removed.imageUrl}`);
+    branding.introSlides = current.filter((_, i) => i !== idx);
+    await branding.save();
+    sendApiResponse(res, true, 200, branding);
   } catch (error) {
     sendApiResponse(res, false, 500, null, (error as Error).message);
   }

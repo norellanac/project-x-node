@@ -4,6 +4,7 @@ import {
   updateBranding,
   uploadBrandingAsset,
   removeSliderImage,
+  removeIntroSlide,
 } from '../controllers/brandingController';
 import { authenticateToken } from '../middlewares/authenticateToken';
 import { authorizeRole } from '../middlewares/authorizeRole';
@@ -144,6 +145,13 @@ router.delete(
   authenticateToken,
   authorizeRole(['Admin']),
   removeSliderImage,
+);
+
+router.delete(
+  '/intro-slides/:index',
+  authenticateToken,
+  authorizeRole(['Admin']),
+  removeIntroSlide,
 );
 
 export default router;
