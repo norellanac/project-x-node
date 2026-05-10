@@ -12,6 +12,10 @@ class City extends Model {
       foreignKey: 'stateId',
       as: 'state',
     });
+    City.hasMany(models.ProductLocation, {
+      foreignKey: 'cityId',
+      as: 'productLocations',
+    });
   }
 }
 

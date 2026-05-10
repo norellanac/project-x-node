@@ -1,5 +1,6 @@
-import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute } from 'sequelize';
 import Token from './token';
+import Role from './role';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
@@ -7,9 +8,18 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare lastname: string;
   declare email: string;
   declare password: string;
-  declare role: CreationOptional<string>;
   declare averageRating: CreationOptional<number>;
   declare avatarUrl: CreationOptional<string>;
+  
+  // Association Methods
+  declare setRoles: (roles: Role[]) => Promise<void>;
+  declare getRoles: () => Promise<Role[]>;
+  declare addRole: (role: Role) => Promise<void>;
+  declare removeRole: (role: Role) => Promise<void>;
+  declare hasRole: (role: Role) => Promise<boolean>;
+
+  // Associations
+  declare roles?: NonAttribute<Role[]>;
 
   static associate(models: any) {
     User.hasMany(models.Token, {
@@ -19,6 +29,16 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     User.hasMany(models.ProductService, {
       foreignKey: 'userId',
       as: 'products',
+    });
+    User.belongsToMany(models.Role, {
+      through: 'UserRole',
+      foreignKey: 'userId',
+      as: 'roles',
+    });
+    User.belongsToMany(models.Conversation, {
+      through: 'UserConversation',
+      foreignKey: 'userId',
+      as: 'conversations',
     });
   }
 }
@@ -34,15 +54,12 @@ export function initializeUser(sequelize: Sequelize): typeof User {
     lastname: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
       unique: true,
-      validate: {
-        isEmail: true,
-      },
     },
-    password: DataTypes.STRING,
-    role: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     averageRating: DataTypes.FLOAT,
     avatarUrl: DataTypes.STRING,
@@ -50,7 +67,15 @@ export function initializeUser(sequelize: Sequelize): typeof User {
     sequelize,
     modelName: 'User',
     paranoid: true,
-  },);
+    defaultScope: {
+      attributes: { exclude: ['password'] }, // Exclude password by default
+    },
+    scopes: {
+      withPassword: {
+        attributes: undefined, // Include all attributes, including password
+      },
+    },
+  });
 
   return User;
 }

@@ -10,10 +10,13 @@
     "db-migrate-reset": "sequelize db:migrate:undo:all",
     "db-migrate-refresh": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "routes:list": "ts-node src/scripts/printRoutes.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
   },
   "author": "",
   "dependencies": {
+    "axios": "^1.10.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

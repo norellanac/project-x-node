@@ -16,6 +16,10 @@ class ProductLocation extends Model<InferAttributes<ProductLocation>, InferCreat
       foreignKey: 'productServiceId',
       as: 'productService',
     });
+    ProductLocation.belongsTo(models.City, {
+      foreignKey: 'cityId',
+      as: 'city',
+    });
   }
 }
 

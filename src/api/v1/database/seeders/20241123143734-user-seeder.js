@@ -1,16 +1,16 @@
 'use strict';
-
-const { url } = require("inspector");
+const bcrypt = require('bcrypt');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    const hashedPassword = await bcrypt.hash('123123', 10);
+
     await queryInterface.bulkInsert('Users', [
       {
         name: 'John',
         lastname: 'Doe',
-        email: 'johndoe@example.com',
-        password: 'hashedpassword1', // Make sure to hash the password in a real application
-        role: '1',
+        email: 'orellana.marketing@gmail.com',
+        password: hashedPassword,
         averageRating: 4.5,
         avatarUrl: 'https://picsum.photos/50/50?random=1',
         createdAt: new Date(),
@@ -19,9 +19,8 @@ module.exports = {
       {
         name: 'Jane',
         lastname: 'Smith',
-        email: 'jane.smith@example.com',
-        password: 'hashedpassword2', // Make sure to hash the password in a real application
-        role: '2',
+        email: 'alvanesc@gmail.com',
+        password: hashedPassword,
         averageRating: 4.0,
         avatarUrl: 'https://picsum.photos/50/50?random=2',
         createdAt: new Date(),
@@ -30,9 +29,18 @@ module.exports = {
       {
         name: 'Alice',
         lastname: 'Johnson',
-        email: 'alice.johnson@example.com',
-        password: 'hashedpassword3', // Make sure to hash the password in a real application
-        role: '3',
+        email: 'aforellanar@gmail.com',
+        password: hashedPassword,
+        averageRating: 4.2,
+        avatarUrl: 'https://picsum.photos/50/50?random=3',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Dev',
+        lastname: 'User',
+        email: '1005alexis@gmail.com',
+        password: hashedPassword,
         averageRating: 4.2,
         avatarUrl: 'https://picsum.photos/50/50?random=3',
         createdAt: new Date(),

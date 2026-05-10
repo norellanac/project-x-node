@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 import { logger } from '../../utils/logger';
-import { log } from 'console';
 
 dotenv.config();
 
@@ -12,6 +11,7 @@ export const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: 'mariadb',
+    timezone: '-06:00',
     // logging: (...msg) => console.log("==DB Query: ", msg)
   }
 );

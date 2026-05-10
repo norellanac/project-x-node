@@ -1,13 +1,17 @@
 import { Router } from 'express';
+import multer from 'multer';
 import {
   getAllProductServices,
   getProductServiceById,
   createProductService,
   updateProductService,
   deleteProductService,
+  uploadProductServiceImage,
 } from '../controllers/productServiceController';
+import { paginationMiddleware } from '../middlewares/paginationMiddleware';
 
 const router = Router();
+const upload = multer({ dest: 'uploads/' }); // Configure multer for file uploads
 
 /**
  * @swagger
@@ -67,29 +71,67 @@ const router = Router();
  *           type: string
  *           format: date-time
  *           description: The last update date of the ProductService
+ *         categories:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Category'
+ *         details:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/ProductDetail'
+ *         locations:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/ProductLocation'
+ *         reviews:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/ProductReview'
+ *         user:
+ *           $ref: '#/components/schemas/User'
  */
 
 /**
  * @swagger
- * /productservices:
+ * /services:
  *   get:
  *     summary: Get all ProductServices
  *     tags: [ProductServices]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: limit of records per page
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *         description: Skip n instances/rows
  *     responses:
  *       200:
  *         description: List of all ProductServices
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/ProductService'
+ *               type: object
+ *               properties:
+ *                 totalItems:
+ *                   type: integer
+ *                 items:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/ProductService'
+ *                 totalPages:
+ *                   type: integer
+ *                 currentPage:
+ *                   type: integer
  */
-router.get('/', getAllProductServices);
+router.get('/', paginationMiddleware, getAllProductServices);
 
 /**
  * @swagger
- * /productservices/{id}:
+ * /services/{id}:
  *   get:
  *     summary: Get a ProductService by ID
  *     tags: [ProductServices]
@@ -114,7 +156,7 @@ router.get('/:id', getProductServiceById);
 
 /**
  * @swagger
- * /productservices:
+ * /services:
  *   post:
  *     summary: Create a new ProductService
  *     tags: [ProductServices]
@@ -131,8 +173,6 @@ router.get('/:id', getProductServiceById);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ProductService'
- *       400:
- *         description: Bad request
  *       500:
  *         description: Server error
  */
@@ -140,9 +180,9 @@ router.post('/', createProductService);
 
 /**
  * @swagger
- * /productservices/{id}:
+ * /services/{id}:
  *   put:
- *     summary: Update a ProductService by ID
+ *     summary: Update an existing ProductService
  *     tags: [ProductServices]
  *     parameters:
  *       - in: path
@@ -164,8 +204,6 @@ router.post('/', createProductService);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ProductService'
- *       400:
- *         description: Bad request
  *       404:
  *         description: ProductService not found
  *       500:
@@ -175,9 +213,9 @@ router.put('/:id', updateProductService);
 
 /**
  * @swagger
- * /productservices/{id}:
+ * /services/{id}:
  *   delete:
- *     summary: Delete a ProductService by ID
+ *     summary: Delete a ProductService
  *     tags: [ProductServices]
  *     parameters:
  *       - in: path
@@ -195,5 +233,42 @@ router.put('/:id', updateProductService);
  *         description: Server error
  */
 router.delete('/:id', deleteProductService);
+
+/**
+ * @swagger
+ * /services/{id}/image:
+ *   put:
+ *     summary: Upload an image for a ProductService
+ *     tags: [ProductServices]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ProductService ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Image uploaded successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ProductService'
+ *       404:
+ *         description: ProductService not found
+ *       500:
+ *         description: Server error
+ */
+router.put('/:id/image', uploadProductServiceImage);
 
 export default router;

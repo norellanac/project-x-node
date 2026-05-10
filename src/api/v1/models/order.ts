@@ -1,4 +1,5 @@
-import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute } from 'sequelize';
+import OrderDetail from './orderdetail';
 
 class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>> {
   declare id: CreationOptional<number>;
@@ -6,7 +7,14 @@ class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>
   declare totalAmount: number;
   declare status: number;
   declare comment?: string;
+  declare startDate?: Date;
+  declare endDate?: Date;
   declare deletedAt?: Date;
+
+    // Association properties
+  declare details?: NonAttribute<OrderDetail[]>; // OrderDetail[]
+  declare user?: NonAttribute<any>; // User
+
 
   static associate(models: any) {
     Order.belongsTo(models.User, {
@@ -38,9 +46,21 @@ export function initializeOrder(sequelize: Sequelize): typeof Order {
     status: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 1, // 1: requested, 2: in progress, 3: completed, 4: cancelled, 5: refunded, 6: failed, 7: reviewed
+      validate: {
+        isIn: [[1, 2, 3, 4, 5, 6, 7]],
+      },
     },
     comment: {
       type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    startDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    endDate: {
+      type: DataTypes.DATE,
       allowNull: true,
     },
     deletedAt: {
@@ -51,6 +71,9 @@ export function initializeOrder(sequelize: Sequelize): typeof Order {
     sequelize,
     modelName: 'Order',
     paranoid: true,
+    defaultScope: {
+      order: [['createdAt', 'DESC']],
+    },
   });
 
   return Order;
