@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Branding } from '../models';
 import { sendApiResponse } from '../../../utils/responseHandler';
 import fileStorage from '../middlewares/fileStorage';
+import { PRESETS, DEFAULT_FIELD_LABELS, resolveLabels, PresetKey } from '../../../utils/labelPresets';
 
 const ASSET_FOLDERS: Record<string, string> = {
   logo: 'branding',
@@ -68,6 +69,7 @@ export const updateBranding = async (req: Request, res: Response) => {
       'privacyEmail', 'legalEmail', 'companyAddress',
       'mailchimpApiUrl', 'features', 'copyOverrides',
       'sliderImages', 'introSlides', 'appStoreUrl', 'playStoreUrl',
+      'fieldLabels',
     ];
     allowed.forEach((key) => {
       if (req.body[key] !== undefined) {
@@ -153,6 +155,36 @@ export const removeSliderImage = async (req: Request, res: Response) => {
     }
     fileStorage.deleteFile(`.${current[idx]}`);
     branding.sliderImages = current.filter((_, i) => i !== idx);
+    await branding.save();
+    sendApiResponse(res, true, 200, branding);
+  } catch (error) {
+    sendApiResponse(res, false, 500, null, (error as Error).message);
+  }
+};
+
+// Returns field labels resolved to a single language.
+// Query param: ?lang=en (default) or ?lang=es
+export const getLabels = async (req: Request, res: Response) => {
+  try {
+    const branding = await getOrCreateBranding();
+    const lang = (req.query.lang as string) || req.headers['accept-language'] || 'en';
+    const raw = (branding.fieldLabels as any) || DEFAULT_FIELD_LABELS;
+    const resolved = resolveLabels(raw, lang);
+    sendApiResponse(res, true, 200, resolved);
+  } catch (error) {
+    sendApiResponse(res, false, 500, null, (error as Error).message);
+  }
+};
+
+// Applies a named preset, replacing all fieldLabels. Admin can then override individual fields via PUT /branding.
+export const applyPreset = async (req: Request, res: Response) => {
+  try {
+    const { preset } = req.body as { preset: PresetKey };
+    if (!preset || !PRESETS[preset as keyof typeof PRESETS]) {
+      return sendApiResponse(res, false, 400, null, `Invalid preset. Valid options: ${Object.keys(PRESETS).join(', ')}`);
+    }
+    const branding = await getOrCreateBranding();
+    branding.fieldLabels = PRESETS[preset as keyof typeof PRESETS];
     await branding.save();
     sendApiResponse(res, true, 200, branding);
   } catch (error) {

@@ -5,6 +5,8 @@ import {
   uploadBrandingAsset,
   removeSliderImage,
   removeIntroSlide,
+  getLabels,
+  applyPreset,
 } from '../controllers/brandingController';
 import { authenticateToken } from '../middlewares/authenticateToken';
 import { authorizeRole } from '../middlewares/authorizeRole';
@@ -152,6 +154,17 @@ router.delete(
   authenticateToken,
   authorizeRole(['Admin']),
   removeIntroSlide,
+);
+
+// GET /branding/labels?lang=en  — public, returns resolved labels for one language
+router.get('/labels', getLabels);
+
+// POST /branding/preset  — admin, applies a named preset to fieldLabels
+router.post(
+  '/preset',
+  authenticateToken,
+  authorizeRole(['Admin']),
+  applyPreset,
 );
 
 export default router;
