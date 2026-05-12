@@ -7,7 +7,8 @@ module.exports = {
       { userId: 2, roleId: 2, createdAt: new Date(), updatedAt: new Date() },
       { userId: 3, roleId: 1, createdAt: new Date(), updatedAt: new Date() },
       { userId: 4, roleId: 1, createdAt: new Date(), updatedAt: new Date() },
-      { userId: 4, roleId: 2, createdAt: new Date(), updatedAt: new Date() }
+      { userId: 4, roleId: 2, createdAt: new Date(), updatedAt: new Date() },
+      { userId: 4, roleId: 3, createdAt: new Date(), updatedAt: new Date() }
     ]);
   },
 

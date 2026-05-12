@@ -271,4 +271,80 @@ router.delete('/:id', deleteProductService);
  */
 router.put('/:id/image', uploadProductServiceImage);
 
+/**
+ * @swagger
+ * /public/products:
+ *   get:
+ *     summary: Get all ProductServices (Public)
+ *     tags: [ProductServices]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: limit of records per page
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *         description: Skip n instances/rows
+ *     responses:
+ *       200:
+ *         description: List of all ProductServices
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     items:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/ProductService'
+ *                     pagination:
+ *                       type: object
+ *                       properties:
+ *                         totalItems:
+ *                           type: integer
+ *                         totalPages:
+ *                           type: integer
+ *                         currentPage:
+ *                           type: integer
+ *                         pageSize:
+ *                           type: integer
+ */
+
+/**
+ * @swagger
+ * /public/products/{id}:
+ *   get:
+ *     summary: Get a ProductService by ID (Public)
+ *     tags: [ProductServices]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ProductService ID
+ *     responses:
+ *       200:
+ *         description: The ProductService data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   $ref: '#/components/schemas/ProductService'
+ *       404:
+ *         description: ProductService not found
+ */
+
 export default router;

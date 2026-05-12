@@ -7,8 +7,8 @@ module.exports = {
 
     await queryInterface.bulkInsert('Users', [
       {
-        name: 'John',
-        lastname: 'Doe',
+        name: 'Rolando',
+        lastname: 'Orellana',
         email: 'orellana.marketing@gmail.com',
         password: hashedPassword,
         averageRating: 4.5,
@@ -17,8 +17,8 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        name: 'Jane',
-        lastname: 'Smith',
+        name: 'Andrea',
+        lastname: 'Alvanes',
         email: 'alvanesc@gmail.com',
         password: hashedPassword,
         averageRating: 4.0,
@@ -27,8 +27,8 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        name: 'Alice',
-        lastname: 'Johnson',
+        name: 'Allan',
+        lastname: 'Orellana',
         email: 'aforellanar@gmail.com',
         password: hashedPassword,
         averageRating: 4.2,
@@ -37,10 +37,11 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        name: 'Dev',
-        lastname: 'User',
+        name: 'Alexis',
+        lastname: 'Orellana',
         email: '1005alexis@gmail.com',
         password: hashedPassword,
+        phone: '+50233120413',
         averageRating: 4.2,
         avatarUrl: 'https://picsum.photos/50/50?random=3',
         createdAt: new Date(),

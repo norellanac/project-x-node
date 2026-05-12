@@ -506,4 +506,120 @@
  *           type: string
  *           format: date-time
  *           example: "2023-01-01T00:00:00.000Z"
+ *     Branding:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         appName:
+ *           type: string
+ *           example: "My App"
+ *         tagline:
+ *           type: string
+ *           example: "Best app ever"
+ *         legalName:
+ *           type: string
+ *           example: "My Company Inc."
+ *         logoUrl:
+ *           type: string
+ *           example: "/uploads/branding/logo.png"
+ *         iconUrl:
+ *           type: string
+ *           example: "/uploads/branding/icon.png"
+ *         splashUrl:
+ *           type: string
+ *           example: "/uploads/branding/splash.png"
+ *         faviconUrl:
+ *           type: string
+ *           example: "/uploads/branding/favicon.ico"
+ *         defaultImageUrl:
+ *           type: string
+ *           example: "/uploads/branding/default.png"
+ *         sliderImages:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: ["/uploads/branding/slider-1.png"]
+ *         colorsLight:
+ *           $ref: '#/components/schemas/BrandingColors'
+ *         colorsDark:
+ *           $ref: '#/components/schemas/BrandingColors'
+ *         fontFamily:
+ *           type: string
+ *           example: "Roboto"
+ *         buttonBorderRadius:
+ *           type: integer
+ *           example: 4
+ *         termsUrl:
+ *           type: string
+ *         privacyUrl:
+ *           type: string
+ *         supportUrl:
+ *           type: string
+ *         privacyEmail:
+ *           type: string
+ *         legalEmail:
+ *           type: string
+ *         companyAddress:
+ *           type: string
+ *         mailchimpApiUrl:
+ *           type: string
+ *         features:
+ *           $ref: '#/components/schemas/BrandingFeatures'
+ *         copyOverrides:
+ *           type: object
+ *           additionalProperties:
+ *             type: object
+ *             additionalProperties:
+ *               type: string
+ *     BrandingColors:
+ *       type: object
+ *       properties:
+ *         primary:
+ *           type: string
+ *           example: "#6750A4"
+ *         primaryContainer:
+ *           type: string
+ *         secondary:
+ *           type: string
+ *         secondaryContainer:
+ *           type: string
+ *         tertiary:
+ *           type: string
+ *         tertiaryContainer:
+ *           type: string
+ *         error:
+ *           type: string
+ *         errorContainer:
+ *           type: string
+ *         background:
+ *           type: string
+ *         surface:
+ *           type: string
+ *         textPrimary:
+ *           type: string
+ *         textSecondary:
+ *           type: string
+ *         onPrimary:
+ *           type: string
+ *         onSecondary:
+ *           type: string
+ *         onTertiary:
+ *           type: string
+ *     BrandingFeatures:
+ *       type: object
+ *       properties:
+ *         chatEnabled:
+ *           type: boolean
+ *         tasksEnabled:
+ *           type: boolean
+ *         newsletterEnabled:
+ *           type: boolean
+ *         socialAuthEnabled:
+ *           type: boolean
+ *         darkModeEnabled:
+ *           type: boolean
+ *         biometricsEnabled:
+ *           type: boolean
  */

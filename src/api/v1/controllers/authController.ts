@@ -25,99 +25,75 @@ const generateOTP = () => {
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { name, lastname, email, password } = req.body;
+    const { email, phone, password, isMerchant } = req.body;
 
-    logger(
-      'info',
-      `Registering user with email: ${email}`,
-      'authController.register',
-      req.headers['user-agent'],
-      email
-    );
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create the user
-    const user = User.build({ name, lastname, email, password: hashedPassword });
-    await user.save();
-
-    // Assign a default role to the user
-    const defaultRole = await Role.findOne({ where: { name: 'User' } }); // Replace 'User' with your default role name
-    if (defaultRole) {
-      await user.addRole(defaultRole); // Use Sequelize's association method to assign the role
+    if (!email && !phone) {
+      return createResponse(res, { success: false, message: 'Email or phone number is required', statusCode: 400 });
+    }
+    if (!password) {
+      return createResponse(res, { success: false, message: 'Password is required', statusCode: 400 });
     }
 
-    logger(
-      'info',
-      `User registered successfully with email: ${email}`,
-      'authController.register',
-      req.headers['user-agent'],
-      email,
-      user.id.toString()
-    );
-    
+    const identifier = email
+      ? { email: (email as string).trim().toLowerCase() }
+      : { phone: (phone as string).trim() };
+
+    const logIdentifier = identifier.email || identifier.phone || '';
+    logger('info', `Registering user: ${logIdentifier}`, 'authController.register', req.headers['user-agent'], logIdentifier);
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = User.build({ ...identifier, password: hashedPassword });
+    await user.save();
+
+    const userRole = await Role.findOne({ where: { name: 'User' } });
+    if (userRole) await user.addRole(userRole);
+
+    if (isMerchant) {
+      const merchantRole = await Role.findOne({ where: { name: 'Merchant' } });
+      if (merchantRole) await user.addRole(merchantRole);
+    }
+
+    logger('info', `User registered: ${logIdentifier}`, 'authController.register', req.headers['user-agent'], logIdentifier, user.id.toString());
+
     user.password = '';
     const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '15m' });
     const refreshToken = crypto.randomBytes(40).toString('hex');
 
-    await (Token as any).create({
-      userId: user.id,
-      token: accessToken,
-      type: 'ACCESS',
-      expiryDate: new Date(Date.now() + 15 * 60 * 1000),
-    });
-
-    await (Token as any).create({
-      userId: user.id,
-      token: refreshToken,
-      type: 'REFRESH',
-      expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-    });
+    await (Token as any).create({ userId: user.id, token: accessToken, type: 'ACCESS', expiryDate: new Date(Date.now() + 15 * 60 * 1000) });
+    await (Token as any).create({ userId: user.id, token: refreshToken, type: 'REFRESH', expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) });
 
     createResponse(res, { success: true, data: { user, accessToken, refreshToken }, statusCode: 201 });
   } catch (err: any) {
-    logger(
-      'error',
-      err,
-      'authController.register',
-      req.headers['user-agent'],
-      req.body.email
-    );
-
+    logger('error', err, 'authController.register', req.headers['user-agent'], req.body.email || req.body.phone);
     err.errors
-      ? createResponse(res, {
-          success: false,
-          errors: err.errors.map((e: any) => e.message),
-          statusCode: 400,
-        })
+      ? createResponse(res, { success: false, errors: err.errors.map((e: any) => e.message), statusCode: 400 })
       : createResponse(res, { success: false, message: err.message, statusCode: 500 });
   }
 };
 
 export const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, phone, password } = req.body;
+  const identifier = email
+    ? { email: (email as string).trim().toLowerCase() }
+    : { phone: (phone as string)?.trim() };
+  const logId = email || phone || '';
   try {
-    logger('info', `Attempting to login user with email: ${email}`, 'authController.login', req.headers['user-agent'], email);
-    const user = await User.scope('withPassword').findOne(
-      { where: { email }, 
-      include: [{ model: Role, as: 'roles' }]
+    logger('info', `Attempting login: ${logId}`, 'authController.login', req.headers['user-agent'], logId);
+    const user = await User.scope('withPassword').findOne({
+      where: identifier,
+      include: [{ model: Role, as: 'roles' }],
     });
 
     if (!user) {
-      logger('error', `User not found with email: ${email}`, 'authController.login', req.headers['user-agent'], email);
-      createResponse(res, {
-        success: false,
-        message: 'User not found',
-        statusCode: 404,
-      });
+      logger('error', `User not found: ${logId}`, 'authController.login', req.headers['user-agent'], logId);
+      createResponse(res, { success: false, message: 'User not found', statusCode: 404 });
       return;
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      logger('error', `Invalid password for user with email: ${email}`, 'authController.login', req.headers['user-agent'], email);
+      logger('error', `Invalid password for: ${logId}`, 'authController.login', req.headers['user-agent'], logId);
       createResponse(res, {
         success: false,
         message: 'Invalid credentials',
@@ -148,10 +124,10 @@ export const login = async (req: Request, res: Response) => {
     });
 
     user.password = '';
-    logger('info', `User logged in successfully with email: ${email}`, 'authController.login', req.headers['user-agent'], email, user.id.toString());
+    logger('info', `User logged in: ${logId}`, 'authController.login', req.headers['user-agent'], logId, user.id.toString());
     createResponse(res, { success: true, data: { user, accessToken, refreshToken } });
   } catch (err: any) {
-    logger('error', err, 'authController.login', req.headers['user-agent'], email);
+    logger('error', err, 'authController.login', req.headers['user-agent'], logId);
     createResponse(res, { success: false, message: err.message, statusCode: 500 });
   }
 };
