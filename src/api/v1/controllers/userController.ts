@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
+import { Op } from 'sequelize';
 import bcrypt from 'bcrypt';
 import { createResponse } from '../../../utils/responseUtils';
 import { ProductService, Role, User } from '../models';
 import fileStorage from '../middlewares/fileStorage';
+import { AuthUserIdRequest } from '../middlewares/types';
 
 export const index = async (req: Request, res: Response) => {
   try {
@@ -84,10 +86,25 @@ const hashPassword = async (
   return await bcrypt.hash(password, 10);
 };
 
-export const update = async (req: Request, res: Response) => {
+export const update = async (req: AuthUserIdRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, lastname, email, password, roles } = req.body;
+    const { name, lastname, email, phone, password, roles } = req.body;
+
+    // Authorization: user can only update their own profile; admins can update any
+    if (String(req.userId) !== String(id)) {
+      const requestingUser = await User.findByPk(req.userId, {
+        include: [{ model: Role, as: 'roles' }],
+      });
+      const isAdmin = requestingUser?.roles?.some((role) => role.name === 'Admin');
+      if (!isAdmin) {
+        return createResponse(res, {
+          success: false,
+          message: 'Forbidden',
+          statusCode: 403,
+        });
+      }
+    }
 
     const user = await User.findByPk(id);
     if (!user) {
@@ -98,6 +115,30 @@ export const update = async (req: Request, res: Response) => {
       });
     }
 
+    // Verify email is not already taken by another user
+    if (email !== undefined && email !== user.email) {
+      const emailTaken = await User.findOne({ where: { email, id: { [Op.ne]: id } } });
+      if (emailTaken) {
+        return createResponse(res, {
+          success: false,
+          message: 'Email is already in use',
+          statusCode: 409,
+        });
+      }
+    }
+
+    // Verify phone is not already taken by another user
+    if (phone !== undefined && phone !== user.phone) {
+      const phoneTaken = await User.findOne({ where: { phone, id: { [Op.ne]: id } } });
+      if (phoneTaken) {
+        return createResponse(res, {
+          success: false,
+          message: 'Phone number is already in use',
+          statusCode: 409,
+        });
+      }
+    }
+
     const hashedPassword = await hashPassword(password, user.password);
 
     // Update user fields
@@ -105,6 +146,7 @@ export const update = async (req: Request, res: Response) => {
       name: name ?? user.name,
       lastname: lastname ?? user.lastname,
       email: email ?? user.email,
+      phone: phone ?? user.phone,
       password: hashedPassword,
     });
 
