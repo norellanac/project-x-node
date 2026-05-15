@@ -5,53 +5,39 @@ module.exports = {
     // Insert ProductServices
     await queryInterface.bulkInsert('ProductServices', [
       {
-        name: 'Limpieza de casas y apartamentos',
-        description: 'Servicio de limpieza de casas y apartamentos',
+        name: 'Purificadora Agua Dulce Vida',
+        description: 'Servicio de purificación de agua para restaurantes, hogares y oficinas  Tecpán, Guatemala y sus alrededores',
         type: 1,
-        price: 150.0,
-        specialPrice: 90.0,
-        location: 'Cobán, Guatemala',
-        latitude: 40.7128,
-        longitude: -74.0060,
-        userId: 1,
-        averageRating: 4.5,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        name: 'Jardinería y Pintura',
-        description: 'Servicio de jardinería y pintura de casas, apartamentos y oficinas',
-        type: 1,
-        price: 80.0,
-        specialPrice: 65.0,
-        location: 'Santa Apolonia, Guatemala',
-        latitude: 34.0522,
-        longitude: -118.2437,
-        userId: 2,
+        price: 12.0,
+        specialPrice: 10.0,
+        location: 'Tecpan, Guatemala',
+        latitude: 14.6349,
+        longitude: -90.5069,
+        userId: 4,
         averageRating: 3.5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Taller Automotriz El Triunfo',
-        description: 'Servicio de mecánica automotriz y reparación de vehículos',
+        name: 'Agencia de viajes Pakal',
+        description: 'Servicio de viajes y turismo en Guatemala, asesoria en vuelos, hoteles y tours en Guatemala y el mundo',
         type: 1,
         price: 500.0,
         specialPrice: 450.0,
-        location: 'Santa Apolonia, Guatemala',
-        latitude: 34.0522,
-        longitude: -118.2437,
-        userId: 3,
+        location: 'Tecpan, Guatemala',
+        latitude: 14.6349,
+        longitude: -90.5069,
+        userId: 4,
         averageRating: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         name: 'ByteCode - Software development',
-        description: 'Desarrollo de software a la medida, aplicaciones móviles y web',
+        description: 'Desarrollo de software a la medida, aplicaciones móviles y web en Guatemala y el mundo',
         type: 1,
-        price: 8000.0,
-        specialPrice: 1800.0,
+        price: 90000.0,
+        specialPrice: 50000.0,
         location: 'Tecpan, Guatemala',
         latitude: 34.0522,
         longitude: -118.2437,
@@ -103,18 +89,6 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      {
-        productServiceId: 4,
-        categoryId: 3,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        productServiceId: 4,
-        categoryId: 11,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
     ]);
 
     // Insert ProductDetails
@@ -122,35 +96,27 @@ module.exports = {
       {
         productServiceId: 1,
         label: 'Especialization',
-        value: 'Limpieza de hogares y apartamentos',
-        description: 'Servicio de limpieza prfunda en 4 horas',
+        value: 'Purificación de agua para consumo humano',
+        description: 'Servicio de purificación de agua para consumo humano en difentes presentaciones, desde garrafones de 20 litros hasta sistemas de purificación para restaurantes y oficinas',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         productServiceId: 2,
-        label: 'Especialization',
-        value: 'Jardineria En Condominios',
-        description: 'Jardinización y mantenimiento de áreas verdes en condominios',
+        label: 'Vuelos y turismo',
+        value: 'Asesoria en viajes y turismo, compras de vuelos, hoteles y tours',
+        description: 'Servicio de asesoría en viajes y turismo, incluyendo la compra de vuelos, reservas de hoteles y organización de tours en Guatemala y el mundo',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         productServiceId: 3,
-        label: 'Especialization',
-        value: 'Servicio de mantenimiento de vehículos',
-        description: 'Mantenimiento de vehículos de todas las marcas, precios desde 350',
+        label: 'Creación de software a la medida, conviertimos tus ideas en realidad',
+        value: 'Desarrollo de software a la medida, aplicaciones móviles y web',
+        description: 'Ofrecemos servicios de desarrollo de software a la medida, incluyendo aplicaciones móviles y web, para clientes en Guatemala y el mundo',
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      {
-        productServiceId: 3,
-        label: 'Especialization',
-        value: 'Polarizado de vehículos',
-        description: 'Polarizado de vehículos de todas las marcas, precios desde 250',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
     ]);
 
     // Insert ProductLocations
@@ -199,17 +165,6 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      {
-        productServiceId: 4,
-        name: 'Flores, Guatemala',
-        description: 'Servicio disponible en Flores, Guatemala y alrededores',
-        type: 1,
-        cityId: 55, // Assuming city with id  exists
-        latitude: 34.0522,
-        longitude: -118.2437,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
 
     ]);
 

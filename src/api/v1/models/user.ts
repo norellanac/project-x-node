@@ -4,9 +4,10 @@ import Role from './role';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
-  declare name: string;
-  declare lastname: string;
-  declare email: string;
+  declare name: CreationOptional<string>;
+  declare lastname: CreationOptional<string>;
+  declare email: CreationOptional<string>;
+  declare phone: CreationOptional<string>;
   declare password: string;
   declare averageRating: CreationOptional<number>;
   declare avatarUrl: CreationOptional<string>;
@@ -50,13 +51,10 @@ export function initializeUser(sequelize: Sequelize): typeof User {
       autoIncrement: true,
       primaryKey: true,
     },
-    name: DataTypes.STRING,
-    lastname: DataTypes.STRING,
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
+    name: { type: DataTypes.STRING, allowNull: true },
+    lastname: { type: DataTypes.STRING, allowNull: true },
+    email: { type: DataTypes.STRING, allowNull: true, unique: true },
+    phone: { type: DataTypes.STRING, allowNull: true, unique: true },
     password: {
       type: DataTypes.STRING,
       allowNull: false,

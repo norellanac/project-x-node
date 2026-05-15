@@ -112,6 +112,7 @@ class Branding extends Model<InferAttributes<Branding>, InferCreationAttributes<
   declare mailchimpApiUrl: CreationOptional<string>;
   declare features: BrandingFeatures;
   declare copyOverrides: CreationOptional<Record<string, Record<string, string>>>;
+  declare fieldLabels: CreationOptional<Record<string, any>>;
 }
 
 export function initializeBranding(sequelize: Sequelize): typeof Branding {
@@ -147,6 +148,7 @@ export function initializeBranding(sequelize: Sequelize): typeof Branding {
       mailchimpApiUrl: { type: DataTypes.STRING, defaultValue: '' },
       features: { type: DataTypes.JSON, allowNull: false, defaultValue: DEFAULT_FEATURES },
       copyOverrides: { type: DataTypes.JSON, defaultValue: {} },
+      fieldLabels: { type: DataTypes.JSON, allowNull: true },
     },
     {
       sequelize,
